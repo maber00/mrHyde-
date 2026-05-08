@@ -1,0 +1,250 @@
+---
+export interface Props {
+  lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const copy =
+  lang === "es"
+    ? {
+        sectionLabel: "Proceso",
+        sectionTitle: "CÓMO",
+        sectionTitleOutline: "TRABAJAMOS",
+        stmt1: "La IA amplifica el criterio humano.",
+        stmt2: "No lo reemplaza.",
+        stmt3: "Cada pieza pasa por dirección creativa real, decisiones editoriales conscientes y un estándar de acabado que la tecnología sola no puede dar.",
+        steps: [
+          {
+            num: "01",
+            title: "BRIEF ESTRATÉGICO",
+            body: "Entendemos el objetivo de negocio detrás del contenido. No solo qué quieres mostrar — sino qué quieres lograr. Eso define todo lo que viene después.",
+          },
+          {
+            num: "02",
+            title: "DIRECCIÓN CREATIVA",
+            body: "Definimos el concepto visual, el guión y el estilo. Humanos dirigiendo la narrativa. IA ejecutando con precisión. La combinación que produce piezas con alma.",
+          },
+          {
+            num: "03",
+            title: "PRODUCCIÓN AI BAJO ZDR",
+            body: "Producimos sobre Google Vertex AI con Zero Data Retention activado. Tu contenido no se almacena, no se revisa y no entrena ningún modelo externo. Garantía contractual de Google.",
+          },
+          {
+            num: "04",
+            title: "POST Y ENTREGA",
+            body: "Edición, color, audio y acabado final con criterio cinematográfico. Entregamos en los formatos exactos que necesitas, listos para publicar en cualquier plataforma.",
+          },
+        ],
+      }
+    : {
+        sectionLabel: "Process",
+        sectionTitle: "HOW",
+        sectionTitleOutline: "WE WORK",
+        stmt1: "AI amplifies human judgment.",
+        stmt2: "It does not replace it.",
+        stmt3: "Every piece goes through real creative direction, conscious editorial decisions and a finishing standard that technology alone cannot deliver.",
+        steps: [
+          {
+            num: "01",
+            title: "STRATEGIC BRIEF",
+            body: "We understand the business objective behind the content. Not just what you want to show — but what you want to achieve. That defines everything that follows.",
+          },
+          {
+            num: "02",
+            title: "CREATIVE DIRECTION",
+            body: "We define the visual concept, the script and the style. Humans directing the narrative. AI executing with precision. The combination that produces pieces with soul.",
+          },
+          {
+            num: "03",
+            title: "AI PRODUCTION UNDER ZDR",
+            body: "We produce on Google Vertex AI with Zero Data Retention activated. Your content is not stored, not reviewed and does not train any external model. Contractual guarantee from Google.",
+          },
+          {
+            num: "04",
+            title: "POST & DELIVERY",
+            body: "Editing, color, audio and final finishing with cinematic judgment. We deliver in the exact formats you need, ready to publish on any platform.",
+          },
+        ],
+      };
+---
+
+<section class="bg-black text-white py-24" id="proceso">
+  <div class="container mx-auto px-6">
+
+    <!-- Header -->
+    <div class="mb-16">
+      <p class="sec-label">{copy.sectionLabel}</p>
+      <h2 class="sec-title">
+        {copy.sectionTitle}<br/>
+        <span class="sec-title-outline">{copy.sectionTitleOutline}</span>
+      </h2>
+    </div>
+
+    <!-- Layout: sticky left + steps right -->
+    <div class="approach-layout">
+
+      <!-- Sticky statement -->
+      <div class="approach-sticky">
+        <p class="stmt-line1">{copy.stmt1}</p>
+        <p class="stmt-line2">{copy.stmt2}</p>
+        <p class="stmt-body">{copy.stmt3}</p>
+      </div>
+
+      <!-- Steps -->
+      <div class="approach-steps">
+        {copy.steps.map((step) => (
+          <div class="a-step">
+            <span class="a-num">{step.num}</span>
+            <div>
+              <h3 class="a-title">{step.title}</h3>
+              <p class="a-body">{step.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ── Section label ── */
+  .sec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #f6ad1e;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .sec-label::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: #f6ad1e;
+    display: block;
+  }
+
+  /* ── Section title ── */
+  .sec-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 7vw, 88px);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+  }
+  .sec-title-outline {
+    font-family: 'Bebas Neue', sans-serif;
+    -webkit-text-stroke: 1.55px #f6ad1e;
+    color: transparent;
+  }
+
+  /* ── Layout ── */
+  .approach-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  @media (min-width: 1024px) {
+    .approach-layout {
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: start;
+    }
+  }
+
+  /* ── Sticky statement ── */
+  .approach-sticky {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  @media (min-width: 1024px) {
+    .approach-sticky {
+      position: sticky;
+      top: 120px;
+    }
+  }
+
+  .stmt-line1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+  }
+  .stmt-line2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1;
+    -webkit-text-stroke: 1px #f6ad1e;
+    color: transparent;
+    letter-spacing: 0.02em;
+  }
+  .stmt-body {
+    font-family: 'DM Mono', monospace;
+    font-size: 17px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.85;
+    margin-top: 8px;
+    max-width: 340px;
+  }
+
+  /* ── Steps ── */
+  .approach-steps {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .a-step {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 24px;
+    padding: 32px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    transition: border-color 0.3s ease;
+  }
+  .a-step:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+  .a-step:hover { border-color: rgba(246,173,30,0.2); }
+
+  .a-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: #f6ad1e;
+    padding-top: 4px;
+  }
+
+  .a-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(22px, 2.5vw, 32px);
+    line-height: 1;
+    color: #ffffff;
+    letter-spacing: 0.03em;
+    margin-bottom: 12px;
+    transition: color 0.3s ease;
+  }
+  .a-step:hover .a-title { color: #f6ad1e; }
+
+  .a-body {
+    font-family: 'DM Mono', monospace;
+    font-size: 17px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.85;
+  }
+
+  /* ── ZDR step highlight ── */
+  .a-step:nth-child(3) .a-num {
+    color: #f6ad1e;
+  }
+  .a-step:nth-child(3) .a-title {
+    color: #f6ad1e;
+  }
+  .a-step:nth-child(3) .a-body {
+    color: rgba(255,255,255,0.65);
+  }
+</style>

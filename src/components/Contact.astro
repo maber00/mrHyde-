@@ -1,126 +1,523 @@
-<div class="min-h-screen bg-white relative flex flex-col">
-    <!-- Grid Layout -->
-    <div class="flex-grow">
-        <!-- CONTACT -->
-        <div class="p-4 md:p-[100px]">
-            <h2 class="text-4xl md:text-7xl md:text-[80px] text-black font-bold font-serif leading-none">Contactános</h2>
-            <div class="w-full md:w-800 h-0.5 bg-[#B1293E] mb-2" id="underline"></div>
-            
-            <form class="p-10">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                    <div class="form-group">
-                        <input
-                            type="text"
-                            placeholder="Nombre Completo*"
-                            class="w-full bg-transparent border-b border-black py-2 focus:outline-none focus:border-red-600 text-black"
-                        />
-                    </div>
-                    <div class="form-group">
-                        <input
-                            type="email"
-                            placeholder="Email*"
-                            class="w-full bg-transparent border-b border-black py-2 focus:outline-none focus:border-red-600 text-black"
-                        />
-                    </div>
-                    <div class="form-group">
-                        <input
-                            type="tel"
-                            placeholder="Teléfono*"
-                            class="w-full bg-transparent border-b border-black py-2 focus:outline-none focus:border-red-600 text-black"
-                        />
-                    </div>
-                    <div class="form-group md:col-span-2">
-                        <textarea
-                            placeholder="Mensaje"
-                            rows="4"
-                            class="w-full bg-transparent border-b border-black py-2 focus:outline-none focus:border-red-600 text-black"
-                        ></textarea>
-                    </div>
-                </div>
-            </form>
-        </div>
+---
+export interface Props {
+  lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const copy =
+  lang === "es"
+    ? {
+        sectionLabel: "Primer Paso",
+        sectionTitle: "CUÉNTANOS",
+        sectionTitleOutline: "QUÉ NECESITAS",
+        leftTitle: "RESPONDEMOS EN MENOS DE 24 HORAS.",
+        leftBody: "Sin pitch de ventas, sin decks interminables. Cuéntanos tu reto y te decimos directamente si podemos ayudarte — y cómo.",
+        promises: [
+          "Reunión de 30 minutos sin compromisos",
+          "Te mostramos piezas reales del sector que te interesa",
+          "Propuesta clara en 48 horas si hay fit",
+          "Si no superamos tu estándar actual, no pagas",
+        ],
+        formTitle: "Paso 1 de 2 — Cuéntanos tu proyecto",
+        labelName: "Nombre",
+        labelCompany: "Empresa",
+        labelEmail: "Email",
+        labelPhone: "WhatsApp",
+        labelNeed: "¿Qué necesitas producir?",
+        needOptions: [
+          "Comercial para redes / digital",
+          "Campaña publicitaria completa",
+          "Contenido mensual recurrente",
+          "Post-producción de material existente",
+          "Video corporativo / institucional",
+          "Otro",
+        ],
+        labelMessage: "Cuéntanos más (opcional)",
+        messagePlaceholder: "Describe brevemente el proyecto, la marca o el reto...",
+        submitBtn: "Siguiente — Agendar reunión",
+        formNote: "Tu información es privada y nunca será compartida con terceros.",
+        calTitle: "Paso 2 de 2 — Elige tu horario",
+        calDesc: "Selecciona el día y hora que mejor te quede. La reunión dura 30 minutos y es por videollamada.",
+        ctaLabel: "O si prefieres",
+        ctaTitle: "ESCRÍBENOS",
+        ctaTitleOutline: "DIRECTO",
+        ctaBody: "Si tienes un brief listo o una urgencia, no necesitas el formulario. Escríbenos y respondemos en el día.",
+        ctaBtn: "contacto@mrhyde.co",
+        ctaNote: "Bogotá, Colombia · Operamos en toda LATAM",
+      }
+    : {
+        sectionLabel: "First Step",
+        sectionTitle: "TELL US",
+        sectionTitleOutline: "WHAT YOU NEED",
+        leftTitle: "WE RESPOND IN UNDER 24 HOURS.",
+        leftBody: "No sales pitch, no endless decks. Tell us your challenge and we will tell you directly if we can help — and how.",
+        promises: [
+          "30-minute meeting with no commitment",
+          "We show you real pieces from your sector",
+          "Clear proposal in 48 hours if there is a fit",
+          "If we do not exceed your current standard, you do not pay",
+        ],
+        formTitle: "Step 1 of 2 — Tell us about your project",
+        labelName: "Name",
+        labelCompany: "Company",
+        labelEmail: "Email",
+        labelPhone: "WhatsApp",
+        labelNeed: "What do you need to produce?",
+        needOptions: [
+          "Commercial for social / digital",
+          "Full advertising campaign",
+          "Monthly recurring content",
+          "Post-production of existing material",
+          "Corporate / institutional video",
+          "Other",
+        ],
+        labelMessage: "Tell us more (optional)",
+        messagePlaceholder: "Briefly describe the project, the brand or the challenge...",
+        submitBtn: "Next — Schedule a meeting",
+        formNote: "Your information is private and will never be shared with third parties.",
+        calTitle: "Step 2 of 2 — Choose your time slot",
+        calDesc: "Select the day and time that works best for you. The meeting lasts 30 minutes and is by video call.",
+        ctaLabel: "Or if you prefer",
+        ctaTitle: "WRITE TO US",
+        ctaTitleOutline: "DIRECTLY",
+        ctaBody: "If you have a brief ready or an urgent need, you do not need the form. Write to us and we will respond the same day.",
+        ctaBtn: "contacto@mrhyde.co",
+        ctaNote: "Bogotá, Colombia · We operate across LATAM",
+      };
+---
+
+<!-- CONTACT FORM SECTION -->
+<section class="bg-black text-white py-24" id="contacto-form">
+  <div class="container mx-auto px-6">
+
+    <!-- Header -->
+    <div class="mb-16">
+      <p class="sec-label">{copy.sectionLabel}</p>
+      <h2 class="sec-title">
+        {copy.sectionTitle}<br/>
+        <span class="sec-title-outline">{copy.sectionTitleOutline}</span>
+      </h2>
     </div>
- 
-    <!-- Footer Links -->
-    <div class="w-full mt-auto pl-9 pr-9">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-gray-600 border-t border-black">
-            <!-- Dirección -->
-            <div class="p-4 md:p-6 transition-colors">
-                <h3 class="font-light text-sm uppercase mb-2 text-black">DIRECCIÓN:</h3>
-                <p class="text-sm transition-colors text-black">Calle 98ª # 51-40 Bogotá – Colombia</p>
+
+    <!-- Two columns -->
+    <div class="contact-layout">
+
+      <!-- Left: promises -->
+      <div class="contact-left">
+        <h3 class="left-title">{copy.leftTitle}</h3>
+        <p class="left-body">{copy.leftBody}</p>
+        <ul class="promises-list">
+          {copy.promises.map((p) => (
+            <li class="promise-item">
+              <span class="promise-arrow">→</span>
+              {p}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Right: form -->
+      <div class="form-wrap" id="leadFormWrap">
+
+        <!-- Step 1 -->
+        <div id="step1">
+          <p class="form-step-label">{copy.formTitle}</p>
+          <form id="leadForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">{copy.labelName}</label>
+                <input type="text" class="form-input" placeholder="—" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">{copy.labelCompany}</label>
+                <input type="text" class="form-input" placeholder="—" />
+              </div>
             </div>
-            
-            <!-- Teléfono -->
-            <div class="p-4 md:p-6 transition-colors">
-                <h3 class="font-light text-sm uppercase mb-2 text-black">TELÉFONO:</h3>
-                <p class="text-sm transition-colors text-black">+57 311 2572831</p>
+            <div class="form-group">
+              <label class="form-label">{copy.labelEmail}</label>
+              <input type="email" class="form-input" placeholder="correo@empresa.com" required />
             </div>
-            
-            <!-- Email -->
-            <div class="p-4 md:p-6 transition-colors">
-                <h3 class="font-light text-sm uppercase mb-2 text-black">EMAIL:</h3>
-                <p class="text-sm transition-colors text-black">produccion@render.co</p>
+            <div class="form-group">
+              <label class="form-label">{copy.labelPhone}</label>
+              <input type="tel" class="form-input" placeholder="+57 300 000 0000" />
             </div>
-            
-            <!-- Horario -->
-            <div class="p-4 md:p-6 transition-colors">
-                <h3 class="font-light text-sm uppercase mb-2 text-black">HORARIO:</h3>
-                <p class="text-sm transition-colors text-black">Lun-Vie 7am – 6pm</p>
+            <div class="form-group">
+              <label class="form-label">{copy.labelNeed}</label>
+              <select class="form-input form-select">
+                <option value="" disabled selected>—</option>
+                {copy.needOptions.map((opt) => (
+                  <option value={opt}>{opt}</option>
+                ))}
+              </select>
             </div>
+            <div class="form-group">
+              <label class="form-label">{copy.labelMessage}</label>
+              <textarea class="form-input form-textarea" placeholder={copy.messagePlaceholder}></textarea>
+            </div>
+            <button type="submit" class="form-submit">
+              {copy.submitBtn}
+            </button>
+            <p class="form-note">{copy.formNote}</p>
+          </form>
         </div>
-        
-        <!-- RENDER logo -->
-        <div class="text-center border-t border-black py-4 md:py-6">
-            <h2 class="text-xl md:text-2xl font-bold text-black">RENDER</h2>
+
+        <!-- Step 2: Calendar -->
+        <div id="step2" style="display:none;">
+          <p class="form-step-label">{copy.calTitle}</p>
+          <p class="cal-desc">{copy.calDesc}</p>
+          <iframe
+            id="calFrame"
+            src="https://cal.com/mrhyde/30min?embed=true&theme=dark"
+            frameborder="0"
+            allowfullscreen
+            class="cal-frame"
+          ></iframe>
+          <p class="form-note" style="margin-top:12px;">
+            {lang === 'es' ? '¿Prefieres escribirnos?' : 'Prefer to write?'}
+            <a href="mailto:contacto@mrhyde.co" class="form-note-link">contacto@mrhyde.co</a>
+          </p>
         </div>
+
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<div class="cta-final" id="contacto">
+  <img src="/mrHyde.svg" alt="" aria-hidden="true" class="cta-bg-logo" />
+  <div class="cta-inner">
+    <p class="sec-label" style="justify-content:flex-start;">{copy.ctaLabel}</p>
+    <h2 class="cta-title">
+      {copy.ctaTitle}<br/>
+      <span class="cta-title-outline">{copy.ctaTitleOutline}</span>
+    </h2>
+    <p class="cta-body">{copy.ctaBody}</p>
+    <a href="mailto:contacto@mrhyde.co" class="cta-btn">{copy.ctaBtn}</a>
+    <p class="cta-note">{copy.ctaNote}</p>
+  </div>
 </div>
 
 <style>
-    #underline {
-        transform-origin: left;
+  /* ── Section label ── */
+  .sec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #f6ad1e;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .sec-label::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: #f6ad1e;
+    display: block;
+  }
+
+  /* ── Section title ── */
+  .sec-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 7vw, 88px);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+  }
+  .sec-title-outline {
+    font-family: 'Bebas Neue', sans-serif;
+    -webkit-text-stroke: 1.5px #f6ad1e;
+    color: transparent;
+  }
+
+  /* ── Contact layout ── */
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+  @media (min-width: 1024px) {
+    .contact-layout {
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
     }
-    
-    input, textarea {
-        font-weight: 300;
-        color: black !important; /* Aseguramos que el texto del input sea negro */
-    }
-    
-    input::placeholder, textarea::placeholder {
-        color: #666 !important; /* Placeholder más oscuro para visibilidad */
-    }
-    
-    .form-group input:focus,
-    .form-group textarea:focus {
-        transition: all 0.3s ease;
-    }
-    
-    /* Aseguramos que los textos siempre sean negros */
-    h2, h3, p, span, input, textarea {
-        color: black;
-    }
+  }
+
+  /* ── Left col ── */
+  .left-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 3vw, 44px);
+    line-height: 1;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+    margin-bottom: 20px;
+  }
+  .left-body {
+    font-family: 'DM Mono', monospace;
+    font-size: 17px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.85;
+    margin-bottom: 32px;
+  }
+  .promises-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .promise-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+    display: flex;
+    gap: 10px;
+  }
+  .promise-arrow {
+    color: #f6ad1e;
+    flex-shrink: 0;
+  }
+
+  /* ── Form wrap ── */
+  .form-wrap {
+    background: #080808;
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 40px 36px;
+    position: relative;
+  }
+  .form-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, #f6ad1e, transparent);
+  }
+
+  /* ── Form step label ── */
+  .form-step-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #f6ad1e;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .form-step-label::before {
+    content: '';
+    width: 16px;
+    height: 1px;
+    background: #f6ad1e;
+    display: block;
+  }
+
+  /* ── Form elements ── */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 480px) {
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  .form-group { margin-bottom: 18px; }
+
+  .form-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .form-input {
+    width: 100%;
+    background: #0d0d0d;
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #ffffff;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    appearance: none;
+  }
+  .form-input:focus { border-color: rgba(246,173,30,0.4); }
+  .form-input::placeholder { color: rgba(255,255,255,0.2); }
+
+  .form-select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(246,173,30,0.5)'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+  .form-select option { background: #0d0d0d; color: #ffffff; }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 96px;
+  }
+
+  .form-submit {
+    width: 100%;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: #f6ad1e;
+    color: #000000;
+    border: none;
+    padding: 16px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: 500;
+  }
+  .form-submit::after { content: '→'; transition: transform 0.3s; }
+  .form-submit:hover { background: #f7b832; }
+  .form-submit:hover::after { transform: translateX(4px); }
+
+  .form-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.06em;
+    text-align: center;
+    margin-top: 14px;
+  }
+  .form-note-link {
+    color: #f6ad1e;
+    text-decoration: none;
+    margin-left: 6px;
+  }
+
+  /* ── Calendar ── */
+  .cal-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+  .cal-frame {
+    width: 100%;
+    height: 560px;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: #0d0d0d;
+  }
+
+  /* ── CTA FINAL ── */
+  .cta-final {
+    background: #f6ad1e;
+    padding: 96px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-bg-logo {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: clamp(120px, 20vw, 240px);
+    width: auto;
+    opacity: 0.08;
+    pointer-events: none;
+    filter: brightness(0);
+  }
+  .cta-inner {
+    max-width: 640px;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-inner .sec-label {
+    color: rgba(0,0,0,0.45);
+  }
+  .cta-inner .sec-label::before {
+    background: rgba(0,0,0,0.45);
+  }
+  .cta-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 10vw, 120px);
+    line-height: 0.9;
+    letter-spacing: 0.01em;
+    color: #000000;
+    margin-bottom: 24px;
+  }
+  .cta-title-outline {
+    font-family: 'Bebas Neue', sans-serif;
+    -webkit-text-stroke: 1px rgba(0,0,0,0.35);
+    color: transparent;
+  }
+  .cta-body {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: rgba(0,0,0,0.6);
+    line-height: 1.85;
+    margin-bottom: 36px;
+    max-width: 440px;
+  }
+  .cta-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: #000000;
+    color: #f6ad1e;
+    border: none;
+    padding: 18px 36px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+  }
+  .cta-btn::after { content: '→'; transition: transform 0.3s; }
+  .cta-btn:hover { background: #111111; }
+  .cta-btn:hover::after { transform: translateX(4px); }
+  .cta-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: rgba(0,0,0,0.35);
+    margin-top: 18px;
+  }
+
+  @media (max-width: 640px) {
+    .form-wrap { padding: 28px 20px; }
+    .cta-final { padding: 72px 24px; }
+  }
 </style>
 
 <script>
-    // Animación del underline
-    document.addEventListener('DOMContentLoaded', () => {
-        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-            gsap.fromTo('#underline',
-                {
-                    scaleX: 0
-                },
-                {
-                    scaleX: 1,
-                    duration: 1,
-                    delay: 0.5,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: '#underline',
-                        start: 'top center',
-                        toggleActions: 'play none none reset'
-                    }
-                }
-            );
-        }
-    });
+  document.addEventListener('DOMContentLoaded', () => {
+    const form   = document.getElementById('leadForm');
+    const step1  = document.getElementById('step1');
+    const step2  = document.getElementById('step2');
+    const wrap   = document.getElementById('leadFormWrap');
+
+    if (form && step1 && step2) {
+      form.addEventListener('submit', (e: Event) => {
+        e.preventDefault();
+        step1.style.display = 'none';
+        step2.style.display = 'block';
+        wrap?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  });
 </script>

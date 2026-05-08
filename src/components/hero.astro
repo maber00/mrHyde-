@@ -1,305 +1,213 @@
 ---
-import Carrusel from "../components/BrandsCarousel.astro";
+export interface Props {
+  lang?: 'en' | 'es';
+}
+
+const { lang = 'en' } = Astro.props;
+
+const copy = lang === 'es'
+  ? {
+      eyebrow: 'Producción Audiovisual · Inteligencia Artificial · Bogotá — LATAM',
+      titleLine1: 'MENOS',
+      titleLine2: 'FRICCIÓN',
+      titleLine3: 'MÁS',
+      titleLine4: 'OBRA',
+      titleLine5: 'TERMINADA',
+      lead: 'Estudio de producción audiovisual que integra inteligencia artificial como método de trabajo. Mismo estándar creativo. Menos tiempo. Menos costos.',
+      ctaPrimary: 'Ver portafolio',
+      ctaSecondary: 'Cómo trabajamos',
+      ctaContact: 'Hablemos',
+    }
+  : {
+      eyebrow: 'Audiovisual Production · Artificial Intelligence · Bogotá — LATAM',
+      titleLine1: 'LESS',
+      titleLine2: 'FRICTION',
+      titleLine3: 'MORE',
+      titleLine4: 'FINISHED',
+      titleLine5: 'WORK',
+      lead: 'Audiovisual production studio that integrates artificial intelligence as a working method. Same creative standard. Less time. Lower costs.',
+      ctaPrimary: 'View Portfolio',
+      ctaSecondary: 'How we work',
+      ctaContact: "Let's talk",
+    };
 ---
-<div class="hero-container relative w-full h-screen overflow-hidden bg-black flex md:items-end items-end">
-  <!-- Video Background con overlay inicial negro -->
-  <div class="absolute inset-0 w-full h-full opacity-0 z-0" id="videoWrapper">
+
+<section id="inicio" class="hero-container relative w-full h-screen overflow-hidden bg-black flex items-end">
+
+  <!-- Video background -->
+  <div class="absolute inset-0 w-full h-full z-0" id="videoWrapper">
     <div class="absolute inset-0 w-full h-full video-container overflow-hidden">
-       <div class="absolute inset-0 w-full h-full overflow-hidden">
-  <iframe
-    src="https://player.vimeo.com/video/1163773815?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0"
-    class="absolute top-1/2 left-1/2 w-[200vw] h-[200vh] -translate-x-1/2 -translate-y-1/2"
-    frameborder="0"
-    allow="autoplay; fullscreen; picture-in-picture"
-    allowfullscreen
-  ></iframe>
-</div>
-
-
+      <iframe
+        id="backgroundVideo"
+        src="https://player.vimeo.com/video/1163773815?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0"
+        class="absolute top-1/2 left-1/2 w-[200vw] h-[200vh] -translate-x-1/2 -translate-y-1/2"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+      ></iframe>
     </div>
   </div>
 
-  <!-- Overlay negro que se desvanece -->
-  <div class="absolute inset-0 bg-black transition-opacity duration-1000 z-10" id="initialOverlay"></div>
+  <!-- Overlays -->
+  <div class="absolute inset-0 bg-black/60 z-10"></div>
+  <div class="hero-grid absolute inset-0 z-10 pointer-events-none"></div>
+  <div class="hero-glow absolute z-10 pointer-events-none"></div>
 
-  <!-- Overlay negro permanente para el texto -->
-  <div class="absolute inset-0 bg-black md:bg-opacity-40 bg-opacity-60 opacity-0 z-20" id="textOverlay"></div>
-  
-  <!-- Contenido - Alineado a la izquierda y centrado verticalmente en móvil, abajo en desktop -->
-  <div class="relative z-30 w-full flex flex-col md:pb-0 ">
-    <!-- Contenido de texto con margen izquierdo -->
-<div class="pl-6 sm:pl-12 md:pl-16 lg:pl-24 mb-16 md:mb-24">
-      <div class="flex flex-col text-white max-w-4xl">
-        
-       
-        
-        <!-- Eslogan principal en dos líneas con animación de loop -->
-        <div>
-           <!-- RENDER con animación de loop -->
-       
+  <!-- Content -->
+  <div class="relative z-20 w-full">
+    <div class="px-6 sm:px-12 md:px-16 lg:px-24 pb-14 md:pb-20">
 
-<div>
-  
+      
 
-  <p
-    class="text-4xl sm:text-2xl md:text-5xl font-bold tracking-tight text-left  text-[#f6ad1e] transform-gpu origin-left"
-    style="font-family: 'Libre Baskerville', 'Baskerville', serif;"
-  >
-    CONTENIDO AUTÉNTICO
-  </p>
+      <!-- Eyebrow -->
+      <p class="hero-eyebrow text-xs sm:text-sm uppercase tracking-[0.22em] text-white/50 mb-6">
+        {copy.eyebrow}
+      </p>
 
-  <p
-    class="text-4xl sm:text-2xl md:text-7xl lg:text-5xl xl:text-7xl font-bold tracking-tight text-left  text-[#f6ad1e] transform-gpu origin-left"
-    style="font-family: 'Libre Baskerville', 'Baskerville', serif;"
-  >
-    IMPACTO PODEROSO
-  </p>
-</div>
+      <!-- Big title -->
+      <h1 class="hero-title leading-[0.88]">
+        <span class="title-solid">{copy.titleLine1}</span><br/>
+        <span class="title-outline">{copy.titleLine2}</span><br/>
+        <span class="title-solid">{copy.titleLine3} </span><span class="title-accent">{copy.titleLine4}</span><br/>
+        <span class="title-outline">{copy.titleLine5}</span>
+      </h1>
+
+      <!-- Bottom row -->
+      <div class="mt-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+        {lang === 'es' ? (
+          <p class="hero-lead text-sm sm:text-base md:text-lg text-white/75 max-w-lg leading-relaxed font-light">
+            Estudio de producción audiovisual que integra <strong class="text-white/90 font-medium">inteligencia artificial</strong> como método de trabajo. Mismo estándar creativo. Menos tiempo. Menos costos. Y el único en LATAM con <strong class="text-[#f6ad1e] font-medium">Zero Data Retention</strong> — tu contenido no alimenta ningún modelo externo.
+          </p>
+        ) : (
+          <p class="hero-lead text-sm sm:text-base md:text-lg text-white/75 max-w-lg leading-relaxed font-light">
+            Audiovisual production studio that integrates <strong class="text-white/90 font-medium">artificial intelligence</strong> as a working method. Same creative standard. Less time. Lower costs. The only studio in LATAM with <strong class="text-[#f6ad1e] font-medium">Zero Data Retention</strong> — your content never feeds any external model.
+          </p>
+        )}
+
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="#portafolio"
+            class="btn-primary inline-flex items-center px-6 py-3 text-xs sm:text-sm uppercase tracking-[0.12em] text-black font-medium transition"
+          >
+            {copy.ctaPrimary}
+          </a>
+
+          <a
+            href="#por-que"
+            class="btn-ghost inline-flex items-center gap-2 px-6 py-3 text-xs sm:text-sm uppercase tracking-[0.12em] text-white transition"
+          >
+            {copy.ctaSecondary} <span class="arrow">→</span>
+          </a>
+
+          <a
+            href="#contacto"
+            class="btn-ghost inline-flex items-center gap-2 px-6 py-3 text-xs sm:text-sm uppercase tracking-[0.12em] text-white transition"
+          >
+            {copy.ctaContact} <span class="arrow">→</span>
+          </a>
+        </div>
       </div>
     </div>
-    
-  
+
+    <!-- Scroll indicator -->
+    <div class="scroll-line absolute bottom-0 left-1/2 -translate-x-1/2"></div>
   </div>
-</div>
+</section>
 
 <style>
-  @import 'https://player.vimeo.com/api/player.js';
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
 
-  .hero-container {
-    will-change: transform;
+  .hero-container { will-change: transform; }
+  .video-container { overflow: hidden; }
+
+  /* Grid texture */
+  .hero-grid {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.3) 80%, transparent);
   }
 
-  .desc-text,
-  .button-container,
-  .carousel-container {
-    transform: translateY(20px);
-    will-change: transform, opacity;
-    opacity: 0;
+  /* Gold glow */
+  .hero-glow {
+    width: 50vw;
+    height: 50vh;
+    right: -5vw;
+    top: 30%;
+    background: radial-gradient(ellipse at center, rgba(246,173,30,0.07) 0%, transparent 70%);
   }
 
-  /* Estilos específicos para el carrusel */
-  .brands-carousel {
-    mask-image: linear-gradient(
-      to right,
-      transparent,
-      black 10%,
-      black 90%,
-      transparent
-    );
+  /* Animations — staggered fadeUp */
+  .hero-logo   { opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
+  .hero-eyebrow{ opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+                 font-family: 'DM Mono', 'Courier New', monospace; }
+  .hero-title  { opacity: 0; animation: fadeUp 0.9s 0.6s forwards; }
+  .hero-lead   { opacity: 0; animation: fadeUp 0.8s 0.85s forwards; }
+  .btn-primary { opacity: 0; animation: fadeUp 0.8s 1.0s forwards; }
+  .btn-ghost   { opacity: 0; animation: fadeUp 0.8s 1.05s forwards; }
+  .scroll-line { opacity: 0; animation: fadeIn 1s 1.6s forwards; }
+
+  /* Title variants */
+  .title-solid,
+  .title-outline,
+  .title-accent {
+    font-family: 'Bebas Neue', 'Impact', sans-serif;
+    font-size: clamp(30px, 10vw, 164px);
+    letter-spacing: -0.01em;
+    display: inline;
+  }
+  .title-solid   { color: #ffffff; }
+  .title-outline { -webkit-text-stroke: 1px rgba(255, 255, 255, 0.799); color: transparent; }
+  .title-accent  { color: #f6ad1e; }
+
+  /* Buttons */
+  .btn-primary {
+    background: #f6ad1e;
+    font-family: 'DM Mono', 'Courier New', monospace;
+  }
+  .btn-primary:hover { background: #f7b832; transform: translateX(-3px); }
+
+  .btn-ghost {
+    font-family: 'DM Mono', 'Courier New', monospace;
+    border: 1px solid rgba(255,255,255,0.20);
+  }
+  .btn-ghost:hover { border-color: #f6ad1e; color: #f6ad1e; }
+  .btn-ghost:hover .arrow { transform: translateX(4px); }
+  .arrow { display: inline-block; transition: transform 0.3s ease; }
+
+  /* Scroll line */
+  .scroll-line {
+    width: 1px; height: 56px;
+    background: linear-gradient(to bottom, #f6ad1e, transparent);
   }
 
-  /* Estilo inicial para el título RENDER */
-  #render-title {
-    transform-origin: left center;
-    transition: color 0.5s ease, transform 0.5s ease;
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
   }
 
-  /* Estilo inicial para los textos del eslogan */
-  #connecting-text, #brands-text {
-    transform-origin: left center;
-    transition: color 0.5s ease, transform 0.5s ease;
-  }
-
-  /* Estilos para hacer que el video sea responsive similar a Runway */
-  .video-container {
-    overflow: hidden;
-  }
-  
-  /* Móviles */
+  /* Responsive video */
   @media (max-width: 767px) {
     #backgroundVideo {
-      width: 200vw !important;
-      height: 2000vh !important;
-      transform: translate(-50%, -50%) scale(2.0) !important;
-      will-change: transform;
+      width: 200vw !important; height: 200vh !important;
+      transform: translate(-50%, -50%) scale(2) !important;
     }
   }
-  
-  /* iPads - ajuste específico */
   @media (min-width: 768px) and (max-width: 1024px) {
     #backgroundVideo {
-      width: 200vw !important;
-      height: 200vh !important;
+      width: 180vw !important; height: 180vh !important;
       transform: translate(-50%, -50%) scale(1.8) !important;
-      will-change: transform;
     }
   }
-
-  /* iPad Pro - ajuste específico */
   @media (min-width: 1025px) and (max-width: 1366px) {
     #backgroundVideo {
-      width: 150vw !important;
-      height: 150vh !important;
+      width: 150vw !important; height: 150vh !important;
       transform: translate(-50%, -50%) scale(1.5) !important;
-      will-change: transform;
     }
   }
 </style>
-
-<script>
-  import { gsap } from 'gsap';
-
-  // Referencia a los elementos que animaremos en loop
-  const renderTitle = document.getElementById('render-title');
-  const connectingText = document.getElementById('connecting-text');
-  const brandsText = document.getElementById('brands-text');
-  const backgroundVideo = document.getElementById('backgroundVideo');
-
-  // Función para ajustar el video según el dispositivo
-  function adjustVideoForDevice() {
-    const width = window.innerWidth;
-
-    if (width <= 767) {
-      // Móviles
-      gsap.set(backgroundVideo, {
-        scale: 2.5,
-        y: "0%",
-        x: "0%"
-      });
-    } else if (width <= 1024) {
-      // iPad Air y tablets similares
-      gsap.set(backgroundVideo, {
-        scale: 1.8,
-        y: "0%",
-        x: "0%"
-      });
-    } else if (width <= 1366) {
-      // iPad Pro y tablets grandes
-      gsap.set(backgroundVideo, {
-        scale: 1.5,
-        y: "0%",
-        x: "0%"
-      });
-    } else {
-      // Escritorio
-      gsap.set(backgroundVideo, {
-        scale: 1,
-        y: "0%",
-        x: "0%"
-      });
-    }
-  }
-
-  // Ejecutar ajuste inmediatamente y cuando cambie el tamaño de ventana
-  adjustVideoForDevice();
-  window.addEventListener('resize', adjustVideoForDevice);
-  window.addEventListener('orientationchange', adjustVideoForDevice);
-
-  // Primero aparecen todos los elementos
-  const initialTl = gsap.timeline();
-  initialTl
-    .to(renderTitle, {
-      opacity: 1,
-      duration: 0.8,
-      ease: 'power4.out'
-    })
-    .to(connectingText, {
-      opacity: 1,
-      duration: 0.6,
-      ease: 'power3.out'
-    }, '-=0.4')
-    .to(brandsText, {
-      opacity: 1,
-      duration: 0.6,
-      ease: 'power3.out'
-    }, '-=0.4')
-    .to('.desc-text', {
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      ease: 'power3.out'
-    }, '-=0.4')
-    .to('.button-container', {
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      ease: 'power3.out'
-    }, '-=0.4')
-    .to('.carousel-container', {
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      ease: 'power3.out'
-    }, '-=0.4');
-
-  // Esperar a que termine la animación inicial antes de empezar el loop
-  initialTl.then(() => {
-    // Timeline para las animaciones de loop
-    const loopTl = gsap.timeline({
-      repeat: -1, // Hace que se repita indefinidamente
-      repeatDelay: 0.5 // Pausa de 0.5 segundos entre cada ciclo
-    });
-
-    // Primer estado: RENDER destacado
-    loopTl
-      // Primer estado: RENDER destacado
-      .to(renderTitle, {
-        scale: 1.15,
-        color: '#ffffff',
-        duration: 0.5,
-        ease: 'power4.out',
-        transformOrigin: 'left center'
-      })
-      .to([connectingText, brandsText], {
-        scale: 1,
-        color: '#9ca3af', // text-gray-400
-        duration: 0.5,
-        ease: 'power4.out',
-        transformOrigin: 'left center'
-      }, '<') // Ejecutar al mismo tiempo que la animación anterior
-      .to({}, { duration: 2.5 }) // Pausa de 2.5 segundos
-
-      // Segundo estado: CONECTANDO PERSONAS destacado
-      .to(connectingText, {
-        scale: 1.15,
-        color: '#ffffff',
-        duration: 0.5,
-        ease: 'power4.out',
-        transformOrigin: 'left center'
-      })
-      .to([renderTitle, brandsText], {
-        scale: 1,
-        color: '#9ca3af', // text-gray-400
-        duration: 0.5,
-        ease: 'power4.out',
-        transformOrigin: 'left center'
-      }, '<')
-      .to({}, { duration: 2.5 })
-
-      // Tercer estado: IMPULSANDO MARCAS destacado
-      .to(brandsText, {
-        scale: 1.15,
-        color: '#ffffff',
-        duration: 0.5,
-        ease: 'power4.out',
-        transformOrigin: 'left center'
-      })
-      .to([renderTitle, connectingText], {
-        scale: 1,
-        color: '#9ca3af', // text-gray-400
-        duration: 0.5,
-        ease: 'power4.out',
-        transformOrigin: 'left center'
-      }, '<')
-      .to({}, { duration: 2.5 });
-  });
-
-  // Timeline para el video y overlays
-  const videoTl = gsap.timeline();
-  videoTl
-    .to('#videoWrapper', {
-      opacity: 1,
-      duration: 1.5,
-      ease: 'power4.inOut'
-    })
-    .to('#textOverlay', {
-      opacity: 1,
-      duration: 1,
-      ease: 'power4.inOut'
-    }, '-=1')
-    .to('#initialOverlay', {
-      opacity: 0,
-      duration: 1,
-      ease: 'power4.inOut'
-    }, '-=1');
-</script>

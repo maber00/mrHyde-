@@ -1,6 +1,14 @@
 ---
 import { Image } from 'astro:assets';
 
+interface Props {
+  lang?: 'en' | 'es';
+}
+
+const { lang = 'en' } = Astro.props;
+
+const logoAlt = lang === 'es' ? 'Logo de marca' : 'Brand Logo';
+
 // Importar los 24 logos automáticamente
 const logos = Array.from({ length: 24 }, (_, i) => {
   const number = i + 1;
@@ -10,16 +18,15 @@ const logos = Array.from({ length: 24 }, (_, i) => {
 
 <div class="carousel">
   <div class="carousel-inner">
-    {/* Primera serie de logos */}
     {logos.map((logo, index) => (
       <div class="carousel-item">
-        <Image src={logo} alt={`Brand Logo ${index + 1}`} class="carousel-logo" />
+        <Image src={logo} alt={`${logoAlt} ${index + 1}`} class="carousel-logo" />
       </div>
     ))}
-    {/* Duplicar los logos para el efecto infinito */}
+
     {logos.map((logo, index) => (
       <div class="carousel-item">
-        <Image src={logo} alt={`Brand Logo ${index + 1}`} class="carousel-logo" />
+        <Image src={logo} alt={`${logoAlt} ${index + 1}`} class="carousel-logo" />
       </div>
     ))}
   </div>
@@ -33,13 +40,11 @@ const logos = Array.from({ length: 24 }, (_, i) => {
   .carousel-inner {
     @apply flex;
     animation: marquee 40s linear infinite;
-    /* Ancho total ajustado para logos más pequeños */
     width: calc((100px + 32px) * 48);
   }
 
   .carousel-item {
     @apply flex-shrink-0 mx-4;
-    /* Tamaño reducido de los logos */
     width: 100px;
     height: 100px;
   }
@@ -53,11 +58,10 @@ const logos = Array.from({ length: 24 }, (_, i) => {
       transform: translateX(0);
     }
     100% {
-      transform: translateX(calc(-50%));
+      transform: translateX(-50%);
     }
   }
 
-  /* Agregar efecto hover para pausar la animación */
   .carousel:hover .carousel-inner {
     animation-play-state: paused;
   }

@@ -1,12 +1,11 @@
 ---
 import { SEO } from 'astro-seo';
-import Footer from '@components/footer.astro';
 import Navbar from '@components/navbar/navbar.astro';
 
-// IMPORTANTE: Importación de estilos globales
+// estilos globales
 import '../styles/global.css';
 
-// Importación de fuentes
+// fuentes
 import '@fontsource/poppins/300.css';
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
@@ -24,50 +23,55 @@ import "@fontsource/bebas-neue/400.css";
 import "@fontsource/libre-baskerville/400.css";
 import "@fontsource/libre-baskerville/700.css";
 
-// Logo Mr Hide (ajusta la ruta/archivo)
-import { Image } from 'astro:assets';
-import logoImage from '../assets/logo-mrHide.webp';
-
 export interface Props {
   title: string;
+  lang?: 'en' | 'es';
+  pageDescription?: string;
 }
 
-// Configuración para SEO y Open Graph
-const { title } = Astro.props;
+const {
+  title,
+  lang = 'en',
+  pageDescription,
+} = Astro.props;
 
-// ✅ Marca
-const brandName = 'Mr Hide';
+const brandName = 'Manuel Bedoya';
+const siteFallback = 'https://manuelbedoya.vercel.app';
 
-// ✅ Dominio (cámbialo por el real cuando lo tengas)
-const siteFallback = 'https://mrHide.vercel.app';
-
-// ✅ Título + canonical
-const pageTitle = title ? `${title} | ${brandName}` : brandName;
+const pageTitle = title;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || siteFallback).toString();
 
-// ✅ Metadata social (ajusta handles reales)
 const twitterCreator = '@mrHide';
 const twitterSite = '@mrHide';
-
-// ✅ OG Image (asegúrate que exista en /public)
 const ogImageURL = new URL('/og-mrHide.jpg', Astro.site || siteFallback).toString();
+
+const description =
+  pageDescription ??
+  (lang === 'es'
+    ? 'Realización audiovisual con procesos y automatización: video, podcast, animación y contenido continuo. Menos fricción. Más obra terminada.'
+    : 'Audiovisual direction, post-production and AI-assisted workflows for brands that need clear, cinematic and technically solid visual content.');
+
+const hreflangEn = new URL('/', Astro.site || siteFallback).toString();
+const hreflangEs = new URL('/es/', Astro.site || siteFallback).toString();
 ---
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    
-    <!-- Favicons (ajusta los archivos en /public) -->
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate icon" type="image/x-icon" href="/favicon.ico" />
-    
     <meta name="generator" content={Astro.generator} />
+
+    <link rel="alternate" hreflang="en" href={hreflangEn} />
+    <link rel="alternate" hreflang="es" href={hreflangEs} />
+    <link rel="alternate" hreflang="x-default" href={hreflangEn} />
 
     <SEO
       title={pageTitle}
-      description="Realización audiovisual con procesos y automatización: video, podcast, animación y contenido continuo. Menos fricción. Más obra terminada."
+      description={description}
       canonical={canonicalURL}
       twitter={{
         creator: twitterCreator,
@@ -78,18 +82,17 @@ const ogImageURL = new URL('/og-mrHide.jpg', Astro.site || siteFallback).toStrin
         basic: {
           url: canonicalURL,
           type: "website",
-          title: brandName,
+          title: pageTitle,
           image: ogImageURL
         },
         image: {
-          alt: "Mr Hide",
+          alt: "Manuel Bedoya",
           width: 1200,
           height: 630
         },
       }}
     />
 
-    <!-- Precargar fuentes críticas -->
     <link
       rel="preload"
       href="/fonts/poppins-v20-latin-regular.woff2"
@@ -107,8 +110,7 @@ const ogImageURL = new URL('/og-mrHide.jpg', Astro.site || siteFallback).toStrin
   </head>
 
   <body>
-    <Navbar />
+    <Navbar lang={lang} />
     <slot />
-    <Footer />
   </body>
 </html>

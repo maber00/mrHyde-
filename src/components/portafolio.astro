@@ -1,103 +1,7 @@
 ---
-const { id } = Astro.props;
-
+const { id, lang = 'en' } = Astro.props;
 
 import { Image } from 'astro:assets';
-
-// BDF Gallery
-import bdfThumb from '../assets/portafolio/1-BDF-500x500.webp';
-import bdf2 from '../assets/portafolio/BDF/2-BDF.webp';
-import bdf3 from '../assets/portafolio/BDF/3-BDF-1.webp';
-import bdf4 from '../assets/portafolio/BDF/4-BDF.webp';
-import bdf5 from '../assets/portafolio/BDF/5-BDF.webp';
-import bdf6 from '../assets/portafolio/BDF/6-BDF.webp';
-import bdf7 from '../assets/portafolio/BDF/7-BDF.webp';
-import bdf8 from '../assets/portafolio/BDF/8-BDF.webp';
-import bdf9 from '../assets/portafolio/BDF/9-BDF.webp';
-import bdf10 from '../assets/portafolio/BDF/10-BDF.webp';
-import bdf11 from '../assets/portafolio/BDF/11-BDF.webp';
-import bdf12 from '../assets/portafolio/BDF/12-BDF.webp';
-import bdf13 from '../assets/portafolio/BDF/13-BDF.webp';
-import bdf14 from '../assets/portafolio/BDF/14-BDF.webp';
-import bdf15 from '../assets/portafolio/BDF/15-BDF.webp';
-import bdf16 from '../assets/portafolio/BDF/16-BDF.webp';
-
-// Casa Gallery
-import casaThumb from '../assets/portafolio/1-Casa-Anapoima-1-500x500.webp';
-import casa1 from '../assets/portafolio/Casa/1-Casa-Anapoima-1.webp';
-import casa2 from '../assets/portafolio/Casa/2-Casa-Anapoima-2.webp';
-import casa3 from '../assets/portafolio/Casa/3-Casa-Anapoima-3.webp';
-import casa5 from '../assets/portafolio/Casa/5Torre-Amadeus-2.webp';
-import casa6 from '../assets/portafolio/Casa/6-Gran-Casa-1.webp';
-import casa7 from '../assets/portafolio/Casa/7.-Gran-Casa-2.webp';
-import casa8 from '../assets/portafolio/Casa/8-Gran-Casa.webp';
-
-// Honor & Laurel Gallery
-import honorThumb from '../assets/portafolio/Honor_2-500x500.webp';
-import honor1 from '../assets/portafolio/foto/Honor_1.webp';
-import honor2 from '../assets/portafolio/foto/Honor_2.webp';
-
-// Nogales Gallery
-import nogalesThumb from '../assets/portafolio/1-Nogales-500x500.webp';
-import nogales1 from '../assets/portafolio/foto/1-Nogales.webp';
-import nogales2 from '../assets/portafolio/foto/2-Nogales.webp';
-import nogales8 from '../assets/portafolio/foto/8-Nogales.webp';
-import nogales9 from '../assets/portafolio/foto/9-Nogales.webp';
-import nogales10 from '../assets/portafolio/foto/10-Nogales.webp';
-import nogales5 from '../assets/portafolio/foto/5-Nogales.webp';
-import nogales6 from '../assets/portafolio/foto/6-Nogales.webp';
-import nogales11 from '../assets/portafolio/foto/11-Nogales.webp';
-
-// Pomar Gallery
-import pomarThumb from '../assets/portafolio/Producto-Pomar-1-1-500x500.webp';
-import pomar1 from '../assets/portafolio/foto/Producto-Pomar-1-1.webp';
-
-// Quala Gallery
-import qualaThumb from '../assets/portafolio/2-Quala--500x500.webp';
-import quala1 from '../assets/portafolio/Quala/1-Quala-.webp';
-import quala2 from '../assets/portafolio/Quala/2-Quala-.webp';
-import quala3 from '../assets/portafolio/Quala/3-Quala.webp';
-import quala4 from '../assets/portafolio/Quala/4-Quala.webp';
-import quala5 from '../assets/portafolio/Quala/5-Quala.webp';
-import quala6 from '../assets/portafolio/Quala/6-Quala.webp';
-import quala7 from '../assets/portafolio/Quala/7-Quala.webp';
-import quala8 from '../assets/portafolio/Quala/8-Quala.webp';
-import quala9 from '../assets/portafolio/Quala/9-Quala.webp';
-import quala10 from '../assets/portafolio/Quala/10-Quala.webp';
-import quala11 from '../assets/portafolio/Quala/11-Quala.webp';
-import quala12 from '../assets/portafolio/Quala/12-Quala.webp';
-import quala13 from '../assets/portafolio/Quala/13-Quala.webp';
-import quala14 from '../assets/portafolio/Quala/14-Quala.webp';
-import quala15 from '../assets/portafolio/Quala/15-Quala.webp';
-import quala16 from '../assets/portafolio/Quala/16-Quala.webp';
-import quala17 from '../assets/portafolio/Quala/17-Quala.webp';
-import quala18 from '../assets/portafolio/Quala/18-Quala.webp';
-import quala19 from '../assets/portafolio/Quala/19-Quala.webp';
-import quala20 from '../assets/portafolio/Quala/20-Quala.webp';
-import quala21 from '../assets/portafolio/Quala/21-Quala.webp';
-import quala22 from '../assets/portafolio/Quala/22-Quala.webp';
-import quala23 from '../assets/portafolio/Quala/23-Quala.webp';
-import quala24 from '../assets/portafolio/Quala/24-Quala.webp';
-import quala25 from '../assets/portafolio/Quala/25-Quala.webp';
-import quala26 from '../assets/portafolio/Quala/26-Quala.webp';
-import quala27 from '../assets/portafolio/Quala/27-Quala.webp';
-import quala28 from '../assets/portafolio/Quala/28-Quala.webp';
-import quala29 from '../assets/portafolio/Quala/29-Quala.webp';
-import quala30 from '../assets/portafolio/Quala/30-Quala.webp';
-
-// Quala Productos Gallery
-import qualaProductosThumb from '../assets/portafolio/Quala-Productos-2-1-500x500.webp';
-import qualaProductos1 from '../assets/portafolio/foto/Quala-Productos-1.webp';
-import qualaProductos2 from '../assets/portafolio/foto/Quala-Productos-2-1.webp';
-import qualaProductos3 from '../assets/portafolio/foto/Quala-Productos-3.webp';
-
-// Thomas Gallery
-import thomasThumb from '../assets/portafolio/Thomas_1-500x500.webp';
-import thomas1 from '../assets/portafolio/Thomas/Thomas_1.webp';
-import thomas2 from '../assets/portafolio/Thomas/Thomas_2.webp';
-import thomas3 from '../assets/portafolio/Thomas/Thomas_3.webp';
-import thomas4 from '../assets/portafolio/Thomas/Thomas_4.webp';
-import thomas8 from '../assets/portafolio/Thomas/Thomas_8.webp';
 
 // Video Thumbnails
 import aceiteGourmet from '../assets/portafolio/1-Aceite-Gourmet-500x500.webp';
@@ -110,375 +14,517 @@ import tomasAereas from '../assets/portafolio/tomas-aereas-cartagena-500x500.web
 import fondoDetrasCamaras from '../assets/portafolio/Fondo-detras-de-camaras-500x500.webp';
 import fotoHimnos from '../assets/portafolio/Foto-Himnos-500x500.webp';
 
+// IA thumbnails
+import habi from '../assets/portafolio/habi.webp';
+import iaThumb1 from '../assets/moneda.jpg';
+import iaThumb2 from '../assets/vive.jpg';
+import iaThumb3 from '../assets/ninos.jpg';
+
+const copy =
+  lang === 'es'
+    ? {
+        sectionLabel: "Trabajo",
+        sectionTitle: "PORTA",
+        sectionTitleOutline: "FOLIO",
+        intro: "Producción audiovisual, postproducción, dirección visual y exploración creativa con IA. Piezas comerciales, trabajos de realización y exploraciones donde la inteligencia artificial amplía posibilidades narrativas, técnicas y estéticas.",
+        filters: [
+          { id: 'all', label: 'Todo' },
+          { id: 'commercials', label: 'Comerciales' },
+          { id: 'video', label: 'Video' },
+          { id: 'ai-explorations', label: 'Dirección IA' },
+        ],
+        viewProject: 'Ver proyecto →',
+        closeModal: 'Cerrar',
+        invalidVideo: 'Link no válido.',
+      }
+    : {
+        sectionLabel: "Work",
+        sectionTitle: "PORT",
+        sectionTitleOutline: "FOLIO",
+        intro: "Audiovisual production, post-production, visual direction and creative exploration with AI. Commercial pieces, directing work and explorations where artificial intelligence expands narrative, technical and aesthetic possibilities.",
+        filters: [
+          { id: 'all', label: 'All' },
+          { id: 'commercials', label: 'Commercials' },
+          { id: 'video', label: 'Video' },
+          { id: 'ai-explorations', label: 'AI Direction' },
+        ],
+        viewProject: 'View project →',
+        closeModal: 'Close',
+        invalidVideo: 'Invalid link.',
+      };
+
 const projects = [
-    {
-        id: 1,
-        thumbnail: aceiteGourmet,
-        title: "Comercial Aceite Gourmet - Alianza Team",
-        tags: ["Comerciales"],
-        videoUrl: "https://www.youtube.com/watch?v=sTFBwbuUmOU"
-    },
-    {
-        id: 2,
-        thumbnail: boniceRotoscopia,
-        title: "ROTOSCOPIA – BONICE",
-        tags: ["Comerciales"],
-        videoUrl: "https://www.youtube.com/watch?v=70fK2Odcw0A"
-    },
-    {
-        id: 3,
-        thumbnail: fondoLukafe,
-        title: "Comercial Lukafe - Casa Luker",
-        tags: ["Comerciales"],
-        videoUrl: "https://www.youtube.com/watch?v=qTGbghkJBQM"
-    },
-    {
-        id: 4,
-        thumbnail: fondoBioexpert,
-        title: "Comercial Bioexpert Promo - Motion Graphics",
-        tags: ["Comerciales"],
-        videoUrl: "https://www.youtube.com/watch?v=ICE1dRRTCoc"
-    },
-    {
-        id: 5,
-        thumbnail: reelVideo,
-        title: "Video Corporativo Render Producción Audiovisual",
-        tags: ["Video"],
-        videoUrl: "https://www.youtube.com/watch?v=2w-ODG_VRsI"
-    },
-    {
-        id: 6,
-        thumbnail: fondoReelMotion,
-        title: "Reel Motion Graphics - Render Producción Audiovisual",
-        tags: ["Video"],
-        videoUrl: "https://www.youtube.com/watch?v=1NThrbQxYlc"
-    },
-    {
-        id: 7,
-        thumbnail: tomasAereas,
-        title: "Tomas aéreas Colombia y Ecuador",
-        tags: ["Video"],
-        videoUrl: "https://www.youtube.com/watch?v=uLxfxWjWjMk"
-    },
-    {
-        id: 8,
-        thumbnail: fondoDetrasCamaras,
-        title: "Detrás de Cámaras Himno Quala México",
-        tags: ["Video"],
-        videoUrl: "https://www.youtube.com/watch?v=JDVYcn8NZGM&feature=emb_err_woyt"
-    },
-    {
-        id: 9,
-        thumbnail: fotoHimnos,
-        title: "Himno Quala México",
-        tags: ["Video"],
-        videoUrl: "https://www.youtube.com/watch?v=mOV6Hawz2kw"
-    },
-    {
-        id: 10,
-        thumbnail: qualaProductosThumb,
-        title: "FOTOGRAFIA DE PRODUCTO QUALA",
-        tags: ["Fotografía de Producto"],
-        images: [qualaProductos1, qualaProductos2, qualaProductos3],
-        isGridItem: false
-    },
-    {
-        id: 11,
-        thumbnail: bdfThumb,
-        title: "FOTOGRAFIA DE PRODUCTO BDF",
-        tags: ["Fotografía de Producto"],
-        images: [
-            bdf2, bdf3, bdf4, bdf5, bdf6, bdf7, bdf8, bdf9, bdf10,
-            bdf11, bdf12, bdf13, bdf14, bdf15, bdf16
-        ],
-        isGridItem: true
-    },
-    {
-        id: 12,
-        thumbnail: pomarThumb,
-        title: "FOTOGRAFIA DE PRODUCTO EL POMAR",
-        tags: ["Fotografía de Producto"],
-        images: [pomar1],
-        isGridItem: false
-    },
-    {
-        id: 13,
-        thumbnail: nogalesThumb,
-        title: "FOTOGRAFIA CORPORATIVA CLINICA LOS NOGALES",
-        tags: ["Fotografía Corporativa"],
-        images: [
-            nogales1, nogales2, nogales8, nogales9, nogales10,
-            nogales5, nogales6, nogales11
-        ],
-        isGridItem: true
-    },
-    {
-        id: 14,
-        thumbnail: honorThumb,
-        title: "FOTOGRAFIA CORPORATIVA HONOR & LAUREL",
-        tags: ["Fotografía Corporativa"],
-        images: [honor1, honor2],
-        isGridItem: true
-    },
-    {
-        id: 15,
-        thumbnail: qualaThumb,
-        title: "FOTOGRAFIA CORPORATIVA QUALA",
-        tags: ["Fotografía Corporativa"],
-        images: [
-            quala1, quala2, quala3, quala4, quala5, quala6, quala7, quala8, quala9, quala10,
-            quala11, quala12, quala13, quala14, quala15, quala16, quala17, quala18, quala19, quala20,
-            quala21, quala22, quala23, quala24, quala25, quala26, quala27, quala28, quala29, quala30
-        ],
-        isGridItem: true
-    },
-    {
-        id: 16,
-        thumbnail: thomasThumb,
-        title: "THOMAS EXPRESS FOTOGRAFÍA CORPORATIVA",
-        tags: ["Fotografía Corporativa"],
-        images: [thomas1, thomas2, thomas3, thomas4, thomas8],
-        isGridItem: true
-    },
-    {
-        id: 17,
-        thumbnail: casaThumb,
-        title: "FOTOGRAFIA INMOBILIARIA",
-        tags: ["Fotografía Inmobiliaria"],
-        images: [casa1, casa2, casa3, casa5, casa6, casa7, casa8],
-isGridItem: true
-}
+  {
+    id: 1,
+    thumbnail: aceiteGourmet,
+    title: "Comercial Aceite Gourmet - Alianza Team",
+    category: "commercials",
+    categoryLabel: lang === 'es' ? "Comerciales" : "Commercials",
+    videoUrl: "https://www.youtube.com/watch?v=sTFBwbuUmOU"
+  },
+  {
+    id: 2,
+    thumbnail: boniceRotoscopia,
+    title: "ROTOSCOPIA – BONICE",
+    category: "commercials",
+    categoryLabel: lang === 'es' ? "Comerciales" : "Commercials",
+    videoUrl: "https://www.youtube.com/watch?v=70fK2Odcw0A"
+  },
+  {
+    id: 3,
+    thumbnail: fondoLukafe,
+    title: "Comercial Lukafe - Casa Luker",
+    category: "commercials",
+    categoryLabel: lang === 'es' ? "Comerciales" : "Commercials",
+    videoUrl: "https://www.youtube.com/watch?v=qTGbghkJBQM"
+  },
+  {
+    id: 4,
+    thumbnail: fondoBioexpert,
+    title: "Comercial Bioexpert Promo - Motion Graphics",
+    category: "commercials",
+    categoryLabel: lang === 'es' ? "Comerciales" : "Commercials",
+    videoUrl: "https://www.youtube.com/watch?v=ICE1dRRTCoc"
+  },
+  {
+    id: 5,
+    thumbnail: reelVideo,
+    title: "Video Corporativo Mr. Hyde",
+    category: "video",
+    categoryLabel: "Video",
+    videoUrl: "https://www.youtube.com/watch?v=2w-ODG_VRsI"
+  },
+  {
+    id: 6,
+    thumbnail: fondoReelMotion,
+    title: "Reel Motion Graphics",
+    category: "video",
+    categoryLabel: "Video",
+    videoUrl: "https://www.youtube.com/watch?v=1NThrbQxYlc"
+  },
+  {
+    id: 7,
+    thumbnail: tomasAereas,
+    title: "Tomas aéreas Colombia y Ecuador",
+    category: "video",
+    categoryLabel: "Video",
+    videoUrl: "https://www.youtube.com/watch?v=uLxfxWjWjMk"
+  },
+  {
+    id: 8,
+    thumbnail: fondoDetrasCamaras,
+    title: "Detrás de Cámaras Himno Quala México",
+    category: "video",
+    categoryLabel: "Video",
+    videoUrl: "https://www.youtube.com/watch?v=JDVYcn8NZGM&feature=emb_err_woyt"
+  },
+  {
+    id: 9,
+    thumbnail: fotoHimnos,
+    title: "Himno Quala México",
+    category: "video",
+    categoryLabel: "Video",
+    videoUrl: "https://www.youtube.com/watch?v=mOV6Hawz2kw"
+  },
+  {
+    id: 10,
+    thumbnail: iaThumb1,
+    title: "Exploración IA 01",
+    category: "ai-explorations",
+    categoryLabel: lang === 'es' ? "Dirección Creativa con IA" : "AI Creative Direction",
+    videoUrl: "https://youtu.be/qYoVAp5vsz8"
+  },
+  {
+    id: 11,
+    thumbnail: iaThumb2,
+    title: "Exploración IA 02",
+    category: "ai-explorations",
+    categoryLabel: lang === 'es' ? "Dirección Creativa con IA" : "AI Creative Direction",
+    videoUrl: "https://youtu.be/D5KzgqVVZv4"
+  },
+  {
+    id: 12,
+    thumbnail: iaThumb3,
+    title: "Exploración IA 03",
+    category: "ai-explorations",
+    categoryLabel: lang === 'es' ? "Dirección Creativa con IA" : "AI Creative Direction",
+    videoUrl: "https://youtu.be/X6SvhNOBZ2E"
+  },
+  {
+    id: 13,
+    thumbnail: habi,
+    title: "Habi",
+    category: "ai-explorations",
+    categoryLabel: lang === 'es' ? "Dirección Creativa con IA" : "AI Creative Direction",
+    videoUrl: "https://youtu.be/s0AfNTiCqhM?si=Nhs6UQPgQLNUcV2g"
+  },
 ];
-const tags = ["Todo", "Comerciales", "Fotografía Corporativa", "Fotografía de Producto", "Fotografía Inmobiliaria", "Video"];
 ---
-<section id={id} >
-<div class="portafolio-container min-h-screen px-4 md:px-8 lg:px-20 py-20 md:py-40 bg-black text-white" id="portfolio-section">
-    <!-- Título y Descripción -->
-    <div class="text-left">
-        <h2 class="text-5xl md:text-7xl lg:text-[120px] font-normal mb-2 leading-none font-serif transition-all">Portafolio</h2>
-        <div class="w-full md:w-800 h-0.5 bg-[#B1293E] scale-x-0 mb-2" id="underline"></div>
-        <p class="text-base md:text-xl mt-2 pb-10 md:pb-40 max-w-4xl">
-            Sabemos que el trabajo bien hecho, la pasión que le imprimimos a todos nuestros proyectos, 
-            la capacidad de actuar con dinamismo y un estilo visual impecable han sido la principal garantía de nuestro éxito.
-        </p>
+
+<section id={id ?? "portafolio"} class="bg-black text-white py-24">
+  <div class="px-6 md:px-10 lg:px-20">
+
+    <!-- Header -->
+    <div class="mb-12">
+      <p class="sec-label">{copy.sectionLabel}</p>
+      <h2 class="sec-title">
+        {copy.sectionTitle}<span class="sec-title-outline">{copy.sectionTitleOutline}</span>
+      </h2>
+      <p class="sec-intro">{copy.intro}</p>
     </div>
 
-    <!-- Filtros -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4 mb-8 md:mb-12">
-        {tags.map(tag => (
-            <button 
-                class="tag-filter px-3 md:px-6 py-2 rounded text-sm md:text-base transition-colors duration-300 hover:bg-[#B1293E] whitespace-nowrap overflow-hidden text-ellipsis"
-                data-filter={tag}
-            >
-                {tag}
-            </button>
-        ))}
-    </div>
-
-    <!-- Grid de Proyectos -->
-<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-2 px-0 md:px-[50px] lg:px-[100px]">
-    {projects.map(project => (
-        <div 
-            class="project-item relative md:h-[250px] h-[150px] cursor-pointer group"
-            data-category={project.tags.join(',')}
-            data-title={project.title}
-            data-video-url={project.videoUrl}
-            data-images={project.images ? project.images.map(img => img.src).join('|') : ''}
-            data-grid={String(project.isGridItem || false)}
+    <!-- Filters -->
+    <div class="flex flex-wrap gap-2 mb-10">
+      {copy.filters.map((filter, index) => (
+        <button
+          type="button"
+          class:list={["tag-filter", index === 0 ? "active" : ""]}
+          data-filter={filter.id}
         >
-            <Image 
-                src={project.thumbnail}
-                alt={project.title}
-                class="w-full h-full object-cover"
-                width={500}
-                height={500}
-            />
-            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-60 transition-opacity duration-300">
-                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span class="text-white text-lg md:text-xl font-medium">Ver Proyecto</span>
-                </div>
-            </div>
-        </div>
-    ))}
-</div>
-
-    <!-- Modal -->
-    <div id="portfolioModal" class="modal fixed inset-0 z-50 hidden">
-        <div class="absolute inset-0 bg-black/90">
-            <div class="flex flex-col lg:flex-row h-full items-center justify-center p-4 md:p-8 lg:p-[100px] gap-4 lg:gap-8 overflow-y-auto">
-                <!-- Contenedor de Media -->
-                <div class="w-full lg:w-2/3 aspect-video bg-black relative">
-                    <div id="carouselContainer" class="relative w-full h-full">
-                        <div class="carousel w-full h-full relative overflow-hidden">
-                            <div class="carousel-track w-full h-full flex transition-transform duration-500"></div>
-                        </div>
-                        <div class="carousel-thumbnails mt-4 flex justify-center gap-2"></div>
-                    </div>
-                </div>
-                
-                <!-- Info del Proyecto -->
-                <div class="w-full lg:w-1/3 text-white">
-                    <h2 class="text-2xl md:text-3xl font-bold mb-4" id="modalTitle"></h2>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-[#B1293E] rounded-full text-sm" id="modalTags"></span>
-                    </div>
-                </div>
-
-                <button id="closeModalBtn" class="absolute top-4 right-4 md:top-8 md:right-8 text-white text-4xl">&times;</button>
-            </div>
-        </div>
+          {filter.label}
+        </button>
+      ))}
     </div>
-</div>
+
+    <!-- Grid -->
+    <div class="project-grid">
+      {projects.map(project => (
+        <div
+          class="project-item group"
+          data-category={project.category}
+          data-title={project.title}
+          data-video-url={project.videoUrl}
+          data-category-label={project.categoryLabel}
+        >
+          <Image
+            src={project.thumbnail}
+            alt={project.title}
+            class="project-img"
+            width={500}
+            height={500}
+          />
+          <!-- Hover overlay -->
+          <div class="project-overlay">
+            <p class="project-category">{project.categoryLabel}</p>
+            <p class="project-title-hover">{project.title}</p>
+            <span class="project-cta">{copy.viewProject}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+
+  <!-- Modal -->
+  <div id="portfolioModal" class="modal fixed inset-0 z-50 hidden">
+    <div id="modalOverlay" class="absolute inset-0 bg-black/92"></div>
+
+    <div class="relative flex flex-col lg:flex-row min-h-full items-center justify-center p-4 md:p-10 lg:p-20 gap-6 lg:gap-10 overflow-y-auto">
+
+      <!-- Video -->
+      <div class="w-full lg:w-2/3 aspect-video bg-black/50 relative border border-white/10">
+        <div id="carouselContainer" class="w-full h-full"></div>
+      </div>
+
+      <!-- Info -->
+      <div class="w-full lg:w-1/3">
+        <p class="modal-category" id="modalTags"></p>
+        <h2 class="modal-title" id="modalTitle"></h2>
+      </div>
+
+      <!-- Close -->
+      <button
+        id="closeModalBtn"
+        type="button"
+        aria-label={copy.closeModal}
+        class="modal-close"
+      >
+        ✕
+      </button>
+    </div>
+  </div>
 </section>
 
 <style>
-    .tag-filter {
-        background-color: rgba(255, 255, 255, 0.1);
-        transition: all 0.3s ease-in-out;
-    }
-    
-    .tag-filter:hover, 
-    .tag-filter.active {
-        background-color: #B1293E;
-        transform: translateY(-2px);
-    }
-  
-    #underline {
-        transform-origin: left;
-    }
-  
-    /* Asegúrate de que los elementos sean visibles */
-    .project-item {
-        visibility: visible;
-        opacity: 1;
-    }
-  
-    .modal {
-        transition: opacity 0.3s ease-in-out;
-    }
-  
-    .modal.hidden {
-        opacity: 0;
-        pointer-events: none;
-    }
-  
-    .modal:not(.hidden) {
-        opacity: 1;
-    }
-  </style>
-  
+  /* ── Section label ── */
+  .sec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #f6ad1e;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .sec-label::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: #f6ad1e;
+    display: block;
+  }
+
+  /* ── Section title ── */
+  .sec-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 12vw, 160px);
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    margin-bottom: 24px;
+  }
+  .sec-title-outline {
+    font-family: 'Bebas Neue', sans-serif;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.799);
+    color: transparent;
+  }
+
+  /* ── Intro ── */
+  .sec-intro {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.85;
+    max-width: 560px;
+  }
+
+  /* ── Filters ── */
+  .tag-filter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 8px 18px;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .tag-filter:hover,
+  .tag-filter.active {
+    background: #f6ad1e;
+    border-color: #f6ad1e;
+    color: #000000;
+  }
+
+  /* ── Project grid ── */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+  @media (min-width: 768px) {
+    .project-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .project-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  /* ── Project item ── */
+  .project-item {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+    background: #111;
+  }
+
+  .project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease, filter 0.4s ease;
+  }
+  .project-item:hover .project-img {
+    transform: scale(1.06);
+    filter: brightness(0.35);
+  }
+
+  /* ── Hover overlay ── */
+  .project-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .project-item:hover .project-overlay { opacity: 1; }
+
+  .project-category {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #f6ad1e;
+    margin-bottom: 6px;
+  }
+  .project-title-hover {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(18px, 2vw, 26px);
+    line-height: 1;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+    margin-bottom: 10px;
+  }
+  .project-cta {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+  }
+
+  /* ── Modal ── */
+  .modal { transition: opacity 0.3s ease; }
+  .modal.hidden { opacity: 0; pointer-events: none; }
+  .modal:not(.hidden) { opacity: 1; }
+
+  .modal-category {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #f6ad1e;
+    margin-bottom: 12px;
+  }
+  .modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 3vw, 44px);
+    line-height: 1;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 24px; right: 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+    background: none;
+    border: 1px solid rgba(255,255,255,0.15);
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .modal-close:hover {
+    border-color: #f6ad1e;
+    color: #f6ad1e;
+  }
+
+  .video-wrapper,
+  .video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+  }
+</style>
 
 <script>
-    import { gsap } from 'gsap';
-    import { ScrollTrigger } from 'gsap/ScrollTrigger';
-    
-    gsap.registerPlugin(ScrollTrigger);
-    
-    document.addEventListener('DOMContentLoaded', () => {
-  // Modal y Filtros
-  const modal = document.getElementById('portfolioModal');
-  const closeBtn = document.getElementById('closeModalBtn');
-  const filterButtons = document.querySelectorAll('.tag-filter');
-  const projectItems = document.querySelectorAll('.project-item');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalTags = document.getElementById('modalTags');
-  const carouselContainer = document.getElementById('carouselContainer');
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
 
-  // Función para obtener el ID de YouTube
-  function getYouTubeVideoId(url) {
-    const regex = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(regex);
-    return (match && match[2].length === 11) ? match[2] : null;
-  }
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('portfolioModal');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const filterButtons = document.querySelectorAll('.tag-filter');
+    const projectItems = document.querySelectorAll('.project-item');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalTags = document.getElementById('modalTags');
+    const carouselContainer = document.getElementById('carouselContainer');
 
-  // Filtros: muestran u ocultan los proyectos según la categoría
-  filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const filterValue = button.getAttribute('data-filter') || 'Todo';
-      filterButtons.forEach(btn => btn.classList.remove('bg-[#B1293E]'));
-      button.classList.add('bg-[#B1293E]');
-      
-      projectItems.forEach(item => {
-        const categories = item.getAttribute('data-category')?.split(',') || [];
-        const shouldShow = filterValue === 'Todo' || categories.includes(filterValue);
-        item.classList.toggle('hidden', !shouldShow);
+    function getYouTubeVideoId(url: string) {
+      const regex = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+      const match = url.match(regex);
+      return (match && match[2].length === 11) ? match[2] : null;
+    }
+
+    function getVimeoVideoId(url: string) {
+      const regex = /vimeo\.com\/(?:manage\/videos\/)?(\d+)/;
+      const match = url.match(regex);
+      return match ? match[1] : null;
+    }
+
+    // Filters
+    filterButtons.forEach((button, index) => {
+      button.addEventListener('click', () => {
+        const filterValue = button.getAttribute('data-filter') || 'all';
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        projectItems.forEach(item => {
+          const category = item.getAttribute('data-category') || '';
+          const shouldShow = filterValue === 'all' || category === filterValue;
+          item.classList.toggle('hidden', !shouldShow);
+        });
       });
+      if (index === 0) button.classList.add('active');
     });
-  });
 
-  // Modal: abre el modal con el contenido correspondiente (video o imágenes)
-  if (modal && closeBtn && carouselContainer && modalTitle && modalTags) {
-    projectItems.forEach(item => {
-      item.addEventListener('click', () => {
-        const title = item.getAttribute('data-title');
-        const videoUrl = item.getAttribute('data-video-url');
-        const images = item.getAttribute('data-images')?.split('|').filter(Boolean) || [];
-        const categories = item.getAttribute('data-category');
+    // Open modal
+    if (modal && closeBtn && carouselContainer && modalTitle && modalTags) {
+      projectItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const title = item.getAttribute('data-title') || '';
+          const videoUrl = item.getAttribute('data-video-url') || '';
+          const categoryLabel = item.getAttribute('data-category-label') || '';
 
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-        carouselContainer.innerHTML = '';
+          modal.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+          carouselContainer.innerHTML = '';
 
-        if (videoUrl) {
-          const videoId = getYouTubeVideoId(videoUrl);
-          if (videoId) {
+          const youtubeId = getYouTubeVideoId(videoUrl);
+          const vimeoId = getVimeoVideoId(videoUrl);
+
+          if (youtubeId) {
             carouselContainer.innerHTML = `
               <div class="video-wrapper w-full h-full">
-                <iframe 
-                  class="w-full h-full" 
-                  src="https://www.youtube.com/embed/${videoId}" 
-                  frameborder="0" 
-                  allowfullscreen
-                ></iframe>
-              </div>
-            `;
+                <iframe class="w-full h-full"
+                  src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0"
+                  frameborder="0"
+                  allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                  allowfullscreen></iframe>
+              </div>`;
+          } else if (vimeoId) {
+            carouselContainer.innerHTML = `
+              <div class="video-wrapper w-full h-full">
+                <iframe class="w-full h-full"
+                  src="https://player.vimeo.com/video/${vimeoId}?autoplay=1"
+                  frameborder="0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowfullscreen></iframe>
+              </div>`;
+          } else {
+            carouselContainer.innerHTML = `
+              <div class="w-full h-full flex items-center justify-center text-white/40 text-sm font-mono">
+                Link no válido
+              </div>`;
           }
-        } else if (images.length > 0) {
-          carouselContainer.innerHTML = `
-            <div class="flex flex-col gap-8 w-full max-h-full p-4">
-              <div id="mainImage" class="w-full h-[60vh]">
-                <img 
-                  src="${images[0]}" 
-                  alt="${title}"
-                  class="w-full h-full object-contain"
-                />
-              </div>
-              <div class="grid grid-cols-3 gap-4">
-                ${images.map(img => `
-                  <div class="w-full aspect-[4/3] cursor-pointer">
-                    <img 
-                      src="${img}" 
-                      alt="${title}"
-                      class="w-full h-full object-cover thumbnail-img"
-                      onclick="document.querySelector('#mainImage img').src = '${img}'"
-                    />
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          `;
-        }
 
-        if (modalTitle) modalTitle.textContent = title;
-        if (modalTags) modalTags.textContent = categories;
+          modalTitle.textContent = title;
+          modalTags.textContent = categoryLabel;
+        });
       });
-    });
 
-    const closeModal = () => {
-      modal.classList.add('hidden');
-      document.body.style.overflow = '';
-      carouselContainer.innerHTML = '';
-    };
+      const closeModal = () => {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+        carouselContainer.innerHTML = '';
+      };
 
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
-  }
-});
-
-
+      closeBtn.addEventListener('click', closeModal);
+      modalOverlay?.addEventListener('click', closeModal);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+      });
+    }
+  });
 </script>

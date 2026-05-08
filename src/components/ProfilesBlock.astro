@@ -1,178 +1,284 @@
 ---
 import { Image } from "astro:assets";
+import manuelPhoto from "../assets/manuel.webp";
 
-// ✅ Cambia estas rutas por tus fotos reales (recomendado: 1200px lado largo)
-// Coloca los archivos en: src/assets/team/
-import manuelPhoto from "../assets/v2.webp";
-import davidPhoto from "../assets/v2.webp";
+export interface Props {
+  lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const copy =
+  lang === "es"
+    ? {
+        sectionLabel: "El Equipo",
+        sectionTitle: "QUIÉNES",
+        sectionTitleOutline: "SOMOS",
+        manuel: {
+          role: "Co-founder · Dirección Creativa · CTO",
+          name: "Manuel\nBedoya",
+          bio: "Filmmaker y postproductor con años de experiencia en canales de TV, productoras y startups. Ha trabajado con diferentes compañias cómo son Quala, Colpatria, Bonice y Alianza Team. Desde 2018 integra tecnología y sistemas al proceso audiovisual — combinando lenguaje cinematográfico con los modelos de IA más avanzados del mercado.",
+          tags: ["Dirección", "Post-producción", "AI Workflows", "Motion", "Color"],
+          quote: "La IA no reemplaza la visión. La amplifica. Pero para usarla bien necesitas saber qué pedir, qué corregir y cómo convertir material generativo en una pieza con intención real.",
+        },
+        ana: {
+          role: "Co-founder · Estrategia · Negocio · Crecimiento",
+          name: "Ana\nPrieto",
+          bio: "Investment Manager en B Venture Capital y co-fundadora de Wondertech LATAM — red de más de 350 mujeres en tech. Ha evaluado centenares de empresas de tecnología, mentoreado a más de 40 founders en fundraising y construido comunidades de alto impacto en la región. En Mr. Hyde conecta la producción audiovisual con la lógica de negocio: convierte contenido en resultado medible.",
+          tags: ["Venture Capital", "Estrategia", "Growth", "LATAM", "Startups"],
+          quote: "El contenido que no tiene una lógica de negocio detrás es solo estética. Nuestra diferencia es que entendemos qué necesita una marca para crecer — y construimos las piezas que lo hacen posible.",
+        },
+      }
+    : {
+        sectionLabel: "The Team",
+        sectionTitle: "WHO",
+        sectionTitleOutline: "WE ARE",
+        manuel: {
+          role: "Co-founder · Creative Direction · CTO",
+          name: "Manuel\nBedoya",
+          bio: "Filmmaker and post-producer with years of experience across TV channels, production companies and startups. Has directed commercials for Quala, Casa Luker, Bonice and Alianza Team. Since 2018 he integrates technology and systems into the audiovisual process — combining cinematic language with the most advanced AI models on the market.",
+          tags: ["Direction", "Post-production", "AI Workflows", "Motion", "Color"],
+          quote: "AI does not replace vision. It amplifies it. But to use it well you need to know what to ask for, what to correct and how to turn generative material into a piece with real intention.",
+        },
+        ana: {
+          role: "Co-founder · Strategy · Business · Growth",
+          name: "Ana\nPrieto",
+          bio: "Investment Manager at B Venture Capital and co-founder of Wondertech LATAM — a network of over 350 women in tech. She has evaluated hundreds of technology companies, mentored more than 40 founders on fundraising and built high-impact communities across the region. At Mr. Hyde she connects audiovisual production with business logic: turning content into measurable results.",
+          tags: ["Venture Capital", "Strategy", "Growth", "LATAM", "Startups"],
+          quote: "Content without business logic behind it is just aesthetics. Our difference is that we understand what a brand needs to grow — and we build the pieces that make it possible.",
+        },
+      };
 ---
 
 <section class="bg-black text-white py-24" id="perfiles">
   <div class="container mx-auto px-6">
-    <!-- Header -->
-    <div class="max-w-5xl mx-auto text-center mb-16">
-     
 
-      <h2
-        class="text-4xl sm:text-6xl md:text-7xl text-[#f6ad1e] leading-none"
-        style="font-family: 'Libre Baskerville', 'Baskerville', serif; font-weight: 700;"
-      >
-        Personas y marcas reales.
+    <!-- Section header -->
+    <div class="mb-16">
+      <p class="sec-label">{copy.sectionLabel}</p>
+      <h2 class="sec-title">
+        {copy.sectionTitle}<br/>
+        <span class="sec-title-outline">{copy.sectionTitleOutline}</span>
       </h2>
-
-      <p class="mt-6 text-base sm:text-xl text-gray-200 max-w-4xl mx-auto leading-relaxed">
-        Trabajamos con empresas, marcas y personas que crean contenido todos los días.
-        Nosotros nos encargamos de que ese contenido tenga sentido, forma y permanencia.
-      </p>
     </div>
 
-    <!-- Cards -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-7xl mx-auto">
-      <!-- Manuel -->
-      <article class="profile-card rounded-2xl overflow-hidden border border-white/10 bg-white/5">
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-0">
-          <div class="md:col-span-2 relative">
-            <div class="aspect-[4/5] md:aspect-auto md:h-full overflow-hidden">
-              <Image
-                src={manuelPhoto}
-                alt="Manuel Bedoya"
-                class="w-full h-full object-cover"
-                loading="lazy"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
-            </div>
+    <!-- Team grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/[0.06] max-w-7xl mx-auto">
+
+      <!-- Manuel Bedoya -->
+      <article class="team-card">
+        <div class="card-top-line"></div>
+
+        <div class="flex items-start justify-between gap-6 mb-6">
+          <div>
+            <p class="member-role">{copy.manuel.role}</p>
+            <h3 class="member-name">
+              {copy.manuel.name.split('\n').map(line => <span>{line}<br/></span>)}
+            </h3>
           </div>
-
-          <div class="md:col-span-3 p-8 flex flex-col gap-4">
-            <div class="flex items-center justify-between gap-4">
-              <div>
-                <h3
-                  class="text-3xl sm:text-4xl text-[#f6ad1e] leading-tight"
-                  style="font-family: 'Libre Baskerville', 'Baskerville', serif; font-weight: 700;"
-                >
-                  Manuel Bedoya
-                </h3>
-                <p class="text-sm sm:text-base text-gray-300 mt-1">
-                  Co-founder · Ventas · Tecnología · Marketing
-                </p>
-              </div>
-
-              <span class="badge hidden sm:inline-flex">
-                Co-founder
-              </span>
-            </div>
-
-            <p class="text-base sm:text-lg text-gray-100 leading-relaxed">
-              Ha trabajado en canales de TV, productoras y startups. Conecta producción audiovisual con tecnología:
-              entiende el lenguaje creativo y también el técnico.
-            </p>
-
-            <p class="text-base sm:text-lg text-gray-100 leading-relaxed">
-              <span class="text-gray-100 font-semibold">Habla el lenguaje creativo, pero también el de ventas y negocio.</span>
-              Automatiza procesos para convertir el contenido en una herramienta escalable, medible y rentable.
-            </p>
-
-            <div class="pt-2 flex flex-wrap gap-2">
-              <span class="tag">Estrategia</span>
-              <span class="tag">Automatización</span>
-              <span class="tag">Marketing</span>
-              <span class="tag">Ventas</span>
-            </div>
+          <div class="member-photo-wrap">
+            <Image
+              src={manuelPhoto}
+              alt="Manuel Bedoya"
+              class="member-photo"
+              loading="lazy"
+              width={96}
+              height={96}
+            />
           </div>
         </div>
+
+        <p class="member-bio">{copy.manuel.bio}</p>
+
+        <div class="flex flex-wrap gap-2 mt-6">
+          {copy.manuel.tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+
+        <blockquote class="quote-block mt-6">
+          <p>"{copy.manuel.quote}"</p>
+        </blockquote>
       </article>
 
-      <!-- David -->
-      <article class="profile-card rounded-2xl overflow-hidden border border-white/10 bg-white/5">
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-0">
-          <div class="md:col-span-2 relative">
-            <div class="aspect-[4/5] md:aspect-auto md:h-full overflow-hidden">
-              <Image
-                src={davidPhoto}
-                alt="David Rodríguez"
-                class="w-full h-full object-cover"
-                loading="lazy"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
-            </div>
+      <!-- Ana Prieto -->
+      <article class="team-card">
+        <div class="card-top-line"></div>
+
+        <div class="flex items-start justify-between gap-6 mb-6">
+          <div>
+            <p class="member-role">{copy.ana.role}</p>
+            <h3 class="member-name">
+              {copy.ana.name.split('\n').map(line => <span>{line}<br/></span>)}
+            </h3>
           </div>
-
-          <div class="md:col-span-3 p-8 flex flex-col gap-4">
-            <div class="flex items-center justify-between gap-4">
-              <div>
-                <h3
-                  class="text-3xl sm:text-4xl text-[#f6ad1e] leading-tight"
-                  style="font-family: 'Libre Baskerville', 'Baskerville', serif; font-weight: 700;"
-                >
-                  David Rodríguez
-                </h3>
-                <p class="text-sm sm:text-base text-gray-300 mt-1">
-                  Co-founder · Dirección · Postproducción · Estilo
-                </p>
-              </div>
-
-              <span class="badge hidden sm:inline-flex">
-                Co-founder
-              </span>
-            </div>
-
-            <p class="text-base sm:text-lg text-gray-100 leading-relaxed">
-              Publicista de profesión pero artista audiovisual por vocación. Desde pequeño escogió este camino: es lo que le brinda felicidad.
-            </p>
-
-            <p class="text-base sm:text-lg text-gray-100 leading-relaxed">
-              Ha trabajado como postproductor, graficador, diseñador y director de videoclips.
-              Domina tendencias y estilos, con criterio visual y buen gusto para construir piezas memorables.
-            </p>
-
-            <div class="pt-2 flex flex-wrap gap-2">
-              <span class="tag">Dirección</span>
-              <span class="tag">Edición</span>
-              <span class="tag">Motion</span>
-              <span class="tag">Tendencias</span>
-            </div>
+          <div class="member-avatar">
+            <span>AP</span>
           </div>
         </div>
-      </article>
-    </div>
 
-    <!-- Footer line -->
-    <div class="max-w-5xl mx-auto text-center mt-14">
-      <p class="text-base sm:text-xl text-gray-200">
-        Entre los dos suman <span class="text-[#f6ad1e] font-semibold">+30 años</span> de experiencia construyendo contenido que
-        <span class="text-[#f6ad1e] font-semibold"> se recuerda y vende</span>.
-      </p>
+        <p class="member-bio">{copy.ana.bio}</p>
+
+        <div class="flex flex-wrap gap-2 mt-6">
+          {copy.ana.tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+
+        <blockquote class="quote-block mt-6">
+          <p>"{copy.ana.quote}"</p>
+        </blockquote>
+      </article>
+
     </div>
   </div>
 </section>
 
 <style>
-  .profile-card {
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
-  .profile-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 50px rgba(0,0,0,0.35);
-  }
-
-  .badge {
-    border: 1px solid rgba(246,173,30,0.35);
-    color: #f6ad1e;
-    padding: 6px 12px;
-    border-radius: 999px;
-    font-size: 12px;
-    letter-spacing: 0.08em;
+  /* ── Section label ── */
+  .sec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
-    background: rgba(246,173,30,0.06);
-    white-space: nowrap;
+    color: #f6ad1e;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .sec-label::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: #f6ad1e;
+    display: block;
   }
 
+  /* ── Section title ── */
+  .sec-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 7vw, 88px);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+  }
+  .sec-title-outline {
+    font-family: 'Bebas Neue', sans-serif;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.799);
+    color: transparent;
+  }
+
+  /* ── Card ── */
+  .team-card {
+    background: #000000;
+    padding: 48px 44px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease;
+  }
+  .team-card:hover { background: #0a0a0a; }
+
+  .card-top-line {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, #f6ad1e, transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .team-card:hover .card-top-line { transform: scaleX(1); }
+
+  /* ── Member role ── */
+  .member-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #f6ad1e;
+    margin-bottom: 10px;
+  }
+
+  /* ── Member name ── */
+  .member-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(44px, 5vw, 68px);
+    line-height: 0.9;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Photo ── */
+  .member-photo-wrap {
+    width: 88px;
+    height: 88px;
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px solid rgba(246,173,30,0.2);
+    flex-shrink: 0;
+  }
+  .member-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  /* ── Avatar placeholder ── */
+  .member-avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 2px;
+    border: 1px solid rgba(246,173,30,0.2);
+    background: rgba(246,173,30,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .member-avatar span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: #f6ad1e;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── Bio ── */
+  .member-bio {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.85;
+  }
+
+  /* ── Tags ── */
   .tag {
-    border: 1px solid rgba(255,255,255,0.14);
-    color: rgba(255,255,255,0.85);
-    padding: 6px 10px;
-    border-radius: 999px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 6px 14px;
+    transition: all 0.3s;
+  }
+  .team-card:hover .tag {
+    border-color: rgba(246,173,30,0.25);
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* ── Quote ── */
+  .quote-block {
+    padding: 18px 22px;
+    background: rgba(246,173,30,0.04);
+    border-left: 2px solid #f6ad1e;
+  }
+  .quote-block p {
+    font-family: 'DM Mono', monospace;
     font-size: 12px;
-    background: rgba(255,255,255,0.04);
+    color: rgba(255,255,255,0.6);
+    line-height: 1.8;
+    font-style: italic;
+  }
+
+  @media (max-width: 640px) {
+    .team-card { padding: 36px 24px; }
   }
 </style>

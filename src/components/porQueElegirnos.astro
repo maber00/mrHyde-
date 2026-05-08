@@ -1,166 +1,299 @@
 ---
-import { Image } from "astro:assets";
+const vimeoVideos = [
+  "1173401745",
+  "1173360960",
+  "1173360998"
+];
 
-// ✅ Cambia estas rutas por tus imágenes reales
-// Coloca los archivos en: src/assets/why/
-import img1 from "../assets/v2.webp";
-import img2 from "../assets/v2.webp";
-import img3 from "../assets/v2.webp";
+export interface Props {
+  lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const copy =
+  lang === "es"
+    ? {
+        sectionLabel: "Enfoque",
+        sectionTitle: "CÓMO ENTENDEMOS",
+        sectionTitleOutline: "EL FILMMAKING CON IA",
+        intro: "No se trata solo de generar imágenes o clips. Se trata de entender el lenguaje audiovisual completo e integrar la IA dentro del proceso de forma útil, controlada y creativa.",
+        col1Title: "LO QUE\nHACEMOS",
+        col1p1: "Llevamos años trabajando en producción audiovisual, realización, contenido y postproducción para marcas, proyectos y equipos en distintos contextos.",
+        col1p2: "Ese recorrido nos dio una mirada amplia: entendemos la idea, la ejecución, el montaje y la entrega. No solo pensamos en cómo se ve una pieza, sino en qué está contando y qué necesita para funcionar de verdad.",
+        col1p3: "Hoy ponemos esa experiencia al servicio de piezas donde conviven narrativa, dirección visual, postproducción y nuevas herramientas generativas.",
+        col1p4: "Más que producir por producir, nos interesa desarrollar piezas con intención, identidad visual y acabado real.",
+        col1Tags: ["Narrativa", "Dirección visual", "Post", "Criterio"],
+        col2Title: "CÓMO\nLO HACEMOS",
+        col2Meta: "Video · Lentes · Color · Montaje · IA · Workflows",
+        col2Lead: "Combinamos lenguaje audiovisual, sensibilidad narrativa y herramientas técnicas para que una idea pueda convertirse en una pieza sólida, no en una prueba a medias.",
+        col2p1: "Un filmmaker con IA necesita criterio visual, noción de dramaturgia, comprensión técnica de video, lentes, color, ritmo y postproducción — pero también capacidad para dirigir sistemas, afinar instrucciones y reducir errores.",
+        col2p2: "La IA no reemplaza la mirada. La amplifica. Pero para usarla bien hay que saber qué pedir, qué corregir, qué repetir, qué descartar y cómo convertir material generativo en una pieza terminada con intención real.",
+        col2p3: "Ahí es donde se cruza nuestro perfil: entre el oficio audiovisual y la nueva lógica de creación generativa.",
+        col2Tags: ["Lenguaje audiovisual", "IA", "Corrección técnica", "Workflows"],
+        videoCaption: "Piezas donde se cruzan narrativa, dirección visual, postproducción y exploración generativa.",
+        closingA: "No se trata solo de usar IA.",
+        closingB: "Se trata de saber contar, dirigir, corregir y terminar bien una pieza.",
+      }
+    : {
+        sectionLabel: "Approach",
+        sectionTitle: "HOW WE UNDERSTAND",
+        sectionTitleOutline: "AI FILMMAKING",
+        intro: "It is not just about generating images or clips. It is about understanding the full audiovisual language and integrating AI into the process in a useful, controlled and creative way.",
+        col1Title: "WHAT\nWE DO",
+        col1p1: "We have spent years working in audiovisual production, directing, content and post-production for brands, projects and teams across different contexts.",
+        col1p2: "That path gave us a broad perspective: we understand the idea, the execution, the edit and the delivery. We do not only think about how a piece looks, but also what it is saying and what it needs in order to truly work.",
+        col1p3: "Today we put that experience into pieces where storytelling, visual direction, post-production and new generative tools coexist.",
+        col1p4: "More than producing for the sake of producing, we care about developing pieces with intention, visual identity and real finish.",
+        col1Tags: ["Storytelling", "Visual direction", "Post", "Judgment"],
+        col2Title: "HOW\nWE DO IT",
+        col2Meta: "Video · Lenses · Color · Editing · AI · Workflows",
+        col2Lead: "We work by combining audiovisual language, narrative sensitivity and technical tools so that an idea can become a solid piece, not a half-finished test.",
+        col2p1: "An AI filmmaker needs visual judgment, a sense of dramaturgy, technical understanding of video, lenses, color, rhythm and post-production — but also the ability to direct systems, refine instructions and reduce errors.",
+        col2p2: "AI does not replace vision. It amplifies it. But to use it well, you need to know what to ask for, what to correct, what to repeat, what to discard and how to turn generative material into a finished piece with real intention.",
+        col2p3: "That is where our profile sits: between audiovisual craft and the new logic of generative creation.",
+        col2Tags: ["Audiovisual language", "AI", "Technical correction", "Workflows"],
+        videoCaption: "Pieces where storytelling, visual direction, post-production and generative exploration come together.",
+        closingA: "It is not only about using AI.",
+        closingB: "It is about knowing how to tell, direct, correct and finish a piece well.",
+      };
 ---
 
 <section class="bg-black text-white py-24" id="por-que">
   <div class="container mx-auto px-6">
-    <!-- Header -->
-    <div class="max-w-5xl mx-auto text-center mb-16">
-      
 
-      <h2
-        class="text-4xl sm:text-6xl md:text-7xl text-[#f6ad1e] leading-none"
-        style="font-family: 'Libre Baskerville', 'Baskerville', serif; font-weight: 700;"
-      >
-        Menos fricción. Más obra terminada.
+    <!-- Section header -->
+    <div class="mb-16">
+      <p class="sec-label">{copy.sectionLabel}</p>
+      <h2 class="sec-title">
+        {copy.sectionTitle}<br/>
+        <span class="sec-title-outline">{copy.sectionTitleOutline}</span>
       </h2>
-
-      <p class="mt-6 text-base sm:text-xl text-gray-200 max-w-4xl mx-auto leading-relaxed">
-        No vendemos horas ni equipos. Diseñamos un sistema para producir contenido claro, consistente y listo para usarse.
-      </p>
+      <p class="sec-intro">{copy.intro}</p>
     </div>
 
-    <!-- 3 Columns -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
-      <!-- Col 1 -->
-      <article class="why-card rounded-2xl overflow-hidden ">
-        <div class="p-8 flex flex-col gap-4">
-          <h3
-            class="text-3xl sm:text-4xl text-[#f6ad1e] leading-tight"
-            style="font-family: 'Libre Baskerville', 'Baskerville', serif; font-weight: 700;"
-          >
-            Por qué Mr Hide
+    <!-- Three columns -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-px bg-white/[0.06] max-w-7xl mx-auto">
+
+      <!-- Col 1: Lo que hacemos -->
+      <article class="why-card">
+        <div class="card-top-line"></div>
+        <div class="p-8 md:p-10 flex flex-col gap-5 h-full">
+          <h3 class="col-title">
+            {copy.col1Title.split('\n').map(line => <span>{line}<br/></span>)}
           </h3>
-
-          <p class="text-base sm:text-lg text-gray-100 leading-relaxed">
-            <span class="text-gray-100 font-semibold">No nacimos ayer.</span>
-            Venimos de años trabajando en producción audiovisual, contenido y postproducción para marcas reales,
-            desde distintos equipos y productoras.
-          </p>
-
-          <p class="text-base sm:text-lg text-gray-100 leading-relaxed">
-            Mr Hide es el resultado de esa experiencia aplicada a un nuevo modelo:
-            <span class="text-[#f6ad1e] font-semibold">menos fricción</span>, más foco, más obra terminada.
-          </p>
-
-          <p class="text-base sm:text-lg text-gray-100 leading-relaxed">
-            No vendemos audiovisual por horas. Convertimos ideas en piezas claras y consistentes, con procesos que
-            ahorran tiempo y elevan la calidad.
-          </p>
-
-          <div class="pt-2 flex flex-wrap gap-2">
-            <span class="tag">Criterio</span>
-            <span class="tag">Proceso</span>
-            <span class="tag">Velocidad</span>
-            <span class="tag">Consistencia</span>
+          <p class="body-text">{copy.col1p1}</p>
+          <p class="body-text">{copy.col1p2}</p>
+          <p class="body-text">{copy.col1p3}</p>
+          <p class="body-text">{copy.col1p4}</p>
+          <div class="mt-auto pt-4 flex flex-wrap gap-2">
+            {copy.col1Tags.map((tag) => <span class="tag">{tag}</span>)}
           </div>
         </div>
       </article>
 
-      <!-- Col 2 -->
-      <!-- Col 2 -->
-<article class="why-card rounded-2xl overflow-hidden ">
-  <div class="p-8 flex flex-col gap-6">
-    <h3
-      class="text-3xl sm:text-4xl text-[#f6ad1e] leading-tight"
-      style="font-family: 'Libre Baskerville', 'Baskerville', serif; font-weight: 700;"
-    >
-      Esto es lo que somos 
-    </h3>
-
-    <p class="text-base sm:text-lg text-gray-100 leading-relaxed font-semibold">
-      La IA y la técnica están para servir a la obra, no para protagonizarla.
-    </p>
-
-    <p class="text-sm uppercase tracking-[0.18em] text-gray-400">
-      Video · Podcast · Audio · Animación · Contenido continuo
-    </p>
-
-    <p class="text-base sm:text-lg text-gray-100 leading-relaxed">
-      Diseñamos procesos donde una idea se convierte en múltiples piezas bien hechas:
-      podcasts, clips y formatos cortos para redes, animaciones y animatics de producto,
-      además de piezas ágiles y claras para comunicación interna de valor.
-    </p>
-
-    <p class="text-base sm:text-lg text-gray-100 leading-relaxed">
-      Trabajamos en equipos multidiversos para producir contenido claro y constante.
-      Menos fricción. Más piezas reales.
-    </p>
-
-    <div class="pt-2 flex flex-wrap gap-2">
-      <span class="tag">Realización</span>
-      <span class="tag">Procesos</span>
-      <span class="tag">Automatización</span>
-      <span class="tag">Narrativa</span>
-    </div>
-  </div>
-</article>
-
-
-      <!-- Col 3 -->
-      <article class="why-card rounded-2xl overflow-hidden ">
-        <div class="p-4">
-          <div class="grid grid-cols-1 gap-4">
-            <div class="relative overflow-hidden rounded-xl">
-              <Image src={img1} alt="Mr Hide — trabajo 1" class="w-full h-[220px] object-cover" loading="lazy" />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
-            </div>
-
-            <div class="relative overflow-hidden rounded-xl">
-              <Image src={img2} alt="Mr Hide — trabajo 2" class="w-full h-[220px] object-cover" loading="lazy" />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
-            </div>
-
-            <div class="relative overflow-hidden rounded-xl">
-              <Image src={img3} alt="Mr Hide — trabajo 3" class="w-full h-[220px] object-cover" loading="lazy" />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
-            </div>
+      <!-- Col 2: Cómo lo hacemos -->
+      <article class="why-card">
+        <div class="card-top-line"></div>
+        <div class="p-8 md:p-10 flex flex-col gap-5 h-full">
+          <h3 class="col-title">
+            {copy.col2Title.split('\n').map(line => <span>{line}<br/></span>)}
+          </h3>
+          <p class="meta-text">{copy.col2Meta}</p>
+          <p class="body-text body-text--lead">{copy.col2Lead}</p>
+          <p class="body-text">{copy.col2p1}</p>
+          <p class="body-text">{copy.col2p2}</p>
+          <p class="body-text">{copy.col2p3}</p>
+          <div class="mt-auto pt-4 flex flex-wrap gap-2">
+            {copy.col2Tags.map((tag) => <span class="tag">{tag}</span>)}
           </div>
-
-          <p class="text-sm text-gray-300 mt-5 px-2 leading-relaxed">
-            Menos promesa. Más obra terminada. Un sistema que produce piezas reales, listas para usarse.
-          </p>
         </div>
       </article>
+
+      <!-- Col 3: Videos -->
+      <article class="why-card">
+        <div class="card-top-line"></div>
+        <div class="p-4 flex flex-col gap-4 h-full">
+          {vimeoVideos.map((videoId) => (
+            <div class="video-wrap">
+              <iframe
+                src={`https://player.vimeo.com/video/${videoId}?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0`}
+                class="video-iframe"
+                frameborder="0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none"></div>
+            </div>
+          ))}
+          <p class="video-caption">{copy.videoCaption}</p>
+        </div>
+      </article>
+
     </div>
 
-    <!-- Footer line -->
-    <div class="max-w-6xl mx-auto text-center mt-14">
-      <p class="text-base sm:text-xl text-gray-200">
-        Más contenido útil. Menos tiempo perdido.
-        <span class="text-[#f6ad1e] font-semibold"> Rápido. Profesional. Funcional.</span>
+    <!-- Closing statement -->
+    <div class="max-w-6xl mx-auto text-center mt-16">
+      <p class="closing-text">
+        {copy.closingA}
+        <span class="closing-accent"> {copy.closingB}</span>
       </p>
     </div>
+
   </div>
 </section>
 
 <style>
-  .why-card {
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  /* ── Section label ── */
+  .sec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #f6ad1e;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
   }
-  .why-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 50px rgba(0,0,0,0.35);
-  }
-
-  .divider {
+  .sec-label::before {
+    content: '';
+    width: 24px;
     height: 1px;
-    background: rgba(255,255,255,0.10);
-    width: 100%;
+    background: #f6ad1e;
+    display: block;
   }
 
+  /* ── Section title ── */
+  .sec-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(44px, 6vw, 80px);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+    margin-bottom: 24px;
+  }
+  .sec-title-outline {
+    font-family: 'Bebas Neue', sans-serif;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.799);
+    color: transparent;
+  }
+
+  /* ── Intro ── */
+  .sec-intro {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.85;
+    max-width: 600px;
+    letter-spacing: 0.01em;
+  }
+
+  /* ── Card ── */
+  .why-card {
+    background: #000000;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease;
+  }
+  .why-card:hover { background: #0a0a0a; }
+
+  .card-top-line {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, #f6ad1e, transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .why-card:hover .card-top-line { transform: scaleX(1); }
+
+  /* ── Column title ── */
+  .col-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 4vw, 52px);
+    line-height: 0.9;
+    color: #f6ad1e;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Meta line ── */
+  .meta-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ── Body text ── */
+  .body-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.85;
+  }
+  .body-text--lead {
+    color: rgba(255,255,255,0.75);
+    font-size: 13px;
+  }
+
+  /* ── Tags ── */
   .tag {
-    border: 1px solid rgba(255,255,255,0.14);
-    color: rgba(255,255,255,0.85);
-    padding: 6px 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    background: rgba(255,255,255,0.04);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 6px 14px;
+    transition: all 0.3s;
+  }
+  .why-card:hover .tag {
+    border-color: rgba(246,173,30,0.25);
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* ── Videos ── */
+  .video-wrap {
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    height: 200px;
+    flex-shrink: 0;
+  }
+  .video-iframe {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 160%; height: 160%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .video-caption {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.7;
+    letter-spacing: 0.05em;
+    padding: 0 4px;
+    margin-top: auto;
+  }
+
+  /* ── Closing ── */
+  .closing-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.8;
+    letter-spacing: 0.04em;
+  }
+  .closing-accent {
+    color: #f6ad1e;
+  }
+
+  @media (max-width: 640px) {
+    .why-card > div { padding: 32px 20px; }
+    .video-wrap { height: 160px; }
   }
 </style>

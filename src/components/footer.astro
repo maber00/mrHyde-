@@ -1,20 +1,184 @@
 ---
-import { Image } from 'astro:assets';
 const currentYear = new Date().getFullYear();
+
+export interface Props {
+  lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const isSpanish = lang === "es";
+const basePath = isSpanish ? "/es" : "";
+
+const copy = isSpanish
+  ? {
+      description: "Estudio de producción audiovisual con IA. Mismo estándar creativo. Menos tiempo. Menos costos. El único en LATAM con Zero Data Retention.",
+      contactLabel: "Contacto",
+      navLabel: "Navegación",
+      about: "El equipo",
+      approach: "Enfoque",
+      portfolio: "Portafolio",
+      services: "Servicios",
+      contactLink: "Contacto",
+      rights: "Todos los derechos reservados.",
+      location: "Bogotá, Colombia · Operamos en toda LATAM",
+    }
+  : {
+      description: "Audiovisual production studio with AI. Same creative standard. Less time. Lower costs. The only studio in LATAM with Zero Data Retention.",
+      contactLabel: "Contact",
+      navLabel: "Navigation",
+      about: "The team",
+      approach: "Approach",
+      portfolio: "Portfolio",
+      services: "Services",
+      contactLink: "Contact",
+      rights: "All rights reserved.",
+      location: "Bogotá, Colombia · We operate across LATAM",
+    };
 ---
 
-<footer class="bg-black text-white py-6">
-  <div class="container mx-auto px-4">
-    <div class="flex flex-wrap items-center justify-between">
-      <!-- Contenedor para logo y botón -->
-      
-      
-      <!-- Copyright centrado debajo -->
-      <div class="w-full text-center">
-        <p class="text-sm text-white">
-          Copyright © {currentYear} Mr Hide. All rights reserved.
-        </p>
+<footer id="contacto" class="bg-black text-white border-t border-white/[0.07]">
+
+  <!-- Main footer grid -->
+  <div class="container mx-auto px-6 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+
+      <!-- Brand -->
+      <div class="md:col-span-1">
+        <div class="footer-logo mb-5">
+          <img src="/mrHyde.svg" alt="Mr. Hyde" class="h-7 w-auto" />
+        </div>
+        <p class="footer-desc">{copy.description}</p>
+        <p class="footer-location mt-4">{copy.location}</p>
       </div>
+
+      <!-- Contact -->
+      <div>
+        <p class="footer-col-label">{copy.contactLabel}</p>
+        <div class="flex flex-col gap-3 mt-4">
+          <a href="mailto:contacto@mrhyde.co" class="footer-link">
+            contacto@mrhyde.co
+          </a>
+          <a
+            href="https://wa.me/573017872595"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer-link"
+          >
+            +57 301 787 2595
+          </a>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <p class="footer-col-label">{copy.navLabel}</p>
+        <div class="flex flex-col gap-3 mt-4">
+          <a href={`${basePath}/#perfiles`} class="footer-link">{copy.about}</a>
+          <a href={`${basePath}/#por-que`} class="footer-link">{copy.approach}</a>
+          <a href={`${basePath}/#servicios`} class="footer-link">{copy.services}</a>
+          <a href={`${basePath}/#portafolio`} class="footer-link">{copy.portfolio}</a>
+          <a href={`${basePath}/#contacto`} class="footer-link">{copy.contactLink}</a>
+        </div>
+      </div>
+
     </div>
   </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t border-white/[0.07]">
+    <div class="container mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="footer-copy">© {currentYear} Mr. Hyde · {copy.rights}</p>
+      <p class="footer-zdr">ZDR · Google Vertex AI</p>
+    </div>
+  </div>
+
 </footer>
+
+<style>
+  /* ── Logo ── */
+  .footer-logo img {
+    opacity: 0.8;
+    transition: opacity 0.3s;
+  }
+  .footer-logo img:hover { opacity: 1; }
+
+  /* ── Description ── */
+  .footer-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.85;
+    max-width: 300px;
+  }
+
+  /* ── Location ── */
+  .footer-location {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* ── Column label ── */
+  .footer-col-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #f6ad1e;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .footer-col-label::before {
+    content: '';
+    width: 16px;
+    height: 1px;
+    background: #f6ad1e;
+    display: block;
+  }
+
+  /* ── Links ── */
+  .footer-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .footer-link::before {
+    content: '→';
+    font-size: 10px;
+    color: rgba(246,173,30,0);
+    transition: color 0.25s ease, transform 0.25s ease;
+    transform: translateX(-4px);
+  }
+  .footer-link:hover {
+    color: #f6ad1e;
+  }
+  .footer-link:hover::before {
+    color: #f6ad1e;
+    transform: translateX(0);
+  }
+
+  /* ── Bottom bar ── */
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.2);
+  }
+  .footer-zdr {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(246,173,30,0.35);
+  }
+</style>

@@ -2,119 +2,152 @@
 import Container from "../container.astro";
 import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
 
-import logoWhite from "../../assets/mrHyde.svg";
-import logoDark from "../../assets/mrHyde.svg"; // ✅ si no tienes versión dark, usa la misma. Cambia por otro archivo si existe.
+export interface Props {
+  lang?: 'en' | 'es';
+}
 
-// Menú actualizado (ajusta anchors según tus IDs reales)
-const menuitems = [
-  { title: "INICIO", path: "/" },
-  { title: "NOSOTROS", path: "/#por-que" },      // ✅ antes estaba /#por-que-render
-  { title: "SERVICIOS", path: "/#servicios" },
-  { title: "PORTAFOLIO", path: "/#portafolio" },
-  { title: "CONTACTO", path: "/contacto" },
-];
+const { lang = 'en' } = Astro.props;
+
+const isSpanish = lang === 'es';
+
+const menuitems = isSpanish
+  ? [
+      { title: "INICIO",     path: "/es/#inicio" },
+      { title: "EQUIPO",     path: "/es/#perfiles" },
+      { title: "ENFOQUE",    path: "/es/#por-que" },
+      { title: "SERVICIOS",  path: "/es/#servicios" },
+      { title: "PORTAFOLIO", path: "/es/#portafolio" },
+      { title: "CONTACTO",   path: "/es/#contacto" },
+    ]
+  : [
+      { title: "HOME",      path: "/#inicio" },
+      { title: "TEAM",      path: "/#perfiles" },
+      { title: "APPROACH",  path: "/#por-que" },
+      { title: "SERVICES",  path: "/#servicios" },
+      { title: "PORTFOLIO", path: "/#portafolio" },
+      { title: "CONTACT",   path: "/#contacto" },
+    ];
+
+const switchHref  = isSpanish ? "/" : "/es/";
+const switchLabel = isSpanish ? "Switch to English" : "Cambiar a español";
+const switchText  = isSpanish ? "EN" : "ES";
+const switchFlag  = isSpanish ? "🇬🇧" : "🇪🇸";
 ---
 
-<Container>
-  <header
-    id="header"
-    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent transform translate-y-0"
-  >
-    <div class="flex flex-col lg:flex-row justify-between items-center py-3 px-4 max-w-7xl mx-auto">
-      <div class="flex w-full lg:w-auto items-center justify-between mb-4 lg:mb-0">
-        <a href="/" class="text-lg flex items-center">
-          <img src={logoWhite.src} alt="Mr Hide" id="logo-white" class="h-12 mr-7" />
-          <img src={logoDark.src} alt="Mr Hide" id="logo-dark" class="h-12 mr-7 hidden" />
+<header
+  id="header"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent translate-y-0"
+>
+  <div class="flex items-center justify-between py-4 px-6 md:px-10 max-w-7xl mx-auto">
+
+    <!-- Logo -->
+    <a href={isSpanish ? "/es/" : "/"} class="nav-logo flex-shrink-0" aria-label="Mr. Hyde">
+      <img src="/mrHyde.svg" alt="Mr. Hyde" class="h-6 sm:h-10 w-auto" />
+    </a>
+
+    <!-- Desktop nav -->
+    <Astronav>
+      <MenuItems class="hidden lg:flex lg:items-center lg:gap-1">
+        <ul class="flex items-center gap-1">
+          {menuitems.map((item) => (
+            <li>
+              <a href={item.path} class="nav-link">
+                {item.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <!-- Language switcher -->
+        <a
+          href={switchHref}
+          aria-label={switchLabel}
+          class="lang-switch ml-4"
+        >
+          <span aria-hidden="true">{switchFlag}</span>
+          <span>{switchText}</span>
         </a>
+      </MenuItems>
 
-        <div class="block lg:hidden">
-          <MenuIcon class="w-4 h-4 menu-icon text-white" />
-        </div>
+      <!-- Mobile hamburger -->
+      <div class="block lg:hidden">
+        <MenuIcon class="w-5 h-5 menu-icon text-white cursor-pointer" />
       </div>
+    </Astronav>
 
-      <Astronav>
-        <MenuItems class="hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">
-          <ul class="flex flex-col lg:flex-row lg:gap-3">
-            {menuitems.map((item) => (
-              <li>
-                <a
-                  href={item.path}
-                  class="flex px-3 py-2 items-center text-white hover:text-gray-300 transition-colors nav-link"
-                >
-                  <span>{item.title}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </MenuItems>
-      </Astronav>
-    </div>
-  </header>
-</Container>
+  </div>
+</header>
 
 <style>
-  :global(.menu-icon) {
-    transition: color 0.3s ease;
+  /* ── Nav links ── */
+  .nav-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    padding: 8px 12px;
+    transition: color 0.25s ease;
+    display: block;
   }
+  .nav-link:hover { color: #ffffff; }
+
+  /* ── Language switcher ── */
+  .lang-switch {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 6px 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.25s ease;
+  }
+  .lang-switch:hover {
+    border-color: #f6ad1e;
+    color: #f6ad1e;
+  }
+
+  /* ── Logo opacity on scroll ── */
+  .nav-logo { opacity: 0.85; transition: opacity 0.25s ease; }
+  .nav-logo:hover { opacity: 1; }
+
+  /* ── Mobile menu icon ── */
+  :global(.menu-icon) { transition: color 0.3s ease; }
 </style>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const header = document.querySelector("#header");
-    const logoWhiteEl = document.querySelector("#logo-white");
-    const logoDarkEl = document.querySelector("#logo-dark");
-    const navLinks = document.querySelectorAll(".nav-link");
+    const header  = document.querySelector("#header") as HTMLElement | null;
+    const navLinks = document.querySelectorAll<HTMLAnchorElement>(".nav-link");
     const menuIcon = document.querySelector(".menu-icon");
     let lastScroll = 0;
 
     function setTopState() {
       header?.classList.remove("bg-black", "shadow-md", "-translate-y-full", "header-scrolled");
       header?.classList.add("bg-transparent", "translate-y-0");
-
-      // Mantén logo blanco (si quieres alternar, descomenta abajo)
-      logoWhiteEl?.classList.remove("hidden");
-      logoDarkEl?.classList.add("hidden");
-
-      menuIcon?.classList.add("text-white");
-      menuIcon?.classList.remove("text-black");
-
-      navLinks.forEach((link) => {
-        link.classList.add("text-white", "hover:text-gray-300");
-        link.classList.remove("text-gray-600", "hover:text-gray-900");
-      });
     }
 
     function setScrolledUpState() {
       header?.classList.remove("-translate-y-full", "bg-transparent");
       header?.classList.add("translate-y-0", "bg-black", "shadow-md", "header-scrolled");
-
-      // En fondo negro, logo blanco funciona perfecto
-      logoWhiteEl?.classList.remove("hidden");
-      logoDarkEl?.classList.add("hidden");
-
-      menuIcon?.classList.add("text-white");
-      menuIcon?.classList.remove("text-black");
-
-      navLinks.forEach((link) => {
-        link.classList.add("text-white", "hover:text-gray-300");
-        link.classList.remove("text-gray-600", "hover:text-gray-900");
-      });
     }
 
     function handleScroll() {
       const currentScroll = window.pageYOffset;
-
       if (currentScroll <= 0) {
         setTopState();
       } else if (currentScroll > lastScroll) {
-        // bajando
         header?.classList.add("-translate-y-full");
         header?.classList.remove("translate-y-0");
       } else {
-        // subiendo
         setScrolledUpState();
       }
-
       lastScroll = currentScroll;
     }
 

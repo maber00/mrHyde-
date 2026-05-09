@@ -13,7 +13,6 @@ const copy = lang === 'es'
       titleLine3: 'MÁS',
       titleLine4: 'OBRA',
       titleLine5: 'TERMINADA',
-      lead: 'Estudio de producción audiovisual que integra inteligencia artificial como método de trabajo. Mismo estándar creativo. Menos tiempo. Menos costos.',
       ctaPrimary: 'Ver portafolio',
       ctaSecondary: 'Cómo trabajamos',
       ctaContact: 'Hablemos',
@@ -25,7 +24,6 @@ const copy = lang === 'es'
       titleLine3: 'MORE',
       titleLine4: 'FINISHED',
       titleLine5: 'WORK',
-      lead: 'Audiovisual production studio that integrates artificial intelligence as a working method. Same creative standard. Less time. Lower costs.',
       ctaPrimary: 'View Portfolio',
       ctaSecondary: 'How we work',
       ctaContact: "Let's talk",
@@ -34,7 +32,7 @@ const copy = lang === 'es'
 
 <section id="inicio" class="hero-container relative w-full h-screen overflow-hidden bg-black flex items-end">
 
-  <!-- Video background -->
+  <!-- Video background — estructura original intacta -->
   <div class="absolute inset-0 w-full h-full z-0" id="videoWrapper">
     <div class="absolute inset-0 w-full h-full video-container overflow-hidden">
       <iframe
@@ -55,14 +53,9 @@ const copy = lang === 'es'
 
   <!-- Content -->
   <div class="relative z-20 w-full">
-    <div class="px-6 sm:px-12 md:px-16 lg:px-24 pb-14 md:pb-20">
-
+    <div class="px-6 sm:px-12 md:px-16 lg:px-24 pb-14 md:pb-30">
+ <!-- Eyebrow -->
       
-
-      <!-- Eyebrow -->
-      <p class="hero-eyebrow text-xs sm:text-sm uppercase tracking-[0.22em] text-white/50 mb-6">
-        {copy.eyebrow}
-      </p>
 
       <!-- Big title -->
       <h1 class="hero-title leading-[0.88]">
@@ -110,7 +103,6 @@ const copy = lang === 'es'
     </div>
 
     <!-- Scroll indicator -->
-    <div class="scroll-line absolute bottom-0 left-1/2 -translate-x-1/2"></div>
   </div>
 </section>
 
@@ -138,7 +130,7 @@ const copy = lang === 'es'
     background: radial-gradient(ellipse at center, rgba(246,173,30,0.07) 0%, transparent 70%);
   }
 
-  /* Animations — staggered fadeUp */
+  /* Animations */
   .hero-logo   { opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
   .hero-eyebrow{ opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
                  font-family: 'DM Mono', 'Courier New', monospace; }
@@ -153,7 +145,7 @@ const copy = lang === 'es'
   .title-outline,
   .title-accent {
     font-family: 'Bebas Neue', 'Impact', sans-serif;
-    font-size: clamp(30px, 10vw, 164px);
+    font-size: clamp(64px, 18vw, 164px);
     letter-spacing: -0.01em;
     display: inline;
   }
@@ -191,23 +183,29 @@ const copy = lang === 'es'
     to   { opacity: 1; }
   }
 
-  /* Responsive video */
+  /* Responsive video — estructura original */
   @media (max-width: 767px) {
     #backgroundVideo {
-      width: 200vw !important; height: 200vh !important;
+      width: 200vw !important;
+      height: 200vh !important;
       transform: translate(-50%, -50%) scale(2) !important;
+      will-change: transform;
     }
   }
   @media (min-width: 768px) and (max-width: 1024px) {
     #backgroundVideo {
-      width: 180vw !important; height: 180vh !important;
+      width: 180vw !important;
+      height: 180vh !important;
       transform: translate(-50%, -50%) scale(1.8) !important;
+      will-change: transform;
     }
   }
   @media (min-width: 1025px) and (max-width: 1366px) {
     #backgroundVideo {
-      width: 150vw !important; height: 150vh !important;
+      width: 150vw !important;
+      height: 150vh !important;
       transform: translate(-50%, -50%) scale(1.5) !important;
+      will-change: transform;
     }
   }
 </style>

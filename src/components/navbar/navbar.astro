@@ -1,7 +1,4 @@
 ---
-import Container from "../container.astro";
-import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
-
 export interface Props {
   lang?: 'en' | 'es';
 }
@@ -34,125 +31,311 @@ const switchText  = isSpanish ? "EN" : "ES";
 const switchFlag  = isSpanish ? "🇬🇧" : "🇪🇸";
 ---
 
-<header
-  id="header"
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent translate-y-0"
->
+<header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
   <div class="flex items-center justify-between py-4 px-6 md:px-10 max-w-7xl mx-auto">
 
     <!-- Logo -->
-    <a href={isSpanish ? "/es/" : "/"} class="nav-logo flex-shrink-0" aria-label="Mr. Hyde">
-      <img src="/mrHyde.svg" alt="Mr. Hyde" class="h-6 sm:h-10 w-auto" />
+    <a href={isSpanish ? "/es/" : "/"} class="nav-logo" aria-label="Mr. Hyde">
+      <img src="/mrHyde.svg" alt="Mr. Hyde" class="h-6 sm:h-7 w-auto" />
     </a>
 
-    <!-- Desktop nav -->
-    <Astronav>
-      <MenuItems class="hidden lg:flex lg:items-center lg:gap-1">
-        <ul class="flex items-center gap-1">
-          {menuitems.map((item) => (
-            <li>
-              <a href={item.path} class="nav-link">
-                {item.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <!-- Language switcher -->
-        <a
-          href={switchHref}
-          aria-label={switchLabel}
-          class="lang-switch ml-4"
-        >
-          <span aria-hidden="true">{switchFlag}</span>
-          <span>{switchText}</span>
-        </a>
-      </MenuItems>
-
-      <!-- Mobile hamburger -->
-      <div class="block lg:hidden">
-        <MenuIcon class="w-5 h-5 menu-icon text-white cursor-pointer" />
-      </div>
-    </Astronav>
+    <!-- Hamburger button -->
+    <button
+      id="menuBtn"
+      class="hamburger"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
 
   </div>
 </header>
 
+<!-- Drawer overlay -->
+<div id="menuOverlay" class="menu-overlay"></div>
+
+<!-- Drawer -->
+<nav id="menuDrawer" class="menu-drawer" aria-hidden="true">
+
+  <!-- Drawer header -->
+  <div class="drawer-header">
+    <a href={isSpanish ? "/es/" : "/"} class="drawer-logo">
+      <img src="/mrHyde.svg" alt="Mr. Hyde" class="h-6 w-auto" />
+    </a>
+    <button id="menuClose" class="drawer-close" aria-label="Close menu">✕</button>
+  </div>
+
+  <!-- Nav links -->
+  <ul class="drawer-links">
+    {menuitems.map((item, i) => (
+      <li class="drawer-item" style={`--i: ${i}`}>
+        <a href={item.path} class="drawer-link">
+          <span class="drawer-num">0{i + 1}</span>
+          {item.title}
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <!-- Language + contact -->
+  <div class="drawer-footer">
+    <a href={switchHref} aria-label={switchLabel} class="lang-switch">
+      <span aria-hidden="true">{switchFlag}</span>
+      <span>{switchText}</span>
+    </a>
+    <a href="mailto:contacto@mrhyde.co" class="drawer-email">
+      contacto@mrhyde.co
+    </a>
+  </div>
+
+</nav>
+
 <style>
-  /* ── Nav links ── */
-  .nav-link {
+  /* ── Header ── */
+  #header { transition: background 0.3s ease, transform 0.3s ease; }
+
+  /* ── Logo ── */
+  .nav-logo { opacity: 0.85; transition: opacity 0.25s ease; flex-shrink: 0; }
+  .nav-logo:hover { opacity: 1; }
+
+  /* ── Hamburger ── */
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 200;
+    position: relative;
+  }
+  .bar {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: rgba(255,255,255,0.75);
+    transition: all 0.35s ease;
+    transform-origin: center;
+  }
+
+  /* ── Hamburger → X animation ── */
+  .hamburger.is-open .bar:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .hamburger.is-open .bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .hamburger.is-open .bar:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* ── Overlay ── */
+  .menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 98;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+    backdrop-filter: blur(4px);
+  }
+  .menu-overlay.is-open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* ── Drawer ── */
+  .menu-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(360px, 88vw);
+    background: #080808;
+    border-left: 1px solid rgba(255,255,255,0.07);
+    z-index: 99;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow-y: auto;
+  }
+  .menu-drawer.is-open {
+    transform: translateX(0);
+  }
+
+  /* ── Drawer header ── */
+  .drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    flex-shrink: 0;
+  }
+  .drawer-logo { opacity: 0.8; }
+  .drawer-close {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+    background: none;
+    border: 1px solid rgba(255,255,255,0.1);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .drawer-close:hover { border-color: #f6ad1e; color: #f6ad1e; }
+
+  /* ── Drawer links ── */
+  .drawer-links {
+    list-style: none;
+    padding: 32px 0;
+    flex: 1;
+  }
+  .drawer-item {
+    opacity: 0;
+    transform: translateX(16px);
+    transition: opacity 0.35s ease calc(var(--i) * 0.06s),
+                transform 0.35s ease calc(var(--i) * 0.06s);
+  }
+  .menu-drawer.is-open .drawer-item {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .drawer-link {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 5vw, 36px);
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: color 0.25s ease, background 0.25s ease;
+    border-left: 2px solid transparent;
+  }
+  .drawer-link:hover {
+    color: #ffffff;
+    background: rgba(255,255,255,0.03);
+    border-left-color: #f6ad1e;
+  }
+
+  .drawer-num {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.5);
-    text-decoration: none;
-    padding: 8px 12px;
-    transition: color 0.25s ease;
-    display: block;
+    letter-spacing: 0.15em;
+    color: #f6ad1e;
+    flex-shrink: 0;
   }
-  .nav-link:hover { color: #ffffff; }
 
-  /* ── Language switcher ── */
+  /* ── Drawer footer ── */
+  .drawer-footer {
+    padding: 24px 28px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
   .lang-switch {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.45);
     text-decoration: none;
-    border: 1px solid rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.12);
     padding: 6px 14px;
     display: inline-flex;
     align-items: center;
     gap: 6px;
     transition: all 0.25s ease;
   }
-  .lang-switch:hover {
-    border-color: #f6ad1e;
-    color: #f6ad1e;
+  .lang-switch:hover { border-color: #f6ad1e; color: #f6ad1e; }
+
+  .drawer-email {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.25);
+    text-decoration: none;
+    transition: color 0.25s ease;
   }
-
-  /* ── Logo opacity on scroll ── */
-  .nav-logo { opacity: 0.85; transition: opacity 0.25s ease; }
-  .nav-logo:hover { opacity: 1; }
-
-  /* ── Mobile menu icon ── */
-  :global(.menu-icon) { transition: color 0.3s ease; }
+  .drawer-email:hover { color: #f6ad1e; }
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const header  = document.querySelector("#header") as HTMLElement | null;
-    const navLinks = document.querySelectorAll<HTMLAnchorElement>(".nav-link");
-    const menuIcon = document.querySelector(".menu-icon");
+  document.addEventListener('DOMContentLoaded', () => {
+    const header   = document.getElementById('header') as HTMLElement | null;
+    const btn      = document.getElementById('menuBtn');
+    const close    = document.getElementById('menuClose');
+    const drawer   = document.getElementById('menuDrawer');
+    const overlay  = document.getElementById('menuOverlay');
+    const links    = document.querySelectorAll('.drawer-link');
     let lastScroll = 0;
+    let isOpen     = false;
 
-    function setTopState() {
-      header?.classList.remove("bg-black", "shadow-md", "-translate-y-full", "header-scrolled");
-      header?.classList.add("bg-transparent", "translate-y-0");
+    function openMenu() {
+      isOpen = true;
+      btn?.classList.add('is-open');
+      drawer?.classList.add('is-open');
+      overlay?.classList.add('is-open');
+      drawer?.setAttribute('aria-hidden', 'false');
+      btn?.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
     }
 
-    function setScrolledUpState() {
-      header?.classList.remove("-translate-y-full", "bg-transparent");
-      header?.classList.add("translate-y-0", "bg-black", "shadow-md", "header-scrolled");
+    function closeMenu() {
+      isOpen = false;
+      btn?.classList.remove('is-open');
+      drawer?.classList.remove('is-open');
+      overlay?.classList.remove('is-open');
+      drawer?.setAttribute('aria-hidden', 'true');
+      btn?.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
     }
 
+    btn?.addEventListener('click', () => isOpen ? closeMenu() : openMenu());
+    close?.addEventListener('click', closeMenu);
+    overlay?.addEventListener('click', closeMenu);
+    links.forEach(link => link.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+
+    // Scroll behavior
     function handleScroll() {
       const currentScroll = window.pageYOffset;
       if (currentScroll <= 0) {
-        setTopState();
-      } else if (currentScroll > lastScroll) {
-        header?.classList.add("-translate-y-full");
-        header?.classList.remove("translate-y-0");
+        header?.classList.remove('bg-black', 'shadow-md', '-translate-y-full');
+        header?.classList.add('bg-transparent');
+      } else if (currentScroll > lastScroll && !isOpen) {
+        header?.classList.add('-translate-y-full');
+        header?.classList.remove('translate-y-0');
       } else {
-        setScrolledUpState();
+        header?.classList.remove('-translate-y-full', 'bg-transparent');
+        header?.classList.add('bg-black', 'shadow-md', 'translate-y-0');
       }
       lastScroll = currentScroll;
     }
 
     let rafId = 0;
-    window.addEventListener("scroll", () => {
+    window.addEventListener('scroll', () => {
       if (rafId) cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(handleScroll);
     });

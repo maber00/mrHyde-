@@ -9,16 +9,16 @@ import boniceRotoscopia from '../assets/portafolio/Bonice-Rotoscopia-500x50.webp
 import fondoLukafe from '../assets/portafolio/Fondo-Lukafe-500x500.webp';
 import fondoBioexpert from '../assets/portafolio/Fondo-Bioexpert-500x500.webp';
 import reelVideo from '../assets/portafolio/4-Reel-Video-Corporativo-500x500.webp';
-import fondoReelMotion from '../assets/portafolio/Fondo-Reel-Motion-Graphics-500x500.webp';
+import fondoReelMotion from '../assets/portafolio/Fondo-Reel-Motion-Graphicsok-500x500.jpg';
 import tomasAereas from '../assets/portafolio/tomas-aereas-cartagena-500x500.webp';
 import fondoDetrasCamaras from '../assets/portafolio/Fondo-detras-de-camaras-500x500.webp';
-import fotoHimnos from '../assets/portafolio/Foto-Himnos-500x500.webp';
+import tomas from '../assets/portafolio/Fondo-reel-tomas-500x500.jpg';
 
 // IA thumbnails
 import habi from '../assets/portafolio/habi.webp';
-import iaThumb1 from '../assets/moneda.jpg';
+import modiThumb from '../assets/ninos.jpg';
 import iaThumb2 from '../assets/vive.jpg';
-import iaThumb3 from '../assets/ninos.jpg';
+import iaThumb3 from '../assets/moneda.jpg';
 
 const copy =
   lang === 'es'
@@ -55,109 +55,89 @@ const copy =
 
 const projects = [
   {
-    id: 1,
-    thumbnail: aceiteGourmet,
-    title: "Comercial Aceite Gourmet - Alianza Team",
-    category: "commercials",
-    categoryLabel: lang === 'es' ? "Comerciales" : "Commercials",
-    videoUrl: "https://www.youtube.com/watch?v=sTFBwbuUmOU"
-  },
+  id: 1,
+  thumbnail: boniceRotoscopia,
+  title: "ROTOSCOPIA – BONICE",
+  category: "commercials",
+  categoryLabel: lang === 'es' ? "Comerciales" : "Commercials",
+  videoUrl: "https://www.youtube.com/watch?v=70fK2Odcw0A",
+  description: lang === 'es'
+    ? "Pieza comercial con técnica de rotoscopía para Bonice. Realizada en colaboración con Render Medios Audiovisuales, donde participé en toda postproducción visual."
+: "Commercial piece using rotoscopy technique for Bonice. Made in collaboration with Render Medios Audiovisuales, where I handled the full visual post-production."},
+
   {
-    id: 2,
-    thumbnail: boniceRotoscopia,
-    title: "ROTOSCOPIA – BONICE",
-    category: "commercials",
-    categoryLabel: lang === 'es' ? "Comerciales" : "Commercials",
-    videoUrl: "https://www.youtube.com/watch?v=70fK2Odcw0A"
-  },
+  id: 2,
+  thumbnail: fondoBioexpert,
+  title: "Comercial Bioexpert Promo - Motion Graphics",
+  category: "commercials",
+  categoryLabel: lang === 'es' ? "Comerciales" : "Commercials",
+  videoUrl: "https://www.youtube.com/watch?v=ICE1dRRTCoc",
+  description: lang === 'es'
+    ? "Pieza promocional con motion graphics para Bioexpert. Concepto visual basado en dinamismo y claridad de marca. Realizada en Render Medios Audiovisuales, donde participé como postproductor a cargo de la animación y gráficas en movimiento."
+    : "Promotional piece with motion graphics for Bioexpert. Visual concept built around brand clarity and dynamism. Made at Render Medios Audiovisuales, where I worked as post-producer handling animation and motion graphics."
+},
+  
   {
-    id: 3,
-    thumbnail: fondoLukafe,
-    title: "Comercial Lukafe - Casa Luker",
-    category: "commercials",
-    categoryLabel: lang === 'es' ? "Comerciales" : "Commercials",
-    videoUrl: "https://www.youtube.com/watch?v=qTGbghkJBQM"
-  },
+  id: 3,
+  thumbnail: fondoReelMotion,
+  title: "Reel Motion Graphics",
+  category: "video",
+  categoryLabel: "Video",
+  videoUrl: "https://www.youtube.com/watch?v=-EAsCig1XzM",
+  description: lang === 'es'
+    ? "Reel de animación y motion graphics desarrollado en After Effects y Cinema 4D, con IA como parte del proceso creativo. Piezas que combinan técnica y concepto visual para comunicar con movimiento."
+    : "Animation and motion graphics reel developed in After Effects and Cinema 4D, with AI as part of the creative process. Pieces that combine technique and visual concept to communicate through movement."
+},
   {
-    id: 4,
-    thumbnail: fondoBioexpert,
-    title: "Comercial Bioexpert Promo - Motion Graphics",
-    category: "commercials",
-    categoryLabel: lang === 'es' ? "Comerciales" : "Commercials",
-    videoUrl: "https://www.youtube.com/watch?v=ICE1dRRTCoc"
-  },
+  id: 4,
+  thumbnail: tomas,
+  title: "Reel secuencia de tomas",
+  category: "video",
+  categoryLabel: "Video",
+  videoUrl: "https://www.youtube.com/watch?v=YXQRJrOE-sU",
+  description: lang === 'es'
+    ? "Lo que hemos construido, pieza a pieza. Realización e inteligencia artificial unidas para llevar cada proyecto más lejos. Esto es lo que hacemos, y apenas es el comienzo."
+    : "What we have built, piece by piece. Filmmaking and artificial intelligence working together to push every project further. This is what we do, and this is just the beginning."
+},
   {
     id: 5,
-    thumbnail: reelVideo,
-    title: "Video Corporativo Mr. Hyde",
+    thumbnail: modiThumb,
+    title: "Miniserie Animada – Modi",
     category: "video",
-    categoryLabel: "Video",
-    videoUrl: "https://www.youtube.com/watch?v=2w-ODG_VRsI"
+    categoryLabel: lang === 'es' ? "Dirección Creativa con IA" : "AI Creative Direction",
+    videoUrl: "https://youtu.be/X6SvhNOBZ2E",
+    description: lang === 'es'
+    ? "Miniserie animada para la marca Modi. Ilustración y animación realizadas en After Effects con apoyo de IA. Una historia de niños que aprenden a enfrentar sus adversidades juntos, desde la amistad y el valor de la compañía."
+    : "Animated miniseries for the brand Modi. Illustrated and animated in After Effects with AI support. A story about children learning to face their challenges together, through friendship and the strength of companionship."
   },
   {
-    id: 6,
-    thumbnail: fondoReelMotion,
-    title: "Reel Motion Graphics",
-    category: "video",
-    categoryLabel: "Video",
-    videoUrl: "https://www.youtube.com/watch?v=1NThrbQxYlc"
-  },
+  id: 14,
+  thumbnail: iaThumb2,
+  title: "Exploración IA 01",
+  category: "video",
+  categoryLabel: "Video",
+  videoUrl: "URL_DEL_VIDEO",
+  
+},
   {
     id: 7,
-    thumbnail: tomasAereas,
-    title: "Tomas aéreas Colombia y Ecuador",
-    category: "video",
-    categoryLabel: "Video",
-    videoUrl: "https://www.youtube.com/watch?v=uLxfxWjWjMk"
-  },
-  {
-    id: 8,
-    thumbnail: fondoDetrasCamaras,
-    title: "Detrás de Cámaras Himno Quala México",
-    category: "video",
-    categoryLabel: "Video",
-    videoUrl: "https://www.youtube.com/watch?v=JDVYcn8NZGM&feature=emb_err_woyt"
-  },
-  {
-    id: 9,
-    thumbnail: fotoHimnos,
-    title: "Himno Quala México",
-    category: "video",
-    categoryLabel: "Video",
-    videoUrl: "https://www.youtube.com/watch?v=mOV6Hawz2kw"
-  },
-  {
-    id: 10,
-    thumbnail: iaThumb1,
-    title: "Exploración IA 01",
+    thumbnail: iaThumb3,
+    title: "Exploración IA 03",
     category: "ai-explorations",
     categoryLabel: lang === 'es' ? "Dirección Creativa con IA" : "AI Creative Direction",
     videoUrl: "https://youtu.be/qYoVAp5vsz8"
   },
   {
-    id: 11,
-    thumbnail: iaThumb2,
-    title: "Exploración IA 02",
-    category: "ai-explorations",
-    categoryLabel: lang === 'es' ? "Dirección Creativa con IA" : "AI Creative Direction",
-    videoUrl: "https://youtu.be/D5KzgqVVZv4"
-  },
-  {
-    id: 12,
-    thumbnail: iaThumb3,
-    title: "Exploración IA 03",
-    category: "ai-explorations",
-    categoryLabel: lang === 'es' ? "Dirección Creativa con IA" : "AI Creative Direction",
-    videoUrl: "https://youtu.be/X6SvhNOBZ2E"
-  },
-  {
-    id: 13,
-    thumbnail: habi,
-    title: "Habi",
-    category: "ai-explorations",
-    categoryLabel: lang === 'es' ? "Dirección Creativa con IA" : "AI Creative Direction",
-    videoUrl: "https://youtu.be/s0AfNTiCqhM?si=Nhs6UQPgQLNUcV2g"
-  },
+  id: 8,
+  thumbnail: habi,
+  title: "Habi",
+  category: "commercials",
+  categoryLabel: lang === 'es' ? "Comercial IA" : "AI Commercial",
+  videoUrl: "https://youtu.be/s0AfNTiCqhM?si=Nhs6UQPgQLNUcV2g",
+  description: lang === 'es'
+    ? "Detrás de cada imagen, una visión humana. La IA como herramienta de realización: precisa, potente y al servicio del concepto. Guión, dirección creativa y guión técnico desarrollados por nosotros. El resto, en manos de la tecnología."
+    : "Behind every image, a human vision. AI as the production tool: precise, powerful and at the service of the concept. Script, creative direction and technical breakdown developed by us. The rest, in the hands of technology."
+},
 ];
 ---
 
@@ -195,6 +175,8 @@ const projects = [
           data-title={project.title}
           data-video-url={project.videoUrl}
           data-category-label={project.categoryLabel}
+            data-description={project.description ?? ''}
+
         >
           <Image
             src={project.thumbnail}
@@ -230,6 +212,8 @@ const projects = [
       <div class="w-full lg:w-1/3">
         <p class="modal-category" id="modalTags"></p>
         <h2 class="modal-title" id="modalTitle"></h2>
+          <p class="modal-description" id="modalDescription"></p>
+
       </div>
 
       <!-- Close -->
@@ -309,7 +293,13 @@ const projects = [
     border-color: #f6ad1e;
     color: #000000;
   }
-
+.modal-description {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.8;
+  margin-top: 16px;
+}
   /* ── Project grid ── */
   .project-grid {
     display: grid;
@@ -384,7 +374,10 @@ const projects = [
   /* ── Modal ── */
   .modal { transition: opacity 0.3s ease; }
   .modal.hidden { opacity: 0; pointer-events: none; }
-  .modal:not(.hidden) { opacity: 1; }
+  .modal:not(.hidden) { 
+  opacity: 1; 
+  background: rgba(0, 0, 0, 0.92);
+}
 
   .modal-category {
     font-family: 'DM Mono', monospace;
@@ -440,6 +433,7 @@ const projects = [
     const projectItems = document.querySelectorAll('.project-item');
     const modalTitle = document.getElementById('modalTitle');
     const modalTags = document.getElementById('modalTags');
+    const modalDescription = document.getElementById('modalDescription');
     const carouselContainer = document.getElementById('carouselContainer');
 
     function getYouTubeVideoId(url: string) {
@@ -476,6 +470,7 @@ const projects = [
           const title = item.getAttribute('data-title') || '';
           const videoUrl = item.getAttribute('data-video-url') || '';
           const categoryLabel = item.getAttribute('data-category-label') || '';
+          const description = item.getAttribute('data-description') || '';
 
           modal.classList.remove('hidden');
           document.body.style.overflow = 'hidden';
@@ -511,6 +506,7 @@ const projects = [
 
           modalTitle.textContent = title;
           modalTags.textContent = categoryLabel;
+          if (modalDescription) modalDescription.textContent = description;
         });
       });
 
@@ -518,6 +514,7 @@ const projects = [
         modal.classList.add('hidden');
         document.body.style.overflow = '';
         carouselContainer.innerHTML = '';
+        if (modalDescription) modalDescription.textContent = '';
       };
 
       closeBtn.addEventListener('click', closeModal);

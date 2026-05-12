@@ -15,7 +15,9 @@ import fondoDetrasCamaras from '../assets/portafolio/Fondo-detras-de-camaras-500
 import tomas from '../assets/portafolio/Fondo-reel-tomas-500x500.jpg';
 
 // IA thumbnails
-import habi from '../assets/portafolio/habi.webp';
+import habi from '../assets/portafolio/Fondo-reel-habi-500x500.webp';
+import habishort from '../assets/portafolio/Fondo-reel-habishort-500x500.webp';
+
 import modiThumb from '../assets/ninos.jpg';
 import iaThumb2 from '../assets/vive.jpg';
 import iaThumb3 from '../assets/moneda.jpg';
@@ -110,15 +112,7 @@ const projects = [
     ? "Miniserie animada para la marca Modi. Ilustración y animación realizadas en After Effects con apoyo de IA. Una historia de niños que aprenden a enfrentar sus adversidades juntos, desde la amistad y el valor de la compañía."
     : "Animated miniseries for the brand Modi. Illustrated and animated in After Effects with AI support. A story about children learning to face their challenges together, through friendship and the strength of companionship."
   },
-  {
-  id: 14,
-  thumbnail: iaThumb2,
-  title: "Exploración IA 01",
-  category: "video",
-  categoryLabel: "Video",
-  videoUrl: "URL_DEL_VIDEO",
   
-},
   {
     id: 7,
     thumbnail: iaThumb3,
@@ -137,6 +131,17 @@ const projects = [
   description: lang === 'es'
     ? "Detrás de cada imagen, una visión humana. La IA como herramienta de realización: precisa, potente y al servicio del concepto. Guión, dirección creativa y guión técnico desarrollados por nosotros. El resto, en manos de la tecnología."
     : "Behind every image, a human vision. AI as the production tool: precise, powerful and at the service of the concept. Script, creative direction and technical breakdown developed by us. The rest, in the hands of technology."
+},
+  {
+  id: 9,
+  thumbnail: habishort,
+title: lang === 'es' ? "Habi – Reel Vertical 9:16" : "Habi – Vertical Reel 9:16",
+  category: "commercials",
+categoryLabel: lang === 'es' ? "Comercial IA · Instagram / TikTok" : "AI Commercial · Instagram / TikTok",
+  videoUrl: "https://www.youtube.com/shorts/4KAltSwgi74",
+  description: lang === 'es'
+    ? "Cada segundo tiene intención. Reel de piezas realizadas para formatos verticales — YouTube, Instagram y TikTok — donde la dirección creativa y la inteligencia artificial se unen para contar más en menos tiempo."
+    : "Every second is intentional. A reel of pieces made for vertical formats — YouTube, Instagram and TikTok — where creative direction and artificial intelligence come together to tell more in less time."
 },
 ];
 ---
@@ -204,9 +209,9 @@ const projects = [
     <div class="relative flex flex-col lg:flex-row min-h-full items-center justify-center p-4 md:p-10 lg:p-20 gap-6 lg:gap-10 overflow-y-auto">
 
       <!-- Video -->
-      <div class="w-full lg:w-2/3 aspect-video bg-black/50 relative border border-white/10">
-        <div id="carouselContainer" class="w-full h-full"></div>
-      </div>
+      <div id="videoWrapper" class="w-full lg:w-2/3 aspect-video bg-black/50 relative border border-white/10">
+  <div id="carouselContainer" class="w-full h-full"></div>
+</div>
 
       <!-- Info -->
       <div class="w-full lg:w-1/3">
@@ -437,16 +442,25 @@ const projects = [
     const carouselContainer = document.getElementById('carouselContainer');
 
     function getYouTubeVideoId(url: string) {
-      const regex = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-      const match = url.match(regex);
-      return (match && match[2].length === 11) ? match[2] : null;
-    }
+  const shortsRegex = /youtube\.com\/shorts\/([^#&?]*)/;
+  const shortsMatch = url.match(shortsRegex);
+  if (shortsMatch && shortsMatch[1].length === 11) return shortsMatch[1];
+
+  const regex = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regex);
+  return (match && match[2].length === 11) ? match[2] : null;
+}
+
 
     function getVimeoVideoId(url: string) {
       const regex = /vimeo\.com\/(?:manage\/videos\/)?(\d+)/;
       const match = url.match(regex);
       return match ? match[1] : null;
     }
+
+    function isYouTubeShort(url: string) {
+  return url.includes('/shorts/');
+}
 
     // Filters
     filterButtons.forEach((button, index) => {
@@ -472,18 +486,34 @@ const projects = [
           const categoryLabel = item.getAttribute('data-category-label') || '';
           const description = item.getAttribute('data-description') || '';
 
-          modal.classList.remove('hidden');
-          document.body.style.overflow = 'hidden';
-          carouselContainer.innerHTML = '';
-
           const youtubeId = getYouTubeVideoId(videoUrl);
-          const vimeoId = getVimeoVideoId(videoUrl);
+const vimeoId = getVimeoVideoId(videoUrl);
+const isShort = isYouTubeShort(videoUrl);
 
-          if (youtubeId) {
-            carouselContainer.innerHTML = `
-              <div class="video-wrapper w-full h-full">
-                <iframe class="w-full h-full"
-                  src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0"
+modal.classList.remove('hidden');
+document.body.style.overflow = 'hidden';
+carouselContainer.innerHTML = '';
+
+const videoWrapper = document.getElementById('videoWrapper');
+if (videoWrapper) {
+  if (isShort) {
+    videoWrapper.className = 'relative bg-black/50 border border-white/10 mx-auto';
+    videoWrapper.style.width = 'auto';
+    videoWrapper.style.height = '70vh';
+    videoWrapper.style.aspectRatio = '9 / 16';
+  } else {
+    videoWrapper.className = 'w-full lg:w-2/3 bg-black/50 relative border border-white/10';
+    videoWrapper.style.width = '';
+    videoWrapper.style.height = '';
+    videoWrapper.style.aspectRatio = '';
+  }
+}
+
+if (youtubeId) {
+  carouselContainer.innerHTML = `
+    <div class="video-wrapper w-full h-full">
+      <iframe class="w-full h-full"
+        src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0"
                   frameborder="0"
                   allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
                   allowfullscreen></iframe>

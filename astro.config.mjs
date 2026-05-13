@@ -6,7 +6,7 @@ import vercel from '@astrojs/vercel';
 import icon from 'astro-icon';
 
 export default defineConfig({
-  site: 'https://tudominio.com',
+  site: 'https://srhide.com',
   integrations: [
     tailwind(),
     mdx(),

@@ -5,16 +5,10 @@ import Navbar from '@components/navbar/navbar.astro';
 // estilos globales
 import '../styles/global.css';
 
-// fuentes
-
-import "@fontsource/noto-serif/300.css";
-import '@fontsource/noto-serif/400.css';
-import '@fontsource/noto-serif/700.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/300.css';
+// fuentes — solo las que realmente se usan
 import "@fontsource/bebas-neue/400.css";
-import "@fontsource/libre-baskerville/400.css";
-import "@fontsource/libre-baskerville/700.css";
+import "@fontsource/dm-mono/400.css";
+import "@fontsource/dm-mono/500.css";
 
 export interface Props {
   title: string;
@@ -54,6 +48,11 @@ const hreflangEs = new URL('/es/', Astro.site || siteFallback).toString();
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+
+    <!-- Preconnect para recursos de terceros -->
+    <link rel="preconnect" href="https://player.vimeo.com" />
+    <link rel="preconnect" href="https://vimeo.com" />
+    <link rel="dns-prefetch" href="https://f.vimeocdn.com" />
 
     <link rel="icon" type="image/svg+xml" href="/logoMrHyde2.svg" />
     <meta name="generator" content={Astro.generator} />

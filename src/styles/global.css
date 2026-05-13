@@ -22,32 +22,11 @@
   --light-gray: #F5F5F5;
 }
 
-/* Tipografía */
+/* Tipografía base — los componentes usan Bebas Neue y DM Mono */
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'DM Mono', monospace;
   color: var(--text-color);
   line-height: 1.6;
-}
-
-/* Títulos */
-h1, h2,   h5, h6 {
-  font-family: 'Noto Serif', serif;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-/* Títulos */
- h3 {
-  font-family: "Permanent Marker", cursive;
-  font-weight: 400;
-  margin-bottom: 1rem;
-}
-
-/* Párrafos - Roboto Regular 400 */
-p, li, span,h4 , a, button, input, textarea, label, blockquote {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  
 }
 
 /* Enlaces */

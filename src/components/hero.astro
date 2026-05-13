@@ -32,12 +32,13 @@ const copy = lang === 'es'
 
 <section id="inicio" class="hero-container relative w-full h-screen overflow-hidden bg-black flex items-end">
 
-  <!-- Video background — estructura original intacta -->
+  <!-- Video background — lazy loaded para no bloquear LCP -->
   <div class="absolute inset-0 w-full h-full z-0" id="videoWrapper">
     <div class="absolute inset-0 w-full h-full video-container overflow-hidden">
       <iframe
         id="backgroundVideo"
-        src="https://player.vimeo.com/video/1163773815?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0"
+        data-src="https://player.vimeo.com/video/1163773815?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0"
+        src=""
         class="absolute top-1/2 left-1/2 w-[200vw] h-[200vh] -translate-x-1/2 -translate-y-1/2"
         frameborder="0"
         allow="autoplay; fullscreen; picture-in-picture"
@@ -107,9 +108,7 @@ const copy = lang === 'es'
 </section>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
-
-  .hero-container { will-change: transform; }
+  .hero-container { }
   .video-container { overflow: hidden; }
 
   /* Grid texture */
@@ -209,7 +208,17 @@ const copy = lang === 'es'
       width: 150vw !important;
       height: 150vh !important;
       transform: translate(-50%, -50%) scale(1.5) !important;
-      will-change: transform;
     }
   }
 </style>
+
+<script>
+  // Cargar el iframe de Vimeo de forma diferida para no bloquear LCP
+  window.addEventListener('load', () => {
+    const iframe = document.getElementById('backgroundVideo') as HTMLIFrameElement | null;
+    if (iframe) {
+      const src = iframe.getAttribute('data-src');
+      if (src) iframe.src = src;
+    }
+  });
+</script>

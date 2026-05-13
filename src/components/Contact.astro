@@ -22,6 +22,7 @@ const copy =
         formTitle: "Paso 1 de 2 — Cuéntanos tu proyecto",
         labelName: "Nombre",
         labelCompany: "Empresa",
+        labelArea: "Área / Industria",
         labelEmail: "Email",
         labelPhone: "WhatsApp",
         labelNeed: "¿Qué necesitas producir?",
@@ -31,6 +32,7 @@ const copy =
           "Contenido mensual recurrente",
           "Post-producción de material existente",
           "Video corporativo / institucional",
+          "Avatars con IA",
           "Otro",
         ],
         labelMessage: "Cuéntanos más (opcional)",
@@ -61,6 +63,7 @@ const copy =
         formTitle: "Step 1 of 2 — Tell us about your project",
         labelName: "Name",
         labelCompany: "Company",
+        labelArea: "Area / Industry",
         labelEmail: "Email",
         labelPhone: "WhatsApp",
         labelNeed: "What do you need to produce?",
@@ -70,6 +73,7 @@ const copy =
           "Monthly recurring content",
           "Post-production of existing material",
           "Corporate / institutional video",
+          "AI Avatars",
           "Other",
         ],
         labelMessage: "Tell us more (optional)",
@@ -121,46 +125,58 @@ const copy =
       <div class="form-wrap" id="leadFormWrap">
 
         <!-- Step 1 -->
-        <div id="step1">
-          <p class="form-step-label">{copy.formTitle}</p>
-          <form id="leadForm" novalidate>
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label">{copy.labelName}</label>
-                <input type="text" class="form-input" placeholder="—" required />
-              </div>
-              <div class="form-group">
-                <label class="form-label">{copy.labelCompany}</label>
-                <input type="text" class="form-input" placeholder="—" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">{copy.labelEmail}</label>
-              <input type="email" class="form-input" placeholder="correo@empresa.com" required />
-            </div>
-            <div class="form-group">
-              <label class="form-label">{copy.labelPhone}</label>
-              <input type="tel" class="form-input" placeholder="+57 300 000 0000" />
-            </div>
-            <div class="form-group">
-              <label class="form-label">{copy.labelNeed}</label>
-              <select class="form-input form-select">
-                <option value="" disabled selected>—</option>
-                {copy.needOptions.map((opt) => (
-                  <option value={opt}>{opt}</option>
-                ))}
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label">{copy.labelMessage}</label>
-              <textarea class="form-input form-textarea" placeholder={copy.messagePlaceholder}></textarea>
-            </div>
-            <button type="submit" class="form-submit">
-              {copy.submitBtn}
-            </button>
-            <p class="form-note">{copy.formNote}</p>
-          </form>
-        </div>
+       <div id="step1">
+  <p class="form-step-label">{copy.formTitle}</p>
+  <form id="leadForm" novalidate>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">{copy.labelName}</label>
+        <input id="fieldName" type="text" class="form-input" placeholder="—" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">{copy.labelCompany}</label>
+        <input id="fieldCompany" type="text" class="form-input" placeholder="—" />
+      </div>
+    </div>
+
+    <div class="form-group">
+  <label class="form-label">{copy.labelArea}</label>
+  <input id="fieldArea" type="text" class="form-input" placeholder="—" />
+</div>
+
+    <div class="form-group">
+      <label class="form-label">{copy.labelEmail}</label>
+      <input id="fieldEmail" type="email" class="form-input" placeholder="correo@empresa.com" required />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">{copy.labelPhone}</label>
+      <input id="fieldPhone" type="tel" class="form-input" placeholder="+57 300 000 0000" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">{copy.labelNeed}</label>
+      <select id="fieldNeed" class="form-input form-select">
+        <option value="" disabled selected>—</option>
+        {copy.needOptions.map((opt) => (
+          <option value={opt}>{opt}</option>
+        ))}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">{copy.labelMessage}</label>
+      <textarea id="fieldMessage" class="form-input form-textarea" placeholder={copy.messagePlaceholder}></textarea>
+    </div>
+
+    <button type="submit" class="form-submit">
+      {copy.submitBtn}
+    </button>
+    <p class="form-note">{copy.formNote}</p>
+
+  </form>
+</div>
 
         <!-- Step 2: Calendar -->
         <div id="step2" style="display:none;">
@@ -168,7 +184,7 @@ const copy =
           <p class="cal-desc">{copy.calDesc}</p>
           <iframe
             id="calFrame"
-            src="https://cal.com/srhide/30min?embed=true&theme=dark"
+            src=""
             frameborder="0"
             allowfullscreen
             class="cal-frame"
@@ -512,8 +528,31 @@ const copy =
     const wrap   = document.getElementById('leadFormWrap');
 
     if (form && step1 && step2) {
-      form.addEventListener('submit', (e: Event) => {
+      form.addEventListener('submit', async (e: Event) => {
         e.preventDefault();
+
+        const name    = (document.getElementById('fieldName')    as HTMLInputElement)?.value.trim() ?? '';
+        const company = (document.getElementById('fieldCompany') as HTMLInputElement)?.value.trim() ?? '';
+        const area    = (document.getElementById('fieldArea')    as HTMLInputElement)?.value.trim() ?? '';
+        const email   = (document.getElementById('fieldEmail')   as HTMLInputElement)?.value.trim() ?? '';
+        const phone   = (document.getElementById('fieldPhone')   as HTMLInputElement)?.value.trim() ?? '';
+        const need    = (document.getElementById('fieldNeed')    as HTMLSelectElement)?.value ?? '';
+        const message = (document.getElementById('fieldMessage') as HTMLTextAreaElement)?.value.trim() ?? '';
+
+       fetch('https://script.google.com/macros/s/AKfycbwuBWKYTJntPnmd21Oc3GWIQqoAMYSUGxqKX8Qv3_7DV4G9gyfL7Tmoq-8OBPEI8xhtPg/exec', {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({ name, company, area, email, phone, need, message }),
+        });
+
+        // 2 — Construir URL de Cal.com
+        const calBase = 'https://cal.com/srhide/30min?embed=true&theme=dark';
+const notes = `Empresa: ${company} | Área: ${area} | Necesita: ${need} | Mensaje: ${message}`;
+const calUrl = `${calBase}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&notes=${encodeURIComponent(notes)}`;
+        const calFrame = document.getElementById('calFrame') as HTMLIFrameElement;
+        if (calFrame) calFrame.src = calUrl;
+
         step1.style.display = 'none';
         step2.style.display = 'block';
         wrap?.scrollIntoView({ behavior: 'smooth', block: 'start' });

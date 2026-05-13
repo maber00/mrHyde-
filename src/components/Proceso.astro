@@ -85,11 +85,21 @@ const copy =
     <div class="approach-layout">
 
       <!-- Sticky statement -->
-      <div class="approach-sticky">
-        <p class="stmt-line1">{copy.stmt1}</p>
-        <p class="stmt-line2">{copy.stmt2}</p>
-        <p class="stmt-body">{copy.stmt3}</p>
-      </div>
+<div class="approach-sticky">
+  <p class="stmt-line1">{copy.stmt1}</p>
+  <p class="stmt-line2">{copy.stmt2}</p>
+  <p class="stmt-body">{copy.stmt3}</p>
+  <div class="video-wrap">
+    <iframe
+      src="https://player.vimeo.com/video/1191699225?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0"
+      class="video-iframe"
+      frameborder="0"
+      allow="autoplay; fullscreen; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none"></div>
+  </div>
+</div>
 
       <!-- Steps -->
       <div class="approach-steps">
@@ -156,6 +166,20 @@ const copy =
       align-items: start;
     }
   }
+  .video-wrap {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  height: 240px;
+  margin-top: 24px;
+}
+.video-iframe {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 160%; height: 160%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
 
   /* ── Sticky statement ── */
   .approach-sticky {

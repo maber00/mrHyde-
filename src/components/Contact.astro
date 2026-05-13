@@ -22,6 +22,7 @@ const copy =
         formTitle: "Paso 1 de 2 — Cuéntanos tu proyecto",
         labelName: "Nombre",
         labelCompany: "Empresa",
+        labelRole: "Cargo",
         labelArea: "Área / Industria",
         labelEmail: "Email",
         labelPhone: "WhatsApp",
@@ -63,6 +64,7 @@ const copy =
         formTitle: "Step 1 of 2 — Tell us about your project",
         labelName: "Name",
         labelCompany: "Company",
+        labelRole: "Role / Position",
         labelArea: "Area / Industry",
         labelEmail: "Email",
         labelPhone: "WhatsApp",
@@ -139,6 +141,11 @@ const copy =
         <input id="fieldCompany" type="text" class="form-input" placeholder="—" />
       </div>
     </div>
+    <div class="form-group">
+  <label class="form-label">{copy.labelRole}</label>
+  <input id="fieldRole" type="text" class="form-input" placeholder="—" />
+</div>
+
 
     <div class="form-group">
   <label class="form-label">{copy.labelArea}</label>
@@ -533,6 +540,7 @@ const copy =
 
         const name    = (document.getElementById('fieldName')    as HTMLInputElement)?.value.trim() ?? '';
         const company = (document.getElementById('fieldCompany') as HTMLInputElement)?.value.trim() ?? '';
+        const role = (document.getElementById('fieldRole') as HTMLInputElement)?.value.trim() ?? '';
         const area    = (document.getElementById('fieldArea')    as HTMLInputElement)?.value.trim() ?? '';
         const email   = (document.getElementById('fieldEmail')   as HTMLInputElement)?.value.trim() ?? '';
         const phone   = (document.getElementById('fieldPhone')   as HTMLInputElement)?.value.trim() ?? '';
@@ -543,12 +551,13 @@ const copy =
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'text/plain' },
-          body: JSON.stringify({ name, company, area, email, phone, need, message }),
+          body: JSON.stringify({ name, company, area, role, email, phone, need, message }),
+
         });
 
         // 2 — Construir URL de Cal.com
         const calBase = 'https://cal.com/srhide/30min?embed=true&theme=dark';
-const notes = `Empresa: ${company} | Área: ${area} | Necesita: ${need} | Mensaje: ${message}`;
+const notes = `Empresa: ${company} | Área: ${area} | Cargo: ${role} | Necesita: ${need} | Mensaje: ${message}`;
 const calUrl = `${calBase}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&notes=${encodeURIComponent(notes)}`;
         const calFrame = document.getElementById('calFrame') as HTMLIFrameElement;
         if (calFrame) calFrame.src = calUrl;

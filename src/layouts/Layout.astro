@@ -90,5 +90,29 @@ const hreflangEs = new URL('/es/', Astro.site || siteFallback).toString();
   <body>
     <Navbar lang={lang} />
     <slot />
+
+    <script>
+      // Lazy-load todos los iframes con data-src usando IntersectionObserver
+      const lazyIframes = document.querySelectorAll('iframe[data-src]');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const iframe = entry.target as HTMLIFrameElement;
+              const src = iframe.getAttribute('data-src');
+              if (src && iframe.src !== src) iframe.src = src;
+              observer.unobserve(iframe);
+            }
+          });
+        }, { rootMargin: '200px' });
+        lazyIframes.forEach(iframe => observer.observe(iframe));
+      } else {
+        // Fallback para browsers sin IntersectionObserver
+        lazyIframes.forEach(iframe => {
+          const src = iframe.getAttribute('data-src');
+          if (src) (iframe as HTMLIFrameElement).src = src;
+        });
+      }
+    </script>
   </body>
 </html>

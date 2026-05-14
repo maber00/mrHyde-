@@ -38,7 +38,7 @@ const copy = lang === 'es'
       <iframe
         id="backgroundVideo"
         data-src="https://player.vimeo.com/video/1163773815?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0"
-        src=""
+        src="about:blank"
         class="absolute top-1/2 left-1/2 w-[200vw] h-[200vh] -translate-x-1/2 -translate-y-1/2"
         frameborder="0"
         allow="autoplay; fullscreen; picture-in-picture"
@@ -212,13 +212,3 @@ const copy = lang === 'es'
   }
 </style>
 
-<script>
-  // Cargar el iframe de Vimeo de forma diferida para no bloquear LCP
-  window.addEventListener('load', () => {
-    const iframe = document.getElementById('backgroundVideo') as HTMLIFrameElement | null;
-    if (iframe) {
-      const src = iframe.getAttribute('data-src');
-      if (src) iframe.src = src;
-    }
-  });
-</script>

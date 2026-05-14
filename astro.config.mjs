@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import vercel from '@astrojs/vercel';
+import vercel from '@astrojs/vercel/static';
 import icon from 'astro-icon';
 
 export default defineConfig({
@@ -14,8 +14,5 @@ export default defineConfig({
     icon()
   ],
   output: 'static',
-  adapter: vercel({
-    analytics: true, 
-    imageService: true, 
-  })
+  adapter: vercel(),
 });

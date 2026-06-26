@@ -302,7 +302,14 @@ const switchFlag  = isSpanish ? "🇬🇧" : "🇪🇸";
       overlay?.classList.add('is-open');
       drawer?.setAttribute('aria-hidden', 'false');
       btn?.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
+      // Bloquea el scroll en <html> (el scroller real) para que el layout
+      // no salte. scrollbar-gutter:stable reserva el carril; el padding
+      // medido es respaldo para navegadores que no lo soportan.
+      const el = document.documentElement;
+      const before = el.clientWidth;
+      el.style.overflow = 'hidden';
+      const diff = el.clientWidth - before;
+      if (diff > 0) el.style.paddingRight = `${diff}px`;
     }
 
     function closeMenu() {
@@ -312,7 +319,8 @@ const switchFlag  = isSpanish ? "🇬🇧" : "🇪🇸";
       overlay?.classList.remove('is-open');
       drawer?.setAttribute('aria-hidden', 'true');
       btn?.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.documentElement.style.paddingRight = '';
     }
 
     btn?.addEventListener('click', () => isOpen ? closeMenu() : openMenu());

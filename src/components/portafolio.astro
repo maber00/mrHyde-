@@ -480,6 +480,22 @@ categoryLabel: lang === 'es' ? "Comercial IA · Instagram / TikTok" : "AI Commer
   return url.includes('/shorts/');
 }
 
+    // Bloquea el scroll sin que el layout (hero) salte al desaparecer
+    // la barra. Mide el ensanchamiento real y lo compensa con padding.
+    // Si scrollbar-gutter ya reserva el carril, la diferencia es 0.
+    function lockScroll() {
+      const el = document.documentElement; // el scroller real es <html>
+      const before = el.clientWidth;
+      el.style.overflow = 'hidden';
+      const diff = el.clientWidth - before; // 0 si scrollbar-gutter ya reserva el carril
+      if (diff > 0) el.style.paddingRight = `${diff}px`;
+    }
+    function unlockScroll() {
+      const el = document.documentElement;
+      el.style.overflow = '';
+      el.style.paddingRight = '';
+    }
+
     // Filters
     filterButtons.forEach((button, index) => {
       button.addEventListener('click', () => {
@@ -509,7 +525,7 @@ const vimeoId = getVimeoVideoId(videoUrl);
 const isShort = isYouTubeShort(videoUrl);
 
 modal.classList.remove('hidden');
-document.body.style.overflow = 'hidden';
+lockScroll();
 carouselContainer.innerHTML = '';
 
 const videoWrapper = document.getElementById('videoWrapper');
@@ -560,7 +576,7 @@ if (youtubeId) {
 
       const closeModal = () => {
         modal.classList.add('hidden');
-        document.body.style.overflow = '';
+        unlockScroll();
         carouselContainer.innerHTML = '';
         if (modalDescription) modalDescription.textContent = '';
       };

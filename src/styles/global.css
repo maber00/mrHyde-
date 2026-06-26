@@ -12,6 +12,13 @@
   box-sizing: border-box;
 }
 
+/* Reserva el espacio de la barra de scroll para que al bloquear el
+   scroll (modal del portafolio, menú) el layout no se ensanche y el
+   hero no "salte". Inocuo en barras overlay de macOS/iOS. */
+html {
+  scrollbar-gutter: stable;
+}
+
 /* Configuración base */
 :root {
   --primary-color: #ffffff;

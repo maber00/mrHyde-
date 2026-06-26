@@ -7,25 +7,28 @@ const { lang = 'en' } = Astro.props;
 
 const isSpanish = lang === 'es';
 
+// La página en español se sirve en la raíz "/"; la inglesa en "/en/".
+const base = isSpanish ? "/" : "/en/";
+
 const menuitems = isSpanish
   ? [
-      { title: "INICIO",     path: "/es/#inicio" },
-      { title: "EQUIPO",     path: "/es/#perfiles" },
-      { title: "ENFOQUE",    path: "/es/#por-que" },
-      { title: "SERVICIOS",  path: "/es/#servicios" },
-      { title: "PORTAFOLIO", path: "/es/#portafolio" },
-      { title: "CONTACTO",   path: "/es/#contacto" },
+      { title: "INICIO",     path: `${base}#inicio` },
+      { title: "EQUIPO",     path: `${base}#perfiles` },
+      { title: "ENFOQUE",    path: `${base}#por-que` },
+      { title: "SERVICIOS",  path: `${base}#servicios` },
+      { title: "PORTAFOLIO", path: `${base}#portafolio` },
+      { title: "CONTACTO",   path: `${base}#contacto` },
     ]
   : [
-      { title: "HOME",      path: "/#inicio" },
-      { title: "TEAM",      path: "/#perfiles" },
-      { title: "APPROACH",  path: "/#por-que" },
-      { title: "SERVICES",  path: "/#servicios" },
-      { title: "PORTFOLIO", path: "/#portafolio" },
-      { title: "CONTACT",   path: "/#contacto" },
+      { title: "HOME",      path: `${base}#inicio` },
+      { title: "TEAM",      path: `${base}#perfiles` },
+      { title: "APPROACH",  path: `${base}#por-que` },
+      { title: "SERVICES",  path: `${base}#servicios` },
+      { title: "PORTFOLIO", path: `${base}#portafolio` },
+      { title: "CONTACT",   path: `${base}#contacto` },
     ];
 
-const switchHref = isSpanish ? "/en/" : "/es/";
+const switchHref = isSpanish ? "/en/" : "/";
 const switchLabel = isSpanish ? "Switch to English" : "Cambiar a español";
 const switchText  = isSpanish ? "EN" : "ES";
 const switchFlag  = isSpanish ? "🇬🇧" : "🇪🇸";
@@ -35,7 +38,7 @@ const switchFlag  = isSpanish ? "🇬🇧" : "🇪🇸";
   <div class="flex items-center justify-between py-4 px-6 md:px-10 max-w-7xl mx-auto">
 
     <!-- Logo -->
-    <a href={isSpanish ? "/es/" : "/"} class="nav-logo" aria-label="Sr. Hide">
+    <a href={base} class="nav-logo" aria-label="Sr. Hide">
       <img src="/mrHyde.svg" alt="Sr. Hyde" class="h-6 sm:h-9 w-auto" />
     </a>
 
@@ -62,7 +65,7 @@ const switchFlag  = isSpanish ? "🇬🇧" : "🇪🇸";
 
   <!-- Drawer header -->
   <div class="drawer-header">
-    <a href={isSpanish ? "/es/" : "/"} class="drawer-logo">
+    <a href={base} class="drawer-logo">
       <img src="/mrHyde.svg" alt="Sr. Hyde" class="h-6 w-auto" />
     </a>
     <button id="menuClose" class="drawer-close" aria-label="Close menu">✕</button>

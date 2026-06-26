@@ -40,7 +40,8 @@ const description =
     : 'AI-powered audiovisual production studio based in Bogotá. Same creative standard, less time, lower costs. The only studio in LATAM with Zero Data Retention — your content never feeds any external model.');
 
 const hreflangEn = new URL('/en/', Astro.site || siteFallback).toString();
-const hreflangEs = new URL('/es/', Astro.site || siteFallback).toString();
+// La página en español se sirve en la raíz "/", no en "/es/".
+const hreflangEs = new URL('/', Astro.site || siteFallback).toString();
 ---
 
 <!DOCTYPE html>

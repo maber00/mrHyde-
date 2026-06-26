@@ -4,22 +4,20 @@ const { id, lang = 'en' } = Astro.props;
 import { Image } from 'astro:assets';
 
 // Video Thumbnails
-import aceiteGourmet from '../assets/portafolio/1-Aceite-Gourmet-500x500.webp';
 import boniceRotoscopia from '../assets/portafolio/Bonice-Rotoscopia-500x50.webp';
-import fondoLukafe from '../assets/portafolio/Fondo-Lukafe-500x500.webp';
 import fondoBioexpert from '../assets/portafolio/Fondo-Bioexpert-500x500.webp';
-import reelVideo from '../assets/portafolio/4-Reel-Video-Corporativo-500x500.webp';
 import fondoReelMotion from '../assets/portafolio/Fondo-Reel-Motion-Graphicsok-500x500.jpg';
-import tomasAereas from '../assets/portafolio/tomas-aereas-cartagena-500x500.webp';
-import fondoDetrasCamaras from '../assets/portafolio/Fondo-detras-de-camaras-500x500.webp';
 import tomas from '../assets/portafolio/Fondo-reel-tomas-500x500.jpg';
 
 // IA thumbnails
 import habi from '../assets/portafolio/Fondo-reel-habi-500x500.webp';
 import habishort from '../assets/portafolio/Fondo-reel-habishort-500x500.webp';
 
+// Series — microdrama animado
+import reinaDelNorte from '../assets/portafolio/reina-del-norte-500x500.jpg';
+import justiciaEnElReino from '../assets/portafolio/justicia-en-el-reino-500x500.jpg';
+
 import modiThumb from '../assets/ninos.jpg';
-import iaThumb2 from '../assets/vive.jpg';
 import iaThumb3 from '../assets/moneda.jpg';
 
 const copy =
@@ -34,6 +32,7 @@ const copy =
           { id: 'commercials', label: 'Comerciales' },
           { id: 'video', label: 'Video' },
           { id: 'ai-explorations', label: 'Dirección IA' },
+          { id: 'series', label: 'Series' },
         ],
         viewProject: 'Ver proyecto →',
         closeModal: 'Cerrar',
@@ -49,6 +48,7 @@ const copy =
           { id: 'commercials', label: 'Commercials' },
           { id: 'video', label: 'Video' },
           { id: 'ai-explorations', label: 'AI Direction' },
+          { id: 'series', label: 'Series' },
         ],
         viewProject: 'View project →',
         closeModal: 'Close',
@@ -142,6 +142,28 @@ categoryLabel: lang === 'es' ? "Comercial IA · Instagram / TikTok" : "AI Commer
   description: lang === 'es'
     ? "Cada segundo tiene intención. Reel de piezas realizadas para formatos verticales — YouTube, Instagram y TikTok — donde la dirección creativa y la inteligencia artificial se unen para contar más en menos tiempo."
     : "Every second is intentional. A reel of pieces made for vertical formats — YouTube, Instagram and TikTok — where creative direction and artificial intelligence come together to tell more in less time."
+},
+  {
+  id: 10,
+  thumbnail: reinaDelNorte,
+  title: "La Reina del Norte",
+  category: "series",
+  categoryLabel: lang === 'es' ? "Serie de microdrama animado · Mecato" : "Animated microdrama series · Mecato",
+  videoUrl: "https://www.youtube.com/shorts/lbtGsMPYxzk",
+  description: lang === 'es'
+    ? "Desarrollo de personajes, historia y producción: Manuel Bedoya Rudas. La Reina del Norte es una serie de microdrama animado concebida para el formato vertical de consumo rápido. La historia sigue a una protagonista que controla un imperio desde las sombras —poderosa, temida y rodeada de secretos— en un mundo donde la lealtad y la traición definen quién sobrevive. Cada episodio condensa la intensidad emocional de la telenovela clásica —romance, conflicto, giros inesperados— en piezas de menos de un minuto, cerradas con un gancho que empuja al siguiente capítulo."
+    : "Character development, story and production: Manuel Bedoya Rudas. La Reina del Norte is an animated microdrama series conceived for the fast-consumption vertical format. The story follows a protagonist who rules an empire from the shadows —powerful, feared and surrounded by secrets— in a world where loyalty and betrayal decide who survives. Each episode condenses the emotional intensity of the classic telenovela —romance, conflict, unexpected twists— into pieces under a minute, each closing on a hook that pulls you into the next chapter."
+},
+  {
+  id: 11,
+  thumbnail: justiciaEnElReino,
+  title: "Justicia en el Reino",
+  category: "series",
+  categoryLabel: lang === 'es' ? "Serie de microdrama animado · Mecato" : "Animated microdrama series · Mecato",
+  videoUrl: "https://www.youtube.com/shorts/tzYv18wQVO0",
+  description: lang === 'es'
+    ? "Guión: Idilio · Desarrollo y producción: Manuel Bedoya Rudas. Justicia en el Reino lleva el lenguaje del microdrama a un universo de drama medieval. Centrada en León, la serie despliega intriga, poder y honor en un mundo de reinos en disputa, trasladando la épica clásica al formato vertical y al ritmo del consumo móvil. El proyecto combina el guión desarrollado con Idilio con el desarrollo de personajes y la dirección de producción audiovisual integral."
+    : "Script: Idilio · Development and production: Manuel Bedoya Rudas. Justicia en el Reino brings the language of microdrama into a medieval drama universe. Centered on León, the series unfolds intrigue, power and honor in a world of warring kingdoms, carrying the classic epic into the vertical format and the rhythm of mobile consumption. The project combines the script developed with Idilio with character development and full audiovisual production direction."
 },
 ];
 ---

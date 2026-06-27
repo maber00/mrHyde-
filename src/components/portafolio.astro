@@ -562,7 +562,7 @@ if (youtubeId) {
   carouselContainer.innerHTML = `
     <div class="video-wrapper w-full h-full">
       <iframe class="w-full h-full"
-        src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0"
+        src="https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0"
                   title="${title}"
                   frameborder="0"
                   allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
@@ -572,7 +572,7 @@ if (youtubeId) {
             carouselContainer.innerHTML = `
               <div class="video-wrapper w-full h-full">
                 <iframe class="w-full h-full"
-                  src="https://player.vimeo.com/video/${vimeoId}?autoplay=1"
+                  src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&dnt=1"
                   title="${title}"
                   frameborder="0"
                   allow="autoplay; fullscreen; picture-in-picture"

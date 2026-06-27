@@ -10,6 +10,10 @@ import "@fontsource/bebas-neue/400.css";
 import "@fontsource/dm-mono/400.css";
 import "@fontsource/dm-mono/500.css";
 
+// archivos woff2 para precargar las fuentes del LCP (título hero + texto)
+import bebasNeueFont from "@fontsource/bebas-neue/files/bebas-neue-latin-400-normal.woff2";
+import dmMonoFont from "@fontsource/dm-mono/files/dm-mono-latin-400-normal.woff2";
+
 export interface Props {
   title: string;
   lang?: 'en' | 'es';
@@ -22,7 +26,6 @@ const {
   pageDescription,
 } = Astro.props;
 
-const brandName = 'Sr. Hide';
 const siteFallback = 'https://mrHide.vercel.app';
 
 
@@ -48,7 +51,11 @@ const hreflangEs = new URL('/', Astro.site || siteFallback).toString();
 <html lang={lang}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Precarga de las fuentes del LCP (título hero + texto) -->
+    <link rel="preload" href={bebasNeueFont} as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href={dmMonoFont} as="font" type="font/woff2" crossorigin="anonymous" />
 
     <!-- Preconnect para recursos de terceros -->
     <link rel="preconnect" href="https://player.vimeo.com" />
@@ -93,26 +100,34 @@ const hreflangEs = new URL('/', Astro.site || siteFallback).toString();
     <slot />
 
     <script>
-      // Lazy-load todos los iframes con data-src usando IntersectionObserver
-      const lazyIframes = document.querySelectorAll('iframe[data-src]');
-      if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const iframe = entry.target as HTMLIFrameElement;
-              const src = iframe.getAttribute('data-src');
-              if (src && iframe.src !== src) iframe.src = src;
-              observer.unobserve(iframe);
-            }
-          });
-        }, { rootMargin: '200px' });
-        lazyIframes.forEach(iframe => observer.observe(iframe));
-      } else {
-        // Fallback para browsers sin IntersectionObserver
-        lazyIframes.forEach(iframe => {
+      // Lazy-load de iframes con data-src (p. ej. el video de fondo decorativo).
+      // Se arranca tras el evento `load` para que el iframe de terceros no
+      // compita por ancho de banda con los recursos del LCP.
+      const initLazyIframes = () => {
+        const lazyIframes = document.querySelectorAll('iframe[data-src]');
+        const load = (iframe: HTMLIFrameElement) => {
           const src = iframe.getAttribute('data-src');
-          if (src) (iframe as HTMLIFrameElement).src = src;
-        });
+          if (src && iframe.src !== src) iframe.src = src;
+        };
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                load(entry.target as HTMLIFrameElement);
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { rootMargin: '200px' });
+          lazyIframes.forEach(iframe => observer.observe(iframe));
+        } else {
+          lazyIframes.forEach(iframe => load(iframe as HTMLIFrameElement));
+        }
+      };
+
+      if (document.readyState === 'complete') {
+        initLazyIframes();
+      } else {
+        window.addEventListener('load', initLazyIframes, { once: true });
       }
     </script>
   </body>

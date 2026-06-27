@@ -186,7 +186,7 @@ const copy =
 </div>
 
         <!-- Step 2: Calendar -->
-        <div id="step2" style="display:none;">
+        <div id="step2" class="is-hidden">
           <p class="form-step-label">{copy.calTitle}</p>
           <p class="cal-desc">{copy.calDesc}</p>
           <iframe
@@ -197,7 +197,7 @@ const copy =
             allowfullscreen
             class="cal-frame"
           ></iframe>
-          <p class="form-note" style="margin-top:12px;">
+          <p class="form-note form-note-cal">
             {lang === 'es' ? '¿Prefieres escribirnos?' : 'Prefer to write?'}
             <a href="mailto:manuel@srhide.com" class="form-note-link">manuel@srhide.com</a>
           </p>
@@ -212,7 +212,7 @@ const copy =
 <div class="cta-final" id="contacto">
   <img src="/mrHyde.svg" alt="" aria-hidden="true" class="cta-bg-logo" />
   <div class="cta-inner">
-    <p class="sec-label" style="justify-content:flex-start;">{copy.ctaLabel}</p>
+    <p class="sec-label sec-label-start">{copy.ctaLabel}</p>
     <h2 class="cta-title">
       {copy.ctaTitle}<br/>
       <span class="cta-title-outline">{copy.ctaTitleOutline}</span>
@@ -243,6 +243,10 @@ const copy =
     background: #f6ad1e;
     display: block;
   }
+  /* Helpers sin estilos inline (compatibles con CSP estricta) */
+  .sec-label-start { justify-content: flex-start; }
+  .form-note-cal { margin-top: 12px; }
+  .is-hidden { display: none; }
 
   /* ── Section title ── */
   .sec-title {

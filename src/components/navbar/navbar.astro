@@ -74,7 +74,7 @@ const switchFlag  = isSpanish ? "🇬🇧" : "🇪🇸";
   <!-- Nav links -->
   <ul class="drawer-links">
     {menuitems.map((item, i) => (
-      <li class="drawer-item" style={`--i: ${i}`}>
+      <li class="drawer-item">
         <a href={item.path} class="drawer-link">
           <span class="drawer-num">0{i + 1}</span>
           {item.title}
@@ -212,9 +212,15 @@ const switchFlag  = isSpanish ? "🇬🇧" : "🇪🇸";
   .drawer-item {
     opacity: 0;
     transform: translateX(16px);
-    transition: opacity 0.35s ease calc(var(--i) * 0.06s),
-                transform 0.35s ease calc(var(--i) * 0.06s);
+    transition: opacity 0.35s ease, transform 0.35s ease;
   }
+  /* Retraso escalonado sin estilos inline (compatible con CSP estricta) */
+  .drawer-item:nth-child(1) { transition-delay: 0s; }
+  .drawer-item:nth-child(2) { transition-delay: 0.06s; }
+  .drawer-item:nth-child(3) { transition-delay: 0.12s; }
+  .drawer-item:nth-child(4) { transition-delay: 0.18s; }
+  .drawer-item:nth-child(5) { transition-delay: 0.24s; }
+  .drawer-item:nth-child(6) { transition-delay: 0.30s; }
   .menu-drawer.is-open .drawer-item {
     opacity: 1;
     transform: translateX(0);

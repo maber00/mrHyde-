@@ -120,10 +120,13 @@ const copy =
               <iframe
                 data-src={`https://player.vimeo.com/video/${videoId}?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0`}
                 src="about:blank"
+                title={lang === 'es' ? 'Video de fondo' : 'Background video'}
                 class="video-iframe"
                 frameborder="0"
                 allow="autoplay; fullscreen; picture-in-picture"
                 allowfullscreen
+                aria-hidden="true"
+                tabindex="-1"
               ></iframe>
               <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none"></div>
             </div>

@@ -133,37 +133,37 @@ const copy =
 
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">{copy.labelName}</label>
+        <label class="form-label" for="fieldName">{copy.labelName}</label>
         <input id="fieldName" type="text" class="form-input" placeholder="—" required />
       </div>
       <div class="form-group">
-        <label class="form-label">{copy.labelCompany}</label>
+        <label class="form-label" for="fieldCompany">{copy.labelCompany}</label>
         <input id="fieldCompany" type="text" class="form-input" placeholder="—" />
       </div>
     </div>
     <div class="form-group">
-  <label class="form-label">{copy.labelRole}</label>
+  <label class="form-label" for="fieldRole">{copy.labelRole}</label>
   <input id="fieldRole" type="text" class="form-input" placeholder="—" />
 </div>
 
 
     <div class="form-group">
-  <label class="form-label">{copy.labelArea}</label>
+  <label class="form-label" for="fieldArea">{copy.labelArea}</label>
   <input id="fieldArea" type="text" class="form-input" placeholder="—" />
 </div>
 
     <div class="form-group">
-      <label class="form-label">{copy.labelEmail}</label>
+      <label class="form-label" for="fieldEmail">{copy.labelEmail}</label>
       <input id="fieldEmail" type="email" class="form-input" placeholder="correo@empresa.com" required />
     </div>
 
     <div class="form-group">
-      <label class="form-label">{copy.labelPhone}</label>
+      <label class="form-label" for="fieldPhone">{copy.labelPhone}</label>
       <input id="fieldPhone" type="tel" class="form-input" placeholder="+57 300 000 0000" />
     </div>
 
     <div class="form-group">
-      <label class="form-label">{copy.labelNeed}</label>
+      <label class="form-label" for="fieldNeed">{copy.labelNeed}</label>
       <select id="fieldNeed" class="form-input form-select">
         <option value="" disabled selected>—</option>
         {copy.needOptions.map((opt) => (
@@ -173,7 +173,7 @@ const copy =
     </div>
 
     <div class="form-group">
-      <label class="form-label">{copy.labelMessage}</label>
+      <label class="form-label" for="fieldMessage">{copy.labelMessage}</label>
       <textarea id="fieldMessage" class="form-input form-textarea" placeholder={copy.messagePlaceholder}></textarea>
     </div>
 
@@ -192,6 +192,7 @@ const copy =
           <iframe
             id="calFrame"
             src=""
+            title={copy.calTitle}
             frameborder="0"
             allowfullscreen
             class="cal-frame"

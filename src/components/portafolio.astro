@@ -187,6 +187,7 @@ categoryLabel: lang === 'es' ? "Comercial IA · Instagram / TikTok" : "AI Commer
           type="button"
           class:list={["tag-filter", index === 0 ? "active" : ""]}
           data-filter={filter.id}
+          aria-pressed={index === 0 ? "true" : "false"}
         >
           {filter.label}
         </button>
@@ -198,6 +199,9 @@ categoryLabel: lang === 'es' ? "Comercial IA · Instagram / TikTok" : "AI Commer
       {projects.map(project => (
         <div
           class="project-item group"
+          role="button"
+          tabindex="0"
+          aria-label={project.title}
           data-category={project.category}
           data-title={project.title}
           data-video-url={project.videoUrl}
@@ -225,7 +229,14 @@ categoryLabel: lang === 'es' ? "Comercial IA · Instagram / TikTok" : "AI Commer
   </div>
 
   <!-- Modal -->
-  <div id="portfolioModal" class="modal fixed inset-0 z-50 hidden">
+  <div
+    id="portfolioModal"
+    class="modal fixed inset-0 z-50 hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+    data-invalid-video={copy.invalidVideo}
+  >
     <div id="modalOverlay" class="absolute inset-0 bg-black/92"></div>
 
     <div class="relative flex flex-col lg:flex-row min-h-full items-center justify-center p-4 md:p-10 lg:p-20 gap-6 lg:gap-10 overflow-y-auto">
@@ -500,8 +511,12 @@ categoryLabel: lang === 'es' ? "Comercial IA · Instagram / TikTok" : "AI Commer
     filterButtons.forEach((button, index) => {
       button.addEventListener('click', () => {
         const filterValue = button.getAttribute('data-filter') || 'all';
-        filterButtons.forEach(btn => btn.classList.remove('active'));
+        filterButtons.forEach(btn => {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-pressed', 'false');
+        });
         button.classList.add('active');
+        button.setAttribute('aria-pressed', 'true');
         projectItems.forEach(item => {
           const category = item.getAttribute('data-category') || '';
           const shouldShow = filterValue === 'all' || category === filterValue;
@@ -536,7 +551,7 @@ if (videoWrapper) {
     videoWrapper.style.height = '70vh';
     videoWrapper.style.aspectRatio = '9 / 16';
   } else {
-    videoWrapper.className = 'w-full lg:w-2/3 bg-black/50 relative border border-white/10';
+    videoWrapper.className = 'w-full lg:w-2/3 aspect-video bg-black/50 relative border border-white/10';
     videoWrapper.style.width = '';
     videoWrapper.style.height = '';
     videoWrapper.style.aspectRatio = '';
@@ -564,29 +579,77 @@ if (youtubeId) {
                   allowfullscreen></iframe>
               </div>`;
           } else {
+            const invalidText = modal.dataset.invalidVideo || 'Invalid link.';
             carouselContainer.innerHTML = `
               <div class="w-full h-full flex items-center justify-center text-white/40 text-sm font-mono">
-                Link no válido
+                ${invalidText}
               </div>`;
           }
 
           modalTitle.textContent = title;
           modalTags.textContent = categoryLabel;
           if (modalDescription) modalDescription.textContent = description;
+
+          // Mueve el foco al diálogo y recuerda quién lo abrió.
+          lastFocused = item as HTMLElement;
+          (closeBtn as HTMLElement).focus();
+        });
+
+        // Activación por teclado (las tarjetas son role="button")
+        item.addEventListener('keydown', (e) => {
+          const ev = e as KeyboardEvent;
+          if (ev.key === 'Enter' || ev.key === ' ') {
+            ev.preventDefault();
+            (item as HTMLElement).click();
+          }
         });
       });
+
+      // Elemento que tenía el foco antes de abrir el modal (para restaurarlo).
+      let lastFocused: HTMLElement | null = null;
+
+      // Elementos enfocables dentro del modal (excluye los ocultos).
+      const getFocusable = () =>
+        Array.from(
+          modal.querySelectorAll<HTMLElement>(
+            'button, [href], iframe, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          )
+        ).filter(el => el.tagName === 'IFRAME' || el.offsetParent !== null);
 
       const closeModal = () => {
         modal.classList.add('hidden');
         unlockScroll();
         carouselContainer.innerHTML = '';
         if (modalDescription) modalDescription.textContent = '';
+        lastFocused?.focus();
+        lastFocused = null;
       };
 
       closeBtn.addEventListener('click', closeModal);
       modalOverlay?.addEventListener('click', closeModal);
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeModal();
+        if (modal.classList.contains('hidden')) return;
+
+        if (e.key === 'Escape') {
+          closeModal();
+          return;
+        }
+
+        // Focus trap: mantiene el tabulador dentro del diálogo.
+        if (e.key === 'Tab') {
+          const focusable = getFocusable();
+          if (focusable.length === 0) return;
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          const active = document.activeElement as HTMLElement | null;
+          if (e.shiftKey && active === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && active === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       });
     }
   });

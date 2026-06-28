@@ -6,6 +6,10 @@ Disallow: /api/
 # Sitemap
 Sitemap: https://srhide.com/sitemap-index.xml
 
+# Google (búsqueda principal)
+User-agent: Googlebot
+Allow: /
+
 # --- IA / LLM Crawlers ---
 
 # OpenAI (ChatGPT)
@@ -16,8 +20,15 @@ Allow: /
 User-agent: ChatGPT-User
 Allow: /
 
+# OpenAI (ChatGPT Search)
+User-agent: OAI-SearchBot
+Allow: /
+
 # Anthropic (Claude)
 User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
 Allow: /
 
 User-agent: Claude-Web

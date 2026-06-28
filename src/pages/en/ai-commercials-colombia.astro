@@ -1,0 +1,60 @@
+---
+import ServicePage from "../../layouts/ServicePage.astro";
+
+const features = [
+  {
+    num: "01",
+    title: "HUMAN CREATIVE DIRECTION",
+    body: "Every piece starts with a strategic brief, a visual concept and a script. Humans direct. AI executes. The result has soul because there is judgment behind it, not just a prompt.",
+  },
+  {
+    num: "02",
+    title: "ZERO DATA RETENTION",
+    body: "We are the only studio in LATAM operating with Zero Data Retention on Google Vertex AI. Your unannounced campaign, your confidential brief, your brand content — never stored, never used to train any external model. Contractual guarantee from Google.",
+  },
+  {
+    num: "03",
+    title: "DELIVERY IN DAYS",
+    body: "A 30-second commercial that used to take 4 weeks now takes 5 days. That changes how brands react to market opportunities, seasons and urgent campaigns.",
+  },
+  {
+    num: "04",
+    title: "COVERAGE ACROSS LATAM",
+    body: "Based in Bogotá, we operate remotely in Colombia, Mexico, Argentina, Chile, Peru, Ecuador and Uruguay. Borderless production, with the same creative standard.",
+  },
+];
+
+const faqs = [
+  {
+    q: "How much does an AI commercial cost in Colombia?",
+    a: "Commercials produced with AI at Sr. Hide cost 60-70% less than an equivalent traditional production. The exact cost depends on duration (15, 30 or 60 seconds), number of versions and visual complexity. Contact us for a proposal within 48 hours at no cost.",
+  },
+  {
+    q: "What does an AI commercial production include?",
+    a: "The process includes: strategic brief, creative concept, script, visual direction, AI video generation under ZDR, editing, color grading, sound design and delivery in the formats you need (horizontal, vertical 9:16, square 1:1).",
+  },
+  {
+    q: "Is the quality of an AI commercial comparable to traditional video?",
+    a: "Yes. The difference is not in quality but in process efficiency. We keep the same standard of creative direction, visual judgment and finishing as a traditional production. What changes is that AI executes parts of the technical process, not the vision behind the piece.",
+  },
+  {
+    q: "What kind of brands do you work with?",
+    a: "We work with consumer brands, startups, tech companies, retail, financial services and advertising agencies across Colombia and LATAM. We are especially relevant for brands that need a lot of content fast or that have confidentiality requirements over their creative material.",
+  },
+];
+---
+
+<ServicePage
+  lang="en"
+  title="AI Commercials in Colombia | Sr. Hide — Audiovisual Production"
+  description="We produce 15 to 60-second commercials with AI in Colombia. Delivery in 5-7 days. 60-70% lower cost vs traditional production. Zero Data Retention on Google Vertex AI."
+  label="Services"
+  h1="AI COMMERCIALS IN COLOMBIA"
+  h1Outline="BOGOTÁ & LATAM"
+  breadcrumbName="AI Commercials"
+  lead="Sr. Hide produces commercials with artificial intelligence in Colombia with delivery times of 5 to 7 business days, versus the 3 to 6 weeks of a traditional production. The cost is 60-70% lower. This is possible because the process combines human creative direction with execution on generative video models in Google Vertex AI with Zero Data Retention enabled."
+  features={features}
+  faqs={faqs}
+  ctaText="Got a brief ready? Tell us about your project and we'll reply within 24 hours with a direct proposal."
+  ctaLabel="Talk to the team →"
+/>

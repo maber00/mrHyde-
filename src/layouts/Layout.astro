@@ -45,6 +45,103 @@ const description =
 const hreflangEn = new URL('/en/', Astro.site || siteFallback).toString();
 // La página en español se sirve en la raíz "/", no en "/es/".
 const hreflangEs = new URL('/', Astro.site || siteFallback).toString();
+
+// ── Datos estructurados: VideoProductionCompany (se inyecta en todas las páginas) ──
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "VideoProductionCompany",
+  "name": "Sr. Hide",
+  "alternateName": "Sr Hide Studio",
+  "url": "https://srhide.com",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://srhide.com/mrHyde.svg",
+    "width": 200,
+    "height": 50
+  },
+  "image": "https://srhide.com/og-mrHide.jpg",
+  "description": lang === 'es'
+    ? "Estudio de producción audiovisual con IA en Bogotá. Comerciales, contenido para redes sociales y postproducción con Zero Data Retention en Google Vertex AI. El único estudio en LATAM que garantiza que tu contenido no alimenta ningún modelo externo."
+    : "AI-powered audiovisual production studio in Bogotá. Commercials, social media content and post-production with Zero Data Retention on Google Vertex AI. The only studio in LATAM guaranteeing your content never trains any external model.",
+  "foundingDate": "2023",
+  "numberOfEmployees": { "@type": "QuantitativeValue", "value": 2 },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Bogotá",
+    "addressLocality": "Bogotá",
+    "addressRegion": "Cundinamarca",
+    "postalCode": "110111",
+    "addressCountry": "CO"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": "4.7110", "longitude": "-74.0721" },
+  "telephone": "+573017872595",
+  "email": "hola@srhide.com",
+  "areaServed": [
+    { "@type": "Country", "name": "Colombia" },
+    { "@type": "Country", "name": "México" },
+    { "@type": "Country", "name": "Argentina" },
+    { "@type": "Country", "name": "Chile" },
+    { "@type": "Country", "name": "Perú" },
+    { "@type": "Country", "name": "Ecuador" },
+    { "@type": "Country", "name": "Venezuela" },
+    { "@type": "Country", "name": "Uruguay" }
+  ],
+  "priceRange": "$$",
+  "currenciesAccepted": "COP, USD",
+  "paymentAccepted": "Transferencia bancaria, PayPal, Tarjeta de crédito",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": lang === 'es' ? "Servicios de Producción Audiovisual con IA" : "AI Audiovisual Production Services",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service",
+        "name": lang === 'es' ? "Comerciales con IA" : "AI Commercials",
+        "description": lang === 'es'
+          ? "Comerciales de 15 a 60 segundos producidos con inteligencia artificial bajo dirección creativa humana. Entrega en 5-7 días hábiles."
+          : "15 to 60-second commercials produced with artificial intelligence under human creative direction. Delivery in 5-7 business days." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service",
+        "name": lang === 'es' ? "Contenido mensual para redes sociales" : "Monthly social media content",
+        "description": lang === 'es'
+          ? "Paquete mensual de piezas para redes sociales con identidad visual consistente generada con IA."
+          : "Monthly package of social media pieces with consistent AI-generated visual identity." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service",
+        "name": lang === 'es' ? "Post-producción con IA" : "AI Post-production",
+        "description": lang === 'es'
+          ? "Elevamos material existente: colorización, relighting, efectos y continuidad con IA."
+          : "We elevate existing material: colorization, relighting, effects and continuity with AI." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service",
+        "name": lang === 'es' ? "Video corporativo e institucional" : "Corporate & institutional video",
+        "description": lang === 'es'
+          ? "Videos corporativos con dirección creativa humana y producción con IA."
+          : "Corporate videos with human creative direction and AI production." } }
+    ]
+  },
+  "founder": [
+    { "@type": "Person", "name": "Manuel Bedoya",
+      "jobTitle": lang === 'es' ? "Co-fundador · Dirección Creativa · CTO" : "Co-founder · Creative Direction · CTO",
+      "url": "https://srhide.com/#perfiles",
+      "knowsAbout": ["Producción audiovisual", "Inteligencia Artificial", "Filmmaking", "Post-producción", "Google Vertex AI"] },
+    { "@type": "Person", "name": "Ana Prieto",
+      "jobTitle": lang === 'es' ? "Co-fundadora · Estrategia · Negocio" : "Co-founder · Strategy · Business",
+      "url": "https://srhide.com/#perfiles",
+      "knowsAbout": ["Venture Capital", "Estrategia de negocio", "LATAM", "Startups", "Growth"] }
+  ],
+  "sameAs": [
+    "https://www.instagram.com/srhide.co",
+    "https://www.linkedin.com/company/srhide",
+    "https://www.youtube.com/@srhide"
+  ],
+  "knowsAbout": [
+    "Producción audiovisual con inteligencia artificial",
+    "Zero Data Retention",
+    "Google Vertex AI",
+    "Comerciales con IA",
+    "Filmmaking con IA",
+    "Post-producción con inteligencia artificial",
+    "Contenido para redes sociales con IA",
+    "Avatars con IA"
+  ],
+  "slogan": lang === 'es' ? "Menos fricción. Más obra terminada." : "Less friction. More finished work."
+};
 ---
 
 <!DOCTYPE html>
@@ -64,6 +161,25 @@ const hreflangEs = new URL('/', Astro.site || siteFallback).toString();
 
     <link rel="icon" type="image/svg+xml" href="/logoMrHyde2.svg" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Indexación para buscadores y AI search -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Open Graph adicionales -->
+    <meta property="og:locale" content={lang === 'es' ? 'es_CO' : 'en_US'} />
+    <meta property="og:site_name" content="Sr. Hide" />
+
+    <!-- Twitter/X adicionales -->
+    <meta name="twitter:label1" content={lang === 'es' ? 'Ubicación' : 'Location'} />
+    <meta name="twitter:data1" content="Bogotá, Colombia" />
+    <meta name="twitter:label2" content={lang === 'es' ? 'Servicio' : 'Service'} />
+    <meta name="twitter:data2" content={lang === 'es' ? 'Producción Audiovisual con IA' : 'AI Audiovisual Production'} />
+
+    <!-- Geo tags para búsquedas locales -->
+    <meta name="geo.region" content="CO-DC" />
+    <meta name="geo.placename" content="Bogotá" />
+    <meta name="geo.position" content="4.7110;-74.0721" />
+    <meta name="ICBM" content="4.7110, -74.0721" />
 
     <link rel="alternate" hreflang="en" href={hreflangEn} />
     <link rel="alternate" hreflang="es" href={hreflangEs} />
@@ -93,6 +209,9 @@ const hreflangEs = new URL('/', Astro.site || siteFallback).toString();
         },
       }}
     />
+
+    <!-- Schema.org: VideoProductionCompany -->
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
   </head>
 
   <body>

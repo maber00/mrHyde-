@@ -1,0 +1,60 @@
+---
+import ServicePage from "../layouts/ServicePage.astro";
+
+const features = [
+  {
+    num: "01",
+    title: "VOLUMEN SIN PERDER IDENTIDAD",
+    body: "Paquetes mensuales de piezas con una identidad visual consistente generada con IA. Presencia constante en redes sin que cada pieza parezca de otra marca.",
+  },
+  {
+    num: "02",
+    title: "FORMATOS PARA CADA RED",
+    body: "Vertical 9:16 para Reels y TikTok, cuadrado 1:1 para feed, horizontal para YouTube. Una idea, adaptada a cada plataforma con su lógica propia.",
+  },
+  {
+    num: "03",
+    title: "RITMO QUE EL ALGORITMO PREMIA",
+    body: "Publicar seguido importa. Producimos al ritmo que las redes exigen sin agotar tu presupuesto ni tu equipo interno.",
+  },
+  {
+    num: "04",
+    title: "DIRECCIÓN, NO SOLO PROMPTS",
+    body: "Detrás de cada paquete hay una línea creativa: tono, paleta, narrativa. La IA produce el volumen; nosotros cuidamos la coherencia.",
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Qué incluye un paquete mensual de contenido con IA?",
+    a: "Un paquete mensual incluye un set de piezas para redes sociales — videos cortos, reels, animaciones y gráficos — con identidad visual consistente, adaptados a los formatos de cada plataforma (9:16, 1:1, 16:9). El número de piezas se define según tu plan.",
+  },
+  {
+    q: "¿Para qué redes producen contenido?",
+    a: "Producimos para Instagram (Reels y feed), TikTok, YouTube (Shorts y videos), LinkedIn y la red que necesites. Adaptamos cada pieza al formato y la lógica de consumo de cada plataforma.",
+  },
+  {
+    q: "¿El contenido con IA se ve genérico?",
+    a: "No, porque no trabajamos solo con prompts. Cada paquete parte de una línea creativa definida — tono, paleta, narrativa y referencias de tu marca — para que el volumen no se traduzca en piezas genéricas ni repetidas.",
+  },
+  {
+    q: "¿Cuánto cuesta el contenido para redes con IA en Bogotá?",
+    a: "El costo depende del número de piezas y formatos por mes. En general es muy inferior al de producir cada pieza por separado de forma tradicional. Contáctanos para armar un plan a la medida de tu marca.",
+  },
+];
+---
+
+<ServicePage
+  lang="es"
+  title="Contenido para Redes Sociales con IA en Bogotá | Sr. Hide"
+  description="Paquetes mensuales de contenido para redes sociales con IA en Bogotá: reels, videos cortos y gráficos con identidad visual consistente. Volumen sin perder calidad ni agotar el presupuesto."
+  label="Servicios"
+  h1="CONTENIDO PARA REDES CON IA"
+  h1Outline="BOGOTÁ Y LATAM"
+  breadcrumbName="Contenido para redes con IA"
+  lead="Sr. Hide produce contenido para redes sociales con inteligencia artificial en Bogotá: paquetes mensuales de reels, videos cortos, animaciones y gráficos con una identidad visual consistente. Te damos el volumen que el algoritmo premia sin que cada pieza parezca de otra marca, adaptando cada formato a su plataforma — y a un costo muy por debajo de producir pieza por pieza de forma tradicional."
+  features={features}
+  faqs={faqs}
+  ctaText="¿Quieres presencia constante en redes sin reventar el presupuesto? Cuéntanos tu marca y armamos un plan."
+  ctaLabel="Hablar con el equipo →"
+/>

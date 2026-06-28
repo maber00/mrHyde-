@@ -18,18 +18,21 @@ const copy =
             label: "Comerciales",
             title: "AI COMMERCIAL\nPRODUCTION",
             body: "Comerciales de 15 a 60 segundos para marcas y agencias. De brief a entrega en días, no semanas. Calidad premium con dirección creativa humana en cada etapa.",
+            href: "/comerciales-con-ia-colombia/",
           },
           {
             num: "02",
             label: "Contenido Continuo",
             title: "AI CONTENT\nENGINE",
             body: "Paquete mensual de piezas para redes sociales con identidad visual consistente generada con IA. Presencia constante sin agotar el presupuesto.",
+            href: "/contenido-redes-sociales-ia-bogota/",
           },
           {
             num: "03",
             label: "Post-Producción",
             title: "AI POST\nENHANCEMENT",
             body: "Tomamos material existente y lo elevamos: colorización, relighting, efectos y continuidad usando los modelos de IA más avanzados del mercado.",
+            href: "/postproduccion-con-ia/",
           },
           {
             num: "04",
@@ -50,6 +53,7 @@ const copy =
             label: "Commercials",
             title: "AI COMMERCIAL\nPRODUCTION",
             body: "15 to 60-second commercials for brands and agencies. From brief to delivery in days, not weeks. Premium quality with human creative direction at every stage.",
+            href: "/en/ai-commercials-colombia/",
           },
           {
             num: "02",
@@ -88,26 +92,29 @@ const copy =
 
     <!-- Services grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/[0.06] max-w-7xl mx-auto">
-      {copy.items.map((item) => (
-        <article class="svc-card">
-          <div class="card-top-line"></div>
-          <div class="p-8 md:p-10 flex flex-col gap-5 h-full">
+      {copy.items.map((item) => {
+        const Card = item.href ? 'a' : 'article';
+        return (
+          <Card class="svc-card" href={item.href} aria-label={item.href ? `${copy.sectionLabel}: ${item.label}` : undefined}>
+            <div class="card-top-line"></div>
+            <div class="p-8 md:p-10 flex flex-col gap-5 h-full">
 
-            <div class="flex items-start justify-between gap-4">
-              <span class="svc-num">{item.num}</span>
-              <span class="svc-label-tag">{item.label}</span>
+              <div class="flex items-start justify-between gap-4">
+                <span class="svc-num">{item.num}</span>
+                <span class="svc-label-tag">{item.label}</span>
+              </div>
+
+              <h3 class="svc-title">
+                {item.title.split('\n').map(line => <span>{line}<br/></span>)}
+              </h3>
+
+              <p class="svc-body">{item.body}</p>
+
+              <div class="svc-arrow mt-auto">→</div>
             </div>
-
-            <h3 class="svc-title">
-              {item.title.split('\n').map(line => <span>{line}<br/></span>)}
-            </h3>
-
-            <p class="svc-body">{item.body}</p>
-
-            <div class="svc-arrow mt-auto">→</div>
-          </div>
-        </article>
-      ))}
+          </Card>
+        );
+      })}
     </div>
 
   </div>
@@ -160,11 +167,15 @@ const copy =
 
   /* ── Card ── */
   .svc-card {
+    display: block;
+    color: inherit;
+    text-decoration: none;
     background: #000000;
     position: relative;
     overflow: hidden;
     transition: background 0.3s ease;
   }
+  a.svc-card { cursor: pointer; }
   .svc-card:hover { background: #0a0a0a; }
 
   .card-top-line {

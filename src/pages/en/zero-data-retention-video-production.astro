@@ -1,0 +1,60 @@
+---
+import ServicePage from "../../layouts/ServicePage.astro";
+
+const features = [
+  {
+    num: "01",
+    title: "YOUR CONTENT IS NOT STORED",
+    body: "Material entering the generation pipeline is not kept on third-party servers beyond processing. No copy remains, nothing is indexed, nothing is reused.",
+  },
+  {
+    num: "02",
+    title: "NO HUMAN REVIEWS IT",
+    body: "With ZDR enabled, no Google operator reviews the generated content. Your brand's confidential material stays confidential.",
+  },
+  {
+    num: "03",
+    title: "NO EXTERNAL MODEL TRAINING",
+    body: "Your brief, your unannounced campaign and your visual identity are not used to train any AI model. What is yours stays yours.",
+  },
+  {
+    num: "04",
+    title: "CONTRACTUAL GUARANTEE FROM GOOGLE",
+    body: "Not a marketing promise: it is a contractual condition of Google Vertex AI. Sr. Hide is the only audiovisual studio in LATAM operating under this framework.",
+  },
+];
+
+const faqs = [
+  {
+    q: "What is Zero Data Retention in audiovisual production?",
+    a: "Zero Data Retention (ZDR) means your brand's content is not stored, not reviewed by humans, and does not train any external AI model. Sr. Hide operates on Google Vertex AI with ZDR enabled, guaranteeing complete confidentiality of your creative material. It is a contractual guarantee from Google.",
+  },
+  {
+    q: "Why does Zero Data Retention matter for my brand?",
+    a: "It matters if you handle unannounced campaigns, sensitive content or work in regulated sectors (pharma, financial, legal, government). Without ZDR, material passing through AI tools can be stored or used to train models. With ZDR, that does not happen.",
+  },
+  {
+    q: "Do other AI production studios offer Zero Data Retention?",
+    a: "Not in LATAM. Most studios and freelancers use consumer tools whose terms allow storing and reusing content. Sr. Hide is the only audiovisual studio in the region operating on Google Vertex AI infrastructure with ZDR enabled.",
+  },
+  {
+    q: "How do I verify that Zero Data Retention is real?",
+    a: "ZDR is a documented condition of Google Cloud / Vertex AI, not a claim of ours. We can explain exactly which services and infrastructure we operate on and why your content is protected under the agreement with Google.",
+  },
+];
+---
+
+<ServicePage
+  lang="en"
+  title="Zero Data Retention Video Production | Sr. Hide Colombia"
+  description="The only studio in LATAM with Zero Data Retention on Google Vertex AI. Your content is not stored, not reviewed by humans and never trains external models. Contractual guarantee from Google."
+  label="Differentiator"
+  h1="ZERO DATA RETENTION"
+  h1Outline="VIDEO PRODUCTION"
+  breadcrumbName="Zero Data Retention"
+  lead="Sr. Hide is the only audiovisual production studio in Latin America operating with Zero Data Retention (ZDR) enabled on Google Vertex AI. In practice it means your brand's content is not stored on third-party servers, no Google human reviews it, and it is not used to train any external AI model. It is a contractual guarantee from Google, not a marketing promise."
+  features={features}
+  faqs={faqs}
+  ctaText="Is your content confidential or your sector regulated? Let's talk about producing without exposing your material."
+  ctaLabel="Talk to the team →"
+/>

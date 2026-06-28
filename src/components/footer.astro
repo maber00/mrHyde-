@@ -23,6 +23,14 @@ const copy = isSpanish
       contactLink: "Contacto",
       rights: "Todos los derechos reservados.",
       location: "Bogotá, Colombia · Operamos en toda LATAM",
+      servicesLabel: "Servicios",
+      serviceLinks: [
+        { label: "Comerciales con IA", href: "/comerciales-con-ia-colombia/" },
+        { label: "Contenido para redes", href: "/contenido-redes-sociales-ia-bogota/" },
+        { label: "Postproducción con IA", href: "/postproduccion-con-ia/" },
+        { label: "Video corporativo", href: "/video-corporativo-bogota/" },
+        { label: "Zero Data Retention", href: "/zero-data-retention-produccion-audiovisual/" },
+      ],
     }
   : {
       description: "Audiovisual production studio with AI. Same creative standard. Less time. Lower costs. The only studio in LATAM with Zero Data Retention.",
@@ -35,6 +43,11 @@ const copy = isSpanish
       contactLink: "Contact",
       rights: "All rights reserved.",
       location: "Bogotá, Colombia · We operate across LATAM",
+      servicesLabel: "Services",
+      serviceLinks: [
+        { label: "AI Commercials", href: "/en/ai-commercials-colombia/" },
+        { label: "Zero Data Retention", href: "/en/zero-data-retention-video-production/" },
+      ],
     };
 ---
 
@@ -42,7 +55,7 @@ const copy = isSpanish
 
   <!-- Main footer grid -->
   <div class="container mx-auto px-6 py-16 ">
-    <div class="grid grid-cols-1 md:grid-cols-3 mt-10 gap-12 md:gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 mt-10 gap-12 md:gap-8">
 
       <!-- Brand -->
       <div class="md:col-span-1">
@@ -80,6 +93,16 @@ const copy = isSpanish
           <a href={`${basePath}/#servicios`} class="footer-link">{copy.services}</a>
           <a href={`${basePath}/#portafolio`} class="footer-link">{copy.portfolio}</a>
           <a href={`${basePath}/#contacto`} class="footer-link">{copy.contactLink}</a>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div>
+        <p class="footer-col-label">{copy.servicesLabel}</p>
+        <div class="flex flex-col gap-3 mt-4">
+          {copy.serviceLinks.map((s) => (
+            <a href={s.href} class="footer-link">{s.label}</a>
+          ))}
         </div>
       </div>
 

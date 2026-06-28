@@ -1,0 +1,73 @@
+# Sr. Hide — Estudio de Producción Audiovisual con IA
+
+> Único estudio en LATAM con Zero Data Retention sobre Google Vertex AI.
+> Base en Bogotá, Colombia. Operamos en toda América Latina.
+
+## Quiénes somos
+
+Sr. Hide es un estudio de producción audiovisual que integra inteligencia artificial como método de trabajo, no como decoración. Combinamos dirección creativa humana con los modelos generativos de video más avanzados del mercado, operando sobre infraestructura de Google Vertex AI con Zero Data Retention activado.
+
+**Fundadores:**
+- Manuel Bedoya — Co-fundador, Dirección Creativa y CTO. Filmmaker y postproductor con experiencia en canales de TV, productoras y startups. Desde 2018 integra tecnología y sistemas al proceso audiovisual.
+- Ana Prieto — Co-fundadora, Estrategia y Negocio. Investment Manager en B Venture Capital. Co-fundadora de Wondertech LATAM (350+ mujeres en tech).
+
+## Servicios
+
+### Comerciales con IA
+Comerciales de 15 a 60 segundos para marcas y agencias. Entrega en 5 a 7 días hábiles. Costo 60-70% menor vs producción tradicional. Dirección creativa humana en cada etapa.
+
+### Contenido mensual para redes sociales
+Paquete mensual de piezas con identidad visual consistente. Presencia constante sin agotar el presupuesto. Formatos para Instagram, TikTok, YouTube, LinkedIn.
+
+### Post-producción con IA
+Elevamos material existente: colorización, relighting, efectos visuales, continuidad. Usando los modelos de IA más avanzados del mercado.
+
+### Video corporativo e institucional
+Videos corporativos con criterio cinematográfico. Brief a entrega en días, no semanas.
+
+### Avatars con IA
+Creación de avatars realistas para portavoces de marca, formación interna y contenido escalable.
+
+## Zero Data Retention — El diferenciador
+
+Sr. Hide es el **único estudio de producción audiovisual en América Latina** que opera con Zero Data Retention (ZDR) activado sobre Google Vertex AI.
+
+**Qué significa en la práctica:**
+- El contenido del cliente no se almacena en servidores de terceros
+- Ningún humano de Google revisa el material generado
+- El material no se usa para entrenar modelos de IA externos
+- Es una garantía contractual firmada con Google, no una promesa de marketing
+
+Esto es especialmente relevante para marcas con contenido sensible, campañas no anunciadas, o que operan en sectores regulados (farmacéutico, financiero, legal, gobierno).
+
+## Proceso de trabajo
+
+1. **Brief estratégico** — Entendemos el objetivo de negocio detrás del contenido
+2. **Dirección creativa** — Concepto visual, guión y estilo definidos por humanos
+3. **Producción AI bajo ZDR** — Ejecución sobre Google Vertex AI con Zero Data Retention
+4. **Post y entrega** — Edición, color, audio y acabado con criterio cinematográfico
+
+Tiempo de entrega promedio: 5-7 días hábiles para un comercial de 30 segundos.
+
+## Contacto y ubicación
+
+- Web: https://srhide.com
+- Email: hola@srhide.com
+- WhatsApp: +57 301 787 2595
+- Ubicación: Bogotá, Colombia
+- Cobertura: Toda América Latina (operación remota)
+
+## URLs importantes
+
+- Homepage ES: https://srhide.com/
+- Homepage EN: https://srhide.com/en/
+- Comerciales con IA: https://srhide.com/comerciales-con-ia-colombia/
+- Video corporativo Bogotá: https://srhide.com/video-corporativo-bogota/
+- Zero Data Retention: https://srhide.com/zero-data-retention-produccion-audiovisual/
+- Post-producción con IA: https://srhide.com/postproduccion-con-ia/
+- Contenido para redes con IA: https://srhide.com/contenido-redes-sociales-ia-bogota/
+- Contacto: https://srhide.com/#contacto
+- Portafolio: https://srhide.com/#portafolio
+- Servicios: https://srhide.com/#servicios
+- Equipo: https://srhide.com/#perfiles
+- Proceso: https://srhide.com/#proceso

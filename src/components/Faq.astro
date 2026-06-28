@@ -1,0 +1,172 @@
+---
+export interface Props {
+  lang?: "en" | "es";
+}
+
+const { lang = "es" } = Astro.props;
+
+const copy =
+  lang === "es"
+    ? {
+        sectionLabel: "Preguntas Frecuentes",
+        sectionTitle: "LO QUE",
+        sectionTitleOutline: "NOS PREGUNTAN",
+        items: [
+          {
+            q: "¿Cuánto cuesta un comercial con inteligencia artificial en Colombia?",
+            a: "Los comerciales producidos con IA en Sr. Hide tienen un costo entre 60% y 70% menor que una producción tradicional equivalente. El rango varía según la duración, complejidad y número de versiones. Contáctanos para una propuesta personalizada sin costo.",
+          },
+          {
+            q: "¿Cuánto tarda producir un video con IA?",
+            a: "Un comercial de 15 a 60 segundos tiene un tiempo de entrega de 5 a 7 días hábiles desde la aprobación del brief. Una producción tradicional equivalente tarda entre 3 y 6 semanas.",
+          },
+          {
+            q: "¿Qué es Zero Data Retention en producción audiovisual?",
+            a: "Zero Data Retention significa que el contenido de tu marca no se almacena, no es revisado por humanos y no entrena ningún modelo de IA externo. Sr. Hide opera sobre Google Vertex AI con ZDR activado, lo que garantiza confidencialidad total de tu material creativo. Es una garantía contractual de Google.",
+          },
+          {
+            q: "¿Qué diferencia hay entre producción audiovisual con IA y producción tradicional?",
+            a: "La producción con IA mantiene el mismo estándar creativo que una producción tradicional — misma dirección, mismo criterio narrativo y visual — pero reduce los tiempos en un 70-80% y el costo entre un 60-70%. La diferencia no es en calidad sino en eficiencia del proceso.",
+          },
+          {
+            q: "¿En qué países de LATAM opera Sr. Hide?",
+            a: "Sr. Hide tiene base en Bogotá, Colombia, y opera en toda América Latina de forma remota. Hemos producido piezas para marcas en Colombia, México, Argentina, Chile, Perú y Ecuador.",
+          },
+          {
+            q: "¿Cómo es el proceso para contratar una producción?",
+            a: "El proceso tiene 4 pasos: brief estratégico, dirección creativa, producción con IA bajo Zero Data Retention, y post-producción y entrega. Empezamos con una reunión de 30 minutos sin compromiso para entender el proyecto. Si hay fit, entregamos una propuesta en 48 horas.",
+          },
+        ],
+      }
+    : {
+        sectionLabel: "Frequently Asked Questions",
+        sectionTitle: "WHAT PEOPLE",
+        sectionTitleOutline: "ASK US",
+        items: [
+          {
+            q: "How much does an AI commercial cost in Colombia?",
+            a: "Commercials produced with AI at Sr. Hide cost 60-70% less than an equivalent traditional production. The range varies by duration, complexity and number of versions. Contact us for a personalized proposal at no cost.",
+          },
+          {
+            q: "How long does it take to produce a video with AI?",
+            a: "A 15 to 60-second commercial has a delivery time of 5 to 7 business days from brief approval. An equivalent traditional production takes 3 to 6 weeks.",
+          },
+          {
+            q: "What is Zero Data Retention in audiovisual production?",
+            a: "Zero Data Retention means your brand's content is not stored, not reviewed by humans, and does not train any external AI model. Sr. Hide operates on Google Vertex AI with ZDR activated, guaranteeing complete confidentiality of your creative material. This is a contractual guarantee from Google.",
+          },
+          {
+            q: "What is the difference between AI audiovisual production and traditional production?",
+            a: "AI production maintains the same creative standard as traditional production — same direction, same narrative and visual judgment — but reduces timelines by 70-80% and cost by 60-70%. The difference is not in quality but in process efficiency.",
+          },
+          {
+            q: "Which LATAM countries does Sr. Hide operate in?",
+            a: "Sr. Hide is based in Bogotá, Colombia, and operates remotely across Latin America. We have produced pieces for brands in Colombia, Mexico, Argentina, Chile, Peru and Ecuador.",
+          },
+        ],
+      };
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": copy.items.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": { "@type": "Answer", "text": item.a },
+  })),
+};
+---
+
+<section id="faq" class="bg-black text-white py-24">
+  <div class="container mx-auto px-6">
+
+    <!-- Header -->
+    <div class="mb-16">
+      <p class="sec-label">{copy.sectionLabel}</p>
+      <h2 class="sec-title">
+        {copy.sectionTitle}<br />
+        <span class="sec-title-outline">{copy.sectionTitleOutline}</span>
+      </h2>
+    </div>
+
+    <!-- Accordion -->
+    <div class="max-w-3xl">
+      {copy.items.map((item) => (
+        <details class="faq-item">
+          <summary class="faq-question">{item.q}</summary>
+          <p class="faq-answer">{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<!-- Schema.org: FAQPage -->
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+<style>
+  .sec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #f6ad1e;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .sec-label::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: #f6ad1e;
+    display: block;
+  }
+  .sec-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 7vw, 88px);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+  }
+  .sec-title-outline {
+    font-family: 'Bebas Neue', sans-serif;
+    -webkit-text-stroke: 1.5px #f6ad1e;
+    color: transparent;
+  }
+  .faq-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 22px 0;
+  }
+  .faq-question {
+    font-family: 'DM Mono', monospace;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.82);
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+  .faq-question::-webkit-details-marker { display: none; }
+  .faq-question::after {
+    content: '+';
+    color: #f6ad1e;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  details[open] .faq-question::after { content: '−'; }
+  .faq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.85;
+    margin-top: 14px;
+    max-width: 680px;
+  }
+</style>

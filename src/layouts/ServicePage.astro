@@ -1,0 +1,295 @@
+---
+import Layout from "./Layout.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/footer.astro";
+
+export interface Feature {
+  num: string;
+  title: string;
+  body: string;
+}
+export interface Faq {
+  q: string;
+  a: string;
+}
+export interface Props {
+  lang?: "en" | "es";
+  title: string;
+  description: string;
+  label: string;
+  h1: string;
+  h1Outline: string;
+  breadcrumbName: string;
+  lead: string;
+  features: Feature[];
+  faqs: Faq[];
+  ctaText: string;
+  ctaLabel: string;
+}
+
+const {
+  lang = "es",
+  title,
+  description,
+  label,
+  h1,
+  h1Outline,
+  breadcrumbName,
+  lead,
+  features,
+  faqs,
+  ctaText,
+  ctaLabel,
+} = Astro.props;
+
+const site = Astro.site?.toString().replace(/\/$/, "") ?? "https://srhide.com";
+const currentURL = new URL(Astro.url.pathname, Astro.site ?? "https://srhide.com").toString();
+const isEs = lang === "es";
+
+const contactHref = isEs ? "/#contacto" : "/en/#contacto";
+const t = {
+  home: isEs ? "Inicio" : "Home",
+  services: isEs ? "Servicios" : "Services",
+  faqTitle: isEs ? "PREGUNTAS FRECUENTES" : "FREQUENTLY ASKED QUESTIONS",
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": t.home, "item": isEs ? `${site}/` : `${site}/en/` },
+    { "@type": "ListItem", "position": 2, "name": t.services, "item": isEs ? `${site}/#servicios` : `${site}/en/#servicios` },
+    { "@type": "ListItem", "position": 3, "name": breadcrumbName, "item": currentURL },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+};
+---
+
+<Layout title={title} lang={lang} pageDescription={description}>
+  <main id="main">
+
+    <!-- Hero -->
+    <section class="bg-black text-white pt-40 pb-16 px-6">
+      <div class="container mx-auto max-w-4xl">
+        <nav class="crumbs" aria-label="breadcrumb">
+          <a href={isEs ? "/" : "/en/"}>{t.home}</a>
+          <span>/</span>
+          <a href={isEs ? "/#servicios" : "/en/#servicios"}>{t.services}</a>
+          <span>/</span>
+          <span class="crumb-current">{breadcrumbName}</span>
+        </nav>
+        <p class="page-label">{label}</p>
+        <h1 class="page-title">
+          {h1}<br />
+          <span class="page-title-outline">{h1Outline}</span>
+        </h1>
+      </div>
+    </section>
+
+    <!-- Contenido -->
+    <section class="bg-black text-white pb-20 px-6">
+      <div class="container mx-auto max-w-4xl">
+
+        <p class="body-lead">{lead}</p>
+
+        <div class="features-grid">
+          {features.map((f) => (
+            <div class="feature-item">
+              <span class="feature-num">{f.num}</span>
+              <h2 class="feature-title">{f.title}</h2>
+              <p class="feature-body">{f.body}</p>
+            </div>
+          ))}
+        </div>
+
+        <div class="faq-section">
+          <h2 class="faq-title">{t.faqTitle}</h2>
+          {faqs.map((f) => (
+            <details class="faq-item">
+              <summary class="faq-question">{f.q}</summary>
+              <p class="faq-answer">{f.a}</p>
+            </details>
+          ))}
+        </div>
+
+        <div class="page-cta">
+          <p class="cta-text">{ctaText}</p>
+          <a href={contactHref} class="cta-btn">{ctaLabel}</a>
+        </div>
+
+      </div>
+    </section>
+
+    <Contact lang={lang} />
+  </main>
+
+  <Footer lang={lang} />
+
+  <!-- Schema.org: BreadcrumbList -->
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <!-- Schema.org: FAQPage -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</Layout>
+
+<style>
+  .crumbs {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .crumbs a { color: rgba(255, 255, 255, 0.4); text-decoration: none; transition: color 0.3s; }
+  .crumbs a:hover { color: #f6ad1e; }
+  .crumb-current { color: #f6ad1e; }
+
+  .page-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #f6ad1e;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .page-label::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: #f6ad1e;
+    display: block;
+  }
+  .page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 0.92;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+  }
+  .page-title-outline {
+    -webkit-text-stroke: 1.5px #f6ad1e;
+    color: transparent;
+  }
+  .body-lead {
+    font-family: 'DM Mono', monospace;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.85;
+    margin-bottom: 48px;
+    max-width: 800px;
+    border-left: 2px solid #f6ad1e;
+    padding-left: 24px;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: rgba(255, 255, 255, 0.06);
+    margin-bottom: 64px;
+  }
+  @media (max-width: 768px) {
+    .features-grid { grid-template-columns: 1fr; }
+  }
+  .feature-item {
+    background: #000;
+    padding: 32px;
+  }
+  .feature-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: #f6ad1e;
+    display: block;
+    margin-bottom: 12px;
+  }
+  .feature-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+    margin-bottom: 12px;
+  }
+  .feature-body {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.8;
+  }
+  .faq-section { margin-bottom: 64px; }
+  .faq-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+    margin-bottom: 32px;
+  }
+  .faq-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 20px 0;
+  }
+  .faq-question {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .faq-question::-webkit-details-marker { display: none; }
+  .faq-question::after { content: '+'; color: #f6ad1e; flex-shrink: 0; }
+  details[open] .faq-question::after { content: '−'; }
+  .faq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.8;
+    margin-top: 12px;
+    padding-left: 16px;
+  }
+  .page-cta {
+    background: rgba(246, 173, 30, 0.06);
+    border: 1px solid rgba(246, 173, 30, 0.2);
+    padding: 40px;
+    text-align: center;
+  }
+  .cta-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+  .cta-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: #f6ad1e;
+    color: #000;
+    padding: 16px 32px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+  }
+  .cta-btn:hover { background: #f7b832; }
+</style>

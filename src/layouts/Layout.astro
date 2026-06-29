@@ -18,12 +18,17 @@ export interface Props {
   title: string;
   lang?: 'en' | 'es';
   pageDescription?: string;
+  // Rutas alternas para hreflang. Por defecto apuntan a la home de cada idioma.
+  altEsPath?: string;
+  altEnPath?: string;
 }
 
 const {
   title,
   lang = 'es',
   pageDescription,
+  altEsPath = '/',
+  altEnPath = '/en/',
 } = Astro.props;
 
 const siteFallback = 'https://mrHide.vercel.app';
@@ -42,9 +47,9 @@ const description =
     ? 'Estudio de producción audiovisual con IA en Bogotá. Mismo estándar creativo, menos tiempo, menos costos. El único en LATAM con Zero Data Retention — tu contenido no alimenta ningún modelo externo.'
     : 'AI-powered audiovisual production studio based in Bogotá. Same creative standard, less time, lower costs. The only studio in LATAM with Zero Data Retention — your content never feeds any external model.');
 
-const hreflangEn = new URL('/en/', Astro.site || siteFallback).toString();
-// La página en español se sirve en la raíz "/", no en "/es/".
-const hreflangEs = new URL('/', Astro.site || siteFallback).toString();
+// La página en español se sirve en la raíz "/", la inglesa en "/en/".
+const hreflangEn = new URL(altEnPath, Astro.site || siteFallback).toString();
+const hreflangEs = new URL(altEsPath, Astro.site || siteFallback).toString();
 
 // ── Datos estructurados: VideoProductionCompany (se inyecta en todas las páginas) ──
 const orgSchema = {

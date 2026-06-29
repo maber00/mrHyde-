@@ -25,6 +25,9 @@ export interface Props {
   faqs: Faq[];
   ctaText: string;
   ctaLabel: string;
+  // Rutas de la misma página en el otro idioma, para hreflang por página.
+  altEsPath?: string;
+  altEnPath?: string;
 }
 
 const {
@@ -40,6 +43,8 @@ const {
   faqs,
   ctaText,
   ctaLabel,
+  altEsPath,
+  altEnPath,
 } = Astro.props;
 
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "https://srhide.com";
@@ -74,7 +79,7 @@ const faqSchema = {
 };
 ---
 
-<Layout title={title} lang={lang} pageDescription={description}>
+<Layout title={title} lang={lang} pageDescription={description} altEsPath={altEsPath} altEnPath={altEnPath}>
   <main id="main">
 
     <!-- Hero -->

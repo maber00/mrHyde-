@@ -80,13 +80,6 @@ const faqSchema = {
     <!-- Hero -->
     <section class="bg-black text-white pt-40 pb-16 px-6">
       <div class="container mx-auto max-w-4xl">
-        <nav class="crumbs" aria-label="breadcrumb">
-          <a href={isEs ? "/" : "/en/"}>{t.home}</a>
-          <span>/</span>
-          <a href={isEs ? "/#servicios" : "/en/#servicios"}>{t.services}</a>
-          <span>/</span>
-          <span class="crumb-current">{breadcrumbName}</span>
-        </nav>
         <p class="page-label">{label}</p>
         <h1 class="page-title">
           {h1}<br />
@@ -141,22 +134,6 @@ const faqSchema = {
 </Layout>
 
 <style>
-  .crumbs {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.4);
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 28px;
-    flex-wrap: wrap;
-  }
-  .crumbs a { color: rgba(255, 255, 255, 0.4); text-decoration: none; transition: color 0.3s; }
-  .crumbs a:hover { color: #f6ad1e; }
-  .crumb-current { color: #f6ad1e; }
-
   .page-label {
     font-family: 'DM Mono', monospace;
     font-size: 10px;

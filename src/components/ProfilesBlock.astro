@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import manuelPhoto from "../assets/manuel.webp";
+import justiciaBg from "../assets/justicia.jpg";
 
 export interface Props {
   lang?: "en" | "es";
@@ -50,8 +51,10 @@ const copy =
       };
 ---
 
-<section class="bg-black text-white py-24" id="perfiles">
-  <div class="container mx-auto px-6">
+<section class="profiles-section bg-black text-white py-24" id="perfiles">
+  <div class="profiles-bg" style={`background-image: url(${justiciaBg.src})`}></div>
+  <div class="profiles-overlay"></div>
+  <div class="container mx-auto px-6 relative z-10">
 
     <!-- Section header -->
     <div class="mb-16">
@@ -131,6 +134,26 @@ const copy =
 </section>
 
 <style>
+  /* ── Section background (justicia.jpg) + black overlay ── */
+  .profiles-section {
+    position: relative;
+    isolation: isolate;
+  }
+  .profiles-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+  .profiles-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.82);
+    z-index: 1;
+  }
+
   /* ── Section label ── */
   .sec-label {
     font-family: 'DM Mono', monospace;
@@ -167,13 +190,14 @@ const copy =
 
   /* ── Card ── */
   .team-card {
-    background: #000000;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(2px);
     padding: 48px 44px;
     position: relative;
     overflow: hidden;
     transition: background 0.3s ease;
   }
-  .team-card:hover { background: #0a0a0a; }
+  .team-card:hover { background: rgba(0, 0, 0, 0.7); }
 
   .card-top-line {
     position: absolute;

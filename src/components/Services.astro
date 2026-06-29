@@ -1,4 +1,7 @@
 ---
+import { Image } from "astro:assets";
+import bgReinaDelNorte from "../assets/laReinaDelNorte.jpg";
+
 export interface Props {
   lang?: "en" | "es";
 }
@@ -77,8 +80,9 @@ const copy =
       };
 ---
 
-<section id="servicios" class="bg-black text-white py-24">
-  <div class="container mx-auto px-6">
+<section id="servicios" class="bg-black text-white py-24 relative overflow-hidden">
+
+  <div class="container mx-auto px-6 relative z-10">
 
     <!-- Header -->
     <div class="mb-16">
@@ -90,8 +94,20 @@ const copy =
       <p class="sec-intro">{copy.intro}</p>
     </div>
 
-    <!-- Services grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/[0.06] max-w-7xl mx-auto">
+    <!-- Services grid (con imagen de fondo) -->
+    <div class="svc-grid-wrap max-w-7xl mx-auto relative overflow-hidden">
+
+      <!-- Background image + black overlay (solo detrás de las tarjetas) -->
+      <Image
+        src={bgReinaDelNorte}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        class="svc-bg"
+      />
+      <div class="svc-bg-overlay" aria-hidden="true"></div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/[0.06] relative z-10">
       {copy.items.map((item) => {
         const Card = item.href ? 'a' : 'article';
         return (
@@ -115,12 +131,30 @@ const copy =
           </Card>
         );
       })}
+      </div>
+
     </div>
 
   </div>
 </section>
 
 <style>
+  /* ── Background image + overlay ── */
+  .svc-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .svc-bg-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.55);
+  }
+
   /* ── Section label ── */
   .sec-label {
     font-family: 'DM Mono', monospace;
@@ -170,13 +204,14 @@ const copy =
     display: block;
     color: inherit;
     text-decoration: none;
-    background: #000000;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
     position: relative;
     overflow: hidden;
     transition: background 0.3s ease;
   }
   a.svc-card { cursor: pointer; }
-  .svc-card:hover { background: #0a0a0a; }
+  .svc-card:hover { background: rgba(10, 10, 10, 0.6); }
 
   .card-top-line {
     position: absolute;

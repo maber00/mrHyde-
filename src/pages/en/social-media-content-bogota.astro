@@ -1,0 +1,60 @@
+---
+import ServicePage from "../../layouts/ServicePage.astro";
+
+const features = [
+  {
+    num: "01",
+    title: "VOLUME WITHOUT LOSING IDENTITY",
+    body: "Monthly packages of pieces built around a defined creative line. Constant presence on social, without each piece looking like it belongs to a different brand.",
+  },
+  {
+    num: "02",
+    title: "A FORMAT FOR EVERY PLATFORM",
+    body: "Vertical 9:16 for Reels and TikTok, square 1:1 for feed, horizontal for YouTube. One idea, adapted to each platform with its own logic.",
+  },
+  {
+    num: "03",
+    title: "THE PACE THE ALGORITHM REWARDS",
+    body: "Posting consistently matters. We produce at the pace social demands without draining your budget or your in-house team.",
+  },
+  {
+    num: "04",
+    title: "DIRECTION, NOT JUST PIECES",
+    body: "Behind every package there is a creative line: tone, palette, narrative. Volume doesn't happen on its own — there is judgment behind each decision.",
+  },
+];
+
+const faqs = [
+  {
+    q: "What does a monthly content package include?",
+    a: "A set of social pieces — short videos, reels, animations and graphics — with a consistent visual identity, adapted to the formats of each platform. The number of pieces is defined according to your plan.",
+  },
+  {
+    q: "Which platforms do you produce content for?",
+    a: "Instagram, TikTok, YouTube, LinkedIn and whichever you need. Each piece is adapted to the format and consumption logic of each platform.",
+  },
+  {
+    q: "Does the content look generic?",
+    a: "No. Every package starts from a defined creative line — tone, palette, narrative and references from your brand. Volume does not translate into interchangeable pieces.",
+  },
+  {
+    q: "How much does monthly social media content cost in Bogotá?",
+    a: "It depends on the number of pieces and formats. Get in touch and we'll build a plan tailored to your brand.",
+  },
+];
+---
+
+<ServicePage
+  lang="en"
+  title="Social Media Content in Bogotá | Sr. Hide"
+  description="Monthly social media content packages in Bogotá: reels, short videos and graphics with a consistent visual identity. The volume social demands, with the judgment your brand needs."
+  label="Services"
+  h1="SOCIAL MEDIA CONTENT"
+  h1Outline="BOGOTÁ & LATAM"
+  breadcrumbName="Social Media Content"
+  lead="Social rewards consistency. We produce monthly content packages — reels, short videos, animations — built around a defined creative line for your brand. The volume the algorithm demands, without each piece looking like it came from another company."
+  features={features}
+  faqs={faqs}
+  ctaText="Want a constant presence on social without blowing your budget? Tell us about your brand and we'll build a plan."
+  ctaLabel="Talk to the team →"
+/>

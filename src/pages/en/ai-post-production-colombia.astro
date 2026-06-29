@@ -1,0 +1,60 @@
+---
+import ServicePage from "../../layouts/ServicePage.astro";
+
+const features = [
+  {
+    num: "01",
+    title: "COLOR & RELIGHTING",
+    body: "Color is not correction. It's a decision. We grade with cinematic judgment and reinvent the lighting of already-shot footage — without going back to set.",
+  },
+  {
+    num: "02",
+    title: "EFFECTS & MOTION",
+    body: "Shot clean-up, set extension, rotoscoping, animation and motion graphics. From a lower third to full world-building.",
+  },
+  {
+    num: "03",
+    title: "CONTINUITY & UPSCALE",
+    body: "We rescue footage with problems: broken continuity, shaky camera, low resolution. What looked unusable, we turn into a deliverable.",
+  },
+  {
+    num: "04",
+    title: "ZERO DATA RETENTION",
+    body: "When the process requires it, your footage is processed under Zero Data Retention on Google Vertex AI. Never stored. Never used to train any external model.",
+  },
+];
+
+const faqs = [
+  {
+    q: "What does Sr. Hide do in post-production?",
+    a: "We take your existing footage and elevate it: color, relighting, motion graphics, effects and upscaling. Every decision is made by us.",
+  },
+  {
+    q: "Can you improve a video I already shot?",
+    a: "Yes. That's the heart of the service. You don't need to shoot again.",
+  },
+  {
+    q: "How much does post-production cost in Colombia?",
+    a: "It depends on the footage, the complexity and the type of work. Send us a sample and we'll reply with a proposal within 24 hours.",
+  },
+  {
+    q: "Is my footage protected during the process?",
+    a: "When the process requires it, your footage is processed under Zero Data Retention on Google Vertex AI. Never stored. Never used to train any external model.",
+  },
+];
+---
+
+<ServicePage
+  lang="en"
+  title="Post-Production in Colombia | Sr. Hide"
+  description="We take what you shot and bring it where it should have been from the start. Color, relighting, effects and motion. Bogotá and LATAM."
+  label="Services"
+  h1="POST-PRODUCTION"
+  h1Outline="BOGOTÁ & LATAM"
+  breadcrumbName="Post-Production"
+  lead="The footage you already have can be better than you think. We take what you shot and elevate it. Color with cinematic judgment, relighting, motion graphics, shot clean-up and upscaling. Every decision is made by us. We work from Bogotá for brands across Latin America."
+  features={features}
+  faqs={faqs}
+  ctaText="Got footage you want to take to another level? Send us a sample."
+  ctaLabel="Talk to the team →"
+/>

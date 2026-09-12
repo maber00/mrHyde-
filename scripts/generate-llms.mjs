@@ -105,6 +105,13 @@ const routes = [
   ...available.filter((route) => !ORDER.includes(route) && route !== '/404/'),
 ];
 
+// Primero se extrae todo, porque el índice de arriba necesita los títulos.
+const pages = [];
+for (const route of routes) {
+  const html = await readFile(join(DIST, route.slice(1), 'index.html'), 'utf8');
+  pages.push({ route, ...extract(html) });
+}
+
 const parts = [
   '# Sr. Hide — contenido completo del sitio',
   '',
@@ -116,18 +123,21 @@ const parts = [
   'América Latina. Único estudio en LATAM con Zero Data Retention sobre Google',
   'Vertex AI. Contacto: hola@srhide.com · WhatsApp +57 301 787 2595.',
   '',
+  '## Índice',
+  '',
+  // Enlaces en Markdown: es el formato que espera tanto llmstxt.org como el
+  // validador de Lighthouse, y le ahorra a un agente tener que inferir rutas.
+  ...pages.map((p) => `- [${p.title}](${SITE}${p.route})`),
+  '',
   '---',
 ];
 
-for (const route of routes) {
-  const html = await readFile(join(DIST, route.slice(1), 'index.html'), 'utf8');
-  const { title, description, body } = extract(html);
-
+for (const { route, title, description, body } of pages) {
   parts.push(
     '',
     `# ${title}`,
     '',
-    `URL: ${SITE}${route}`,
+    `URL: [${SITE}${route}](${SITE}${route})`,
     `Idioma: ${route.startsWith('/en/') ? 'en' : 'es'}`,
     description ? `Resumen: ${description}` : '',
     body,

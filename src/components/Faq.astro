@@ -78,9 +78,16 @@ const copy =
         ],
       };
 
+// Enlazado por @id al WebPage del Layout para que el bloque no quede
+// colgando como una entidad suelta.
+const faqPageURL = new URL(Astro.url.pathname, Astro.site ?? "https://srhide.com").toString();
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
+  "@id": `${faqPageURL}#faq`,
+  "isPartOf": { "@id": `${faqPageURL}#webpage` },
+  "inLanguage": lang === 'es' ? "es-CO" : "en",
   "mainEntity": copy.items.map((item) => ({
     "@type": "Question",
     "name": item.q,

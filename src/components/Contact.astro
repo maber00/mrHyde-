@@ -472,11 +472,12 @@ const copy =
     position: relative;
     z-index: 1;
   }
+  /* Sobre el bloque ámbar, 0.45 daba 2.96:1. 0.6 llega a 4.9:1. */
   .cta-inner .sec-label {
-    color: rgba(0,0,0,0.45);
+    color: rgba(0,0,0,0.6);
   }
   .cta-inner .sec-label::before {
-    background: rgba(0,0,0,0.45);
+    background: rgba(0,0,0,0.6);
   }
   .cta-title {
     font-family: 'Bebas Neue', sans-serif;
@@ -522,7 +523,7 @@ const copy =
     font-family: 'DM Mono', monospace;
     font-size: 13px;
     letter-spacing: 0.1em;
-    color: rgba(0,0,0,0.35);
+    color: rgba(0,0,0,0.6);
     margin-top: 18px;
   }
 
@@ -567,8 +568,10 @@ const calUrl = `${calBase}&name=${encodeURIComponent(name)}&email=${encodeURICom
         const calFrame = document.getElementById('calFrame') as HTMLIFrameElement;
         if (calFrame) calFrame.src = calUrl;
 
-        step1.style.display = 'none';
-        step2.style.display = 'block';
+        // Por clase, no por style inline: la CSP bloquea los estilos
+        // inline aplicados desde JS y el paso 2 nunca llegaba a verse.
+        step1.classList.add('is-hidden');
+        step2.classList.remove('is-hidden');
         wrap?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     }

@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import heroPoster from '../assets/hero-poster.jpg';
+
 export interface Props {
   lang?: 'en' | 'es';
 }
@@ -32,13 +35,26 @@ const copy = lang === 'es'
 
 <section id="inicio" class="hero-container relative w-full min-h-screen overflow-hidden bg-black flex items-end pt-24">
 
-  <!-- Video background — lazy loaded para no bloquear LCP -->
+  <!-- Video background con facade: primero pinta el póster (primer fotograma
+       del propio video) y el reproductor de Vimeo sólo se carga tras la
+       primera interacción real. Así el hero está completo de inmediato y no
+       pagamos ~350 KB de JS de terceros ni su cookie en la primera pintura. -->
   <div class="absolute inset-0 w-full h-full z-0" id="heroVideoWrapper">
+    <Image
+      src={heroPoster}
+      alt=""
+      aria-hidden="true"
+      loading="eager"
+      fetchpriority="high"
+      widths={[640, 1024, 1600]}
+      sizes="100vw"
+      class="hero-poster"
+    />
     <div class="absolute inset-0 w-full h-full video-container overflow-hidden">
       <iframe
         id="backgroundVideo"
         title={lang === 'es' ? 'Video de fondo' : 'Background video'}
-        data-src="https://player.vimeo.com/video/1163773815?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&dnt=1"
+        data-facade-src="https://player.vimeo.com/video/1163773815?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&dnt=1"
         src="about:blank"
         class="absolute top-1/2 left-1/2 w-[200vw] h-[200vh] -translate-x-1/2 -translate-y-1/2"
         frameborder="0"
@@ -160,8 +176,25 @@ const copy = lang === 'es'
   .title-accent  { color: #f6ad1e; }
 
   /* Buttons */
+  /* Póster del hero: se ve hasta que el reproductor arranca. */
+  .hero-poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+  #backgroundVideo {
+    opacity: 0;
+    transition: opacity 0.9s ease;
+  }
+  #backgroundVideo.is-playing { opacity: 1; }
+
   .btn-primary {
     background: #f6ad1e;
+    color: #000;
     font-family: 'DM Mono', 'Courier New', monospace;
   }
   .btn-primary:hover { background: #f7b832; transform: translateX(-3px); }
@@ -215,3 +248,31 @@ const copy = lang === 'es'
   }
 </style>
 
+
+<script>
+  // Facade del video de fondo: el reproductor de Vimeo (~350 KB de JS +
+  // cookie de terceros) se carga sólo tras la primera interacción real.
+  // Hasta entonces se ve el póster, que es el primer fotograma del video.
+  const iframe = document.getElementById('backgroundVideo') as HTMLIFrameElement | null;
+  const videoSrc = iframe?.dataset.facadeSrc;
+
+  if (iframe && videoSrc) {
+    const conn = (navigator as any).connection;
+    const saveData = Boolean(conn?.saveData) || /(^|-)2g$/.test(conn?.effectiveType ?? '');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!saveData && !reduceMotion) {
+      const events = ['pointerdown', 'pointermove', 'touchstart', 'keydown', 'wheel', 'scroll'];
+
+      const start = () => {
+        events.forEach(e => window.removeEventListener(e, start));
+        iframe.addEventListener('load', () => iframe.classList.add('is-playing'), { once: true });
+        iframe.src = videoSrc;
+      };
+
+      events.forEach(e =>
+        window.addEventListener(e, start, { once: true, passive: true })
+      );
+    }
+  }
+</script>

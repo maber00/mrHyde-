@@ -111,7 +111,7 @@ const copy =
       {copy.items.map((item) => {
         const Card = item.href ? 'a' : 'article';
         return (
-          <Card class="svc-card" href={item.href} aria-label={item.href ? `${copy.sectionLabel}: ${item.label}` : undefined}>
+          <Card class="svc-card" href={item.href}>
             <div class="card-top-line"></div>
             <div class="p-8 md:p-10 flex flex-col gap-5 h-full">
 
@@ -238,7 +238,7 @@ const copy =
     font-size: 10px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.55);
     border: 1px solid rgba(255,255,255,0.1);
     padding: 4px 12px;
     transition: all 0.3s;
@@ -271,7 +271,7 @@ const copy =
   .svc-arrow {
     font-family: 'DM Mono', monospace;
     font-size: 18px;
-    color: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.5);
     transition: all 0.3s ease;
   }
   .svc-card:hover .svc-arrow {

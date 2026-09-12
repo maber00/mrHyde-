@@ -6,6 +6,12 @@ Disallow: /api/
 # Sitemap
 Sitemap: https://srhide.com/sitemap-index.xml
 
+# Resumen y contenido en texto plano para agentes (convención llms.txt).
+# No es una directiva estándar de robots.txt: es una pista para quien la
+# busque aquí antes de rastrear el sitio entero.
+# llms.txt: https://srhide.com/llms.txt
+# llms-full.txt: https://srhide.com/llms-full.txt
+
 # Google (búsqueda principal)
 User-agent: Googlebot
 Allow: /

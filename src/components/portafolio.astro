@@ -179,6 +179,36 @@ categoryLabel: lang === 'es' ? "Comercial IA · Instagram / TikTok" : "AI Commer
     : "Real estate content piece for a Chicago suburbs channel. A remote collaboration in English where I led the editing and designed the motion graphics — from raw footage to final delivery."
 },
 ];
+
+// ── ItemList del portafolio ──
+// Cada pieza queda nombrada, descrita y enlazada a su video. Es la forma
+// de que un agente pueda responder "qué ha hecho Sr. Hide" leyendo datos
+// en vez de teniendo que interpretar una rejilla de imágenes.
+const siteBase = (Astro.site?.toString() ?? "https://srhide.com/").replace(/\/$/, "");
+const portfolioSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": `${siteBase}/#portafolio-list`,
+  "name": lang === 'es' ? "Portafolio de Sr. Hide" : "Sr. Hide portfolio",
+  "description": copy.intro,
+  "inLanguage": lang === 'es' ? "es-CO" : "en",
+  "numberOfItems": projects.length,
+  "itemListOrder": "https://schema.org/ItemListOrderAscending",
+  "itemListElement": projects.map((project, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "CreativeWork",
+      "name": project.title,
+      "description": project.description,
+      "genre": project.categoryLabel,
+      "url": project.videoUrl,
+      "thumbnailUrl": `${siteBase}${project.thumbnail.src}`,
+      "creator": { "@id": `${siteBase}/#organization` },
+      "inLanguage": lang === 'es' ? "es-CO" : "en",
+    },
+  })),
+};
 ---
 
 <section id={id ?? "portafolio"} class="bg-black text-white py-24">
@@ -222,12 +252,16 @@ categoryLabel: lang === 'es' ? "Comercial IA · Instagram / TikTok" : "AI Commer
             data-description={project.description ?? ''}
 
         >
+          <!-- La rejilla es de 2/3/4 columnas: servimos el ancho real del
+               hueco en vez de 500px fijos para todos los tamaños. -->
           <Image
             src={project.thumbnail}
             alt={project.title}
             class="project-img"
-            width={500}
-            height={500}
+            widths={[200, 320, 500]}
+            sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+            loading="lazy"
+            decoding="async"
           />
           <!-- Hover overlay -->
           <div class="project-overlay">
@@ -280,7 +314,21 @@ categoryLabel: lang === 'es' ? "Comercial IA · Instagram / TikTok" : "AI Commer
   </div>
 </section>
 
+<!-- Schema.org: ItemList del portafolio -->
+<script type="application/ld+json" set:html={JSON.stringify(portfolioSchema)} />
+
 <style>
+  /* ── Modal: formato vertical (Shorts / Reels) ──
+     Selector con id para ganarle a las utilidades de Tailwind del markup. */
+  #videoWrapper.is-vertical {
+    width: auto;
+    max-width: 100%;
+    height: 70vh;
+    aspect-ratio: 9 / 16;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   /* ── Section label ── */
   .sec-label {
     font-family: 'DM Mono', monospace;
@@ -320,7 +368,7 @@ categoryLabel: lang === 'es' ? "Comercial IA · Instagram / TikTok" : "AI Commer
   .sec-intro {
     font-family: 'DM Mono', monospace;
     font-size: 17px;
-    color: rgba(255,255,255,0.45);
+    color: rgba(255,255,255,0.55);
     line-height: 1.85;
     max-width: 560px;
   }
@@ -331,7 +379,7 @@ categoryLabel: lang === 'es' ? "Comercial IA · Instagram / TikTok" : "AI Commer
     font-size: 10px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.45);
+    color: rgba(255,255,255,0.55);
     border: 1px solid rgba(255,255,255,0.1);
     padding: 8px 18px;
     background: transparent;
@@ -347,7 +395,7 @@ categoryLabel: lang === 'es' ? "Comercial IA · Instagram / TikTok" : "AI Commer
 .modal-description {
   font-family: 'DM Mono', monospace;
   font-size: 13px;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.55);
   line-height: 1.8;
   margin-top: 16px;
 }
@@ -504,20 +552,14 @@ categoryLabel: lang === 'es' ? "Comercial IA · Instagram / TikTok" : "AI Commer
   return url.includes('/shorts/');
 }
 
-    // Bloquea el scroll sin que el layout (hero) salte al desaparecer
-    // la barra. Mide el ensanchamiento real y lo compensa con padding.
-    // Si scrollbar-gutter ya reserva el carril, la diferencia es 0.
+    // Bloquea el scroll sin que el layout (hero) salte al desaparecer la
+    // barra: scrollbar-gutter:stable en <html> ya reserva el carril. Va por
+    // clase porque la CSP bloquea los estilos inline aplicados desde JS.
     function lockScroll() {
-      const el = document.documentElement; // el scroller real es <html>
-      const before = el.clientWidth;
-      el.style.overflow = 'hidden';
-      const diff = el.clientWidth - before; // 0 si scrollbar-gutter ya reserva el carril
-      if (diff > 0) el.style.paddingRight = `${diff}px`;
+      document.documentElement.classList.add('scroll-locked');
     }
     function unlockScroll() {
-      const el = document.documentElement;
-      el.style.overflow = '';
-      el.style.paddingRight = '';
+      document.documentElement.classList.remove('scroll-locked');
     }
 
     // Filters
@@ -556,20 +598,10 @@ modal.classList.remove('hidden');
 lockScroll();
 carouselContainer.innerHTML = '';
 
+// El formato vertical (Shorts/Reels) se resuelve con una clase: la CSP
+// bloquea los estilos inline aplicados desde JS.
 const videoWrapper = document.getElementById('videoWrapper');
-if (videoWrapper) {
-  if (isShort) {
-    videoWrapper.className = 'relative bg-black/50 border border-white/10 mx-auto';
-    videoWrapper.style.width = 'auto';
-    videoWrapper.style.height = '70vh';
-    videoWrapper.style.aspectRatio = '9 / 16';
-  } else {
-    videoWrapper.className = 'w-full lg:w-2/3 aspect-video bg-black/50 relative border border-white/10';
-    videoWrapper.style.width = '';
-    videoWrapper.style.height = '';
-    videoWrapper.style.aspectRatio = '';
-  }
-}
+if (videoWrapper) videoWrapper.classList.toggle('is-vertical', isShort);
 
 if (youtubeId) {
   carouselContainer.innerHTML = `

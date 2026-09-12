@@ -19,6 +19,13 @@ html {
   scrollbar-gutter: stable;
 }
 
+/* Bloqueo de scroll para modal del portafolio y menú. Va por clase y no
+   por `style.overflow` porque la CSP (sin 'unsafe-inline' en style-src)
+   bloquea cualquier estilo inline aplicado desde JS. */
+html.scroll-locked {
+  overflow: hidden;
+}
+
 /* Configuración base */
 :root {
   --primary-color: #ffffff;
@@ -60,7 +67,7 @@ a:hover {
 
 .btn-primary {
   background-color: var(--primary-color);
-  color: var(--light-color);
+  color: var(--secondary-color);
 }
 
 .btn-primary:hover {
@@ -112,4 +119,26 @@ a:hover {
   h3 { font-size: 1.75rem; }
   h4 { font-size: 1.5rem; }
   p { font-size: 1rem; }
+}
+/* ── Salto al contenido ──
+   Invisible hasta que recibe foco por teclado. Da a los lectores de
+   pantalla (y a los agentes que recorren el DOM) una ruta directa al
+   contenido sin atravesar la navegación. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 999;
+  background: #f6ad1e;
+  color: #000000;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 12px 20px;
+}
+.skip-link:focus {
+  left: 8px;
+  top: 8px;
+  color: #000000;
 }

@@ -52,7 +52,19 @@ const copy =
 ---
 
 <section class="profiles-section bg-black text-white py-24" id="perfiles">
-  <div class="profiles-bg" style={`background-image: url(${justiciaBg.src})`}></div>
+  <!-- Fondo decorativo. Va como <img> y no como background-image inline
+       porque la CSP (style-src sin 'unsafe-inline') bloquea el atributo
+       style; de paso Astro genera srcset y formatos modernos. -->
+  <Image
+    src={justiciaBg}
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    decoding="async"
+    widths={[640, 1024, 1600]}
+    sizes="100vw"
+    class="profiles-bg"
+  />
   <div class="profiles-overlay"></div>
   <div class="container mx-auto px-6 relative z-10">
 
@@ -142,9 +154,10 @@ const copy =
   .profiles-bg {
     position: absolute;
     inset: 0;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
     z-index: 0;
   }
   .profiles-overlay {
@@ -278,7 +291,7 @@ const copy =
     font-size: 10px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.45);
+    color: rgba(255,255,255,0.55);
     border: 1px solid rgba(255,255,255,0.1);
     padding: 6px 14px;
     transition: all 0.3s;

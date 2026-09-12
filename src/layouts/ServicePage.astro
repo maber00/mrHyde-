@@ -25,6 +25,9 @@ export interface Props {
   faqs: Faq[];
   ctaText: string;
   ctaLabel: string;
+  // Nombre canónico del servicio para el nodo Service del @graph.
+  serviceName?: string;
+  serviceType?: string;
   // Rutas de la misma página en el otro idioma, para hreflang por página.
   altEsPath?: string;
   altEnPath?: string;
@@ -43,6 +46,8 @@ const {
   faqs,
   ctaText,
   ctaLabel,
+  serviceName,
+  serviceType,
   altEsPath,
   altEnPath,
 } = Astro.props;
@@ -61,6 +66,7 @@ const t = {
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
+  "@id": `${currentURL}#breadcrumb`,
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": t.home, "item": isEs ? `${site}/` : `${site}/en/` },
     { "@type": "ListItem", "position": 2, "name": t.services, "item": isEs ? `${site}/#servicios` : `${site}/en/#servicios` },
@@ -68,9 +74,32 @@ const breadcrumbSchema = {
   ],
 };
 
+// Nodo Service enlazado a la organización del @graph global: es lo que
+// permite que un agente responda "quién presta este servicio" sin tener
+// que inferirlo del texto.
+const serviceNode = {
+  "@type": "Service",
+  "@id": `${currentURL}#service`,
+  "name": serviceName ?? breadcrumbName,
+  "serviceType": serviceType ?? breadcrumbName,
+  "description": description,
+  "url": currentURL,
+  "provider": { "@id": `${site}/#organization` },
+  "areaServed": [
+    { "@type": "Country", "name": "Colombia" },
+    { "@type": "AdministrativeArea", "name": "América Latina" },
+  ],
+  "availableLanguage": ["es", "en"],
+  "inLanguage": isEs ? "es-CO" : "en",
+  "mainEntityOfPage": { "@id": `${currentURL}#webpage` },
+};
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
+  "@id": `${currentURL}#faq`,
+  "isPartOf": { "@id": `${currentURL}#webpage` },
+  "inLanguage": isEs ? "es-CO" : "en",
   "mainEntity": faqs.map((f) => ({
     "@type": "Question",
     "name": f.q,
@@ -79,7 +108,14 @@ const faqSchema = {
 };
 ---
 
-<Layout title={title} lang={lang} pageDescription={description} altEsPath={altEsPath} altEnPath={altEnPath}>
+<Layout
+  title={title}
+  lang={lang}
+  pageDescription={description}
+  altEsPath={altEsPath}
+  altEnPath={altEnPath}
+  schemaNodes={[serviceNode]}
+>
   <main id="main">
 
     <!-- Hero -->

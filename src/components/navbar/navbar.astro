@@ -34,12 +34,12 @@ const switchText  = isSpanish ? "EN" : "ES";
 const switchFlag  = isSpanish ? "🇬🇧" : "🇪🇸";
 ---
 
-<header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
+<header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent" role="banner">
   <div class="flex items-center justify-between py-4 px-6 md:px-10 max-w-7xl mx-auto">
 
     <!-- Logo -->
     <a href={base} class="nav-logo" aria-label="Sr. Hide">
-      <img src="/mrHyde.svg" alt="Sr. Hyde" width="143" height="36" class="h-6 sm:h-9 w-auto" />
+      <img src="/mrHyde.svg" alt="Sr. Hide" width="143" height="36" class="h-6 sm:h-9 w-auto" />
     </a>
 
     <!-- Hamburger button -->
@@ -61,12 +61,14 @@ const switchFlag  = isSpanish ? "🇬🇧" : "🇪🇸";
 <div id="menuOverlay" class="menu-overlay"></div>
 
 <!-- Drawer -->
-<nav id="menuDrawer" class="menu-drawer" aria-hidden="true">
+<!-- Cerrado va `inert`: aria-hidden sobre un contenedor con enlaces
+     enfocables los deja tabulables aunque no se vean. -->
+<nav id="menuDrawer" class="menu-drawer" inert aria-label={isSpanish ? "Navegación principal" : "Main navigation"}>
 
   <!-- Drawer header -->
   <div class="drawer-header">
     <a href={base} class="drawer-logo">
-      <img src="/mrHyde.svg" alt="Sr. Hyde" width="95" height="24" class="h-6 w-auto" />
+      <img src="/mrHyde.svg" alt="Sr. Hide" width="95" height="24" class="h-6 w-auto" />
     </a>
     <button id="menuClose" class="drawer-close" aria-label="Close menu">✕</button>
   </div>
@@ -190,7 +192,7 @@ const switchFlag  = isSpanish ? "🇬🇧" : "🇪🇸";
   .drawer-close {
     font-family: 'DM Mono', monospace;
     font-size: 14px;
-    color: rgba(255,255,255,0.4);
+    color: rgba(255,255,255,0.55);
     background: none;
     border: 1px solid rgba(255,255,255,0.1);
     width: 32px;
@@ -268,7 +270,7 @@ const switchFlag  = isSpanish ? "🇬🇧" : "🇪🇸";
     font-size: 10px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.45);
+    color: rgba(255,255,255,0.55);
     text-decoration: none;
     border: 1px solid rgba(255,255,255,0.12);
     padding: 6px 14px;
@@ -283,7 +285,7 @@ const switchFlag  = isSpanish ? "🇬🇧" : "🇪🇸";
     font-family: 'DM Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.08em;
-    color: rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.55);
     text-decoration: none;
     transition: color 0.25s ease;
   }
@@ -306,16 +308,13 @@ const switchFlag  = isSpanish ? "🇬🇧" : "🇪🇸";
       btn?.classList.add('is-open');
       drawer?.classList.add('is-open');
       overlay?.classList.add('is-open');
-      drawer?.setAttribute('aria-hidden', 'false');
+      drawer?.removeAttribute('inert');
       btn?.setAttribute('aria-expanded', 'true');
       // Bloquea el scroll en <html> (el scroller real) para que el layout
-      // no salte. scrollbar-gutter:stable reserva el carril; el padding
-      // medido es respaldo para navegadores que no lo soportan.
-      const el = document.documentElement;
-      const before = el.clientWidth;
-      el.style.overflow = 'hidden';
-      const diff = el.clientWidth - before;
-      if (diff > 0) el.style.paddingRight = `${diff}px`;
+      // no salte. scrollbar-gutter:stable ya reserva el carril, así que
+      // basta con la clase — y así no chocamos con la CSP, que bloquea
+      // los estilos inline aplicados desde JS.
+      document.documentElement.classList.add('scroll-locked');
     }
 
     function closeMenu() {
@@ -323,10 +322,9 @@ const switchFlag  = isSpanish ? "🇬🇧" : "🇪🇸";
       btn?.classList.remove('is-open');
       drawer?.classList.remove('is-open');
       overlay?.classList.remove('is-open');
-      drawer?.setAttribute('aria-hidden', 'true');
+      drawer?.setAttribute('inert', '');
       btn?.setAttribute('aria-expanded', 'false');
-      document.documentElement.style.overflow = '';
-      document.documentElement.style.paddingRight = '';
+      document.documentElement.classList.remove('scroll-locked');
     }
 
     btn?.addEventListener('click', () => isOpen ? closeMenu() : openMenu());

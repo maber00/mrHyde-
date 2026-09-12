@@ -1,15 +1,119 @@
 ---
-import Container from "@components/container.astro";
 import Layout from "@layouts/Layout.astro";
+import Footer from "@components/footer.astro";
+
+// Una 404 útil: además de decir que no existe, ofrece las rutas reales
+// del sitio. Sirve a la persona que se perdió y al agente que llegó a
+// una URL rota y necesita reorientarse sin volver a rastrear todo.
+const destinos = [
+  { label: "Inicio", href: "/" },
+  { label: "Comerciales con IA", href: "/comerciales-con-ia-colombia/" },
+  { label: "Contenido para redes sociales", href: "/contenido-redes-sociales-ia-bogota/" },
+  { label: "Postproducción con IA", href: "/postproduccion-con-ia/" },
+  { label: "Zero Data Retention", href: "/zero-data-retention-produccion-audiovisual/" },
+  { label: "Portafolio", href: "/#portafolio" },
+  { label: "Contacto", href: "/#contacto" },
+  { label: "English version", href: "/en/" },
+];
 ---
 
-<Layout title="404 Not Found">
-  <Container>
-    <div class="min-h-[calc(100vh-16rem)] flex items-center justify-center">
-      <div class="mt-16 text-center">
-        <h1 class="text-4xl lg:text-5xl font-bold lg:tracking-tight">404</h1>
-        <p class="text-lg mt-4 text-slate-600">Page not found.</p>
-      </div>
+<Layout
+  title="Página no encontrada | Sr. Hide"
+  lang="es"
+  pageDescription="La página que buscas no existe o cambió de dirección."
+  noindex={true}
+>
+  <main id="main" class="notfound">
+    <div class="container mx-auto max-w-4xl">
+      <p class="nf-label">Error 404</p>
+      <h1 class="nf-title">
+        ESTA PÁGINA<br />
+        <span class="nf-title-outline">NO EXISTE</span>
+      </h1>
+      <p class="nf-body">
+        La dirección que abriste no está en el sitio, o cambió de ruta.
+        <span class="nf-en">The page you requested does not exist or has moved.</span>
+      </p>
+
+      <nav class="nf-links" aria-label="Secciones del sitio">
+        {destinos.map((d) => (
+          <a href={d.href} class="nf-link">{d.label}</a>
+        ))}
+      </nav>
     </div>
-  </Container>
+  </main>
+
+  <Footer lang="es" />
 </Layout>
+
+<style>
+  .notfound {
+    background: #000;
+    color: #fff;
+    padding: 200px 24px 120px;
+    min-height: 70vh;
+  }
+  .nf-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #f6ad1e;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .nf-label::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: #f6ad1e;
+    display: block;
+  }
+  .nf-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+  }
+  .nf-title-outline {
+    -webkit-text-stroke: 1.5px #f6ad1e;
+    color: transparent;
+  }
+  .nf-body {
+    font-family: 'DM Mono', monospace;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.85;
+    margin: 32px 0 40px;
+    max-width: 620px;
+    border-left: 2px solid #f6ad1e;
+    padding-left: 24px;
+  }
+  .nf-en {
+    display: block;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 8px;
+  }
+  .nf-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .nf-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 12px 18px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+  .nf-link:hover {
+    border-color: #f6ad1e;
+    color: #f6ad1e;
+  }
+</style>

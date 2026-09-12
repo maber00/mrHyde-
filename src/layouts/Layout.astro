@@ -21,6 +21,10 @@ export interface Props {
   // Rutas alternas para hreflang. Por defecto apuntan a la home de cada idioma.
   altEsPath?: string;
   altEnPath?: string;
+  // Excluye la página del índice (404, utilidades).
+  noindex?: boolean;
+  // Nodos JSON-LD extra que la página aporta al @graph (Service, ItemList…).
+  schemaNodes?: Record<string, unknown>[];
 }
 
 const {
@@ -29,6 +33,8 @@ const {
   pageDescription,
   altEsPath = '/',
   altEnPath = '/en/',
+  noindex = false,
+  schemaNodes = [],
 } = Astro.props;
 
 const siteFallback = 'https://mrHide.vercel.app';
@@ -51,20 +57,33 @@ const description =
 const hreflangEn = new URL(altEnPath, Astro.site || siteFallback).toString();
 const hreflangEs = new URL(altEsPath, Astro.site || siteFallback).toString();
 
-// ── Datos estructurados: VideoProductionCompany (se inyecta en todas las páginas) ──
-const orgSchema = {
-  "@context": "https://schema.org",
-  "@type": "VideoProductionCompany",
+// ── Datos estructurados ──
+// Un solo @graph con @id estables: así los buscadores y los agentes
+// entienden que todas las páginas hablan de la MISMA empresa y de las
+// MISMAS personas, en vez de ver una entidad distinta por URL.
+const siteURL = (Astro.site || siteFallback).toString().replace(/\/$/, '');
+const orgId = `${siteURL}/#organization`;
+const siteId = `${siteURL}/#website`;
+const pageId = `${canonicalURL}#webpage`;
+const manuelId = `${siteURL}/#manuel-bedoya`;
+const anaId = `${siteURL}/#ana-prieto`;
+
+const orgNode = {
+  "@type": ["Organization", "VideoProductionCompany", "ProfessionalService"],
+  "@id": orgId,
   "name": "Sr. Hide",
-  "alternateName": "Sr Hide Studio",
-  "url": "https://srhide.com",
+  "alternateName": ["Sr Hide Studio", "Señor Hide", "srhide"],
+  "url": `${siteURL}/`,
   "logo": {
     "@type": "ImageObject",
-    "url": "https://srhide.com/mrHyde.svg",
+    "@id": `${siteURL}/#logo`,
+    "url": `${siteURL}/mrHyde.svg`,
+    "contentUrl": `${siteURL}/mrHyde.svg`,
     "width": 200,
-    "height": 50
+    "height": 50,
+    "caption": "Sr. Hide"
   },
-  "image": "https://srhide.com/og-mrHide.jpg",
+  "image": { "@id": `${siteURL}/#logo` },
   "description": lang === 'es'
     ? "Estudio de producción audiovisual con IA en Bogotá. Comerciales, contenido para redes sociales y postproducción con Zero Data Retention en Google Vertex AI. El único estudio en LATAM que garantiza que tu contenido no alimenta ningún modelo externo."
     : "AI-powered audiovisual production studio in Bogotá. Commercials, social media content and post-production with Zero Data Retention on Google Vertex AI. The only studio in LATAM guaranteeing your content never trains any external model.",
@@ -81,6 +100,16 @@ const orgSchema = {
   "geo": { "@type": "GeoCoordinates", "latitude": "4.7110", "longitude": "-74.0721" },
   "telephone": "+573017872595",
   "email": "hola@srhide.com",
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "contactType": lang === 'es' ? "Ventas y nuevos proyectos" : "Sales and new business",
+      "email": "hola@srhide.com",
+      "telephone": "+573017872595",
+      "availableLanguage": ["es", "en"],
+      "areaServed": "LATAM"
+    }
+  ],
   "areaServed": [
     { "@type": "Country", "name": "Colombia" },
     { "@type": "Country", "name": "México" },
@@ -96,40 +125,40 @@ const orgSchema = {
   "paymentAccepted": "Transferencia bancaria, PayPal, Tarjeta de crédito",
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
+    "@id": `${siteURL}/#services`,
     "name": lang === 'es' ? "Servicios de Producción Audiovisual con IA" : "AI Audiovisual Production Services",
     "itemListElement": [
       { "@type": "Offer", "itemOffered": { "@type": "Service",
+        "@id": `${siteURL}/#service-comerciales`,
         "name": lang === 'es' ? "Comerciales con IA" : "AI Commercials",
+        "url": lang === 'es' ? `${siteURL}/comerciales-con-ia-colombia/` : `${siteURL}/en/ai-commercials-colombia/`,
         "description": lang === 'es'
           ? "Comerciales de 15 a 60 segundos producidos con inteligencia artificial bajo dirección creativa humana. Entrega en 5-7 días hábiles."
           : "15 to 60-second commercials produced with artificial intelligence under human creative direction. Delivery in 5-7 business days." } },
       { "@type": "Offer", "itemOffered": { "@type": "Service",
+        "@id": `${siteURL}/#service-redes`,
         "name": lang === 'es' ? "Contenido mensual para redes sociales" : "Monthly social media content",
+        "url": lang === 'es' ? `${siteURL}/contenido-redes-sociales-ia-bogota/` : `${siteURL}/en/social-media-content-bogota/`,
         "description": lang === 'es'
           ? "Paquete mensual de piezas para redes sociales con identidad visual consistente generada con IA."
           : "Monthly package of social media pieces with consistent AI-generated visual identity." } },
       { "@type": "Offer", "itemOffered": { "@type": "Service",
+        "@id": `${siteURL}/#service-postproduccion`,
         "name": lang === 'es' ? "Post-producción con IA" : "AI Post-production",
+        "url": lang === 'es' ? `${siteURL}/postproduccion-con-ia/` : `${siteURL}/en/ai-post-production-colombia/`,
         "description": lang === 'es'
           ? "Elevamos material existente: colorización, relighting, efectos y continuidad con IA."
           : "We elevate existing material: colorization, relighting, effects and continuity with AI." } },
       { "@type": "Offer", "itemOffered": { "@type": "Service",
+        "@id": `${siteURL}/#service-corporativo`,
         "name": lang === 'es' ? "Video corporativo e institucional" : "Corporate & institutional video",
         "description": lang === 'es'
           ? "Videos corporativos con dirección creativa humana y producción con IA."
           : "Corporate videos with human creative direction and AI production." } }
     ]
   },
-  "founder": [
-    { "@type": "Person", "name": "Manuel Bedoya",
-      "jobTitle": lang === 'es' ? "Co-fundador · Dirección Creativa · CTO" : "Co-founder · Creative Direction · CTO",
-      "url": "https://srhide.com/#perfiles",
-      "knowsAbout": ["Producción audiovisual", "Inteligencia Artificial", "Filmmaking", "Post-producción", "Google Vertex AI"] },
-    { "@type": "Person", "name": "Ana Prieto",
-      "jobTitle": lang === 'es' ? "Co-fundadora · Estrategia · Negocio" : "Co-founder · Strategy · Business",
-      "url": "https://srhide.com/#perfiles",
-      "knowsAbout": ["Venture Capital", "Estrategia de negocio", "LATAM", "Startups", "Growth"] }
-  ],
+  "founder": [{ "@id": manuelId }, { "@id": anaId }],
+  "employee": [{ "@id": manuelId }, { "@id": anaId }],
   "sameAs": [
     "https://www.instagram.com/srhide.co",
     "https://www.linkedin.com/company/srhide",
@@ -146,6 +175,53 @@ const orgSchema = {
     "Avatars con IA"
   ],
   "slogan": lang === 'es' ? "Menos fricción. Más obra terminada." : "Less friction. More finished work."
+};
+
+const personNodes = [
+  {
+    "@type": "Person",
+    "@id": manuelId,
+    "name": "Manuel Bedoya",
+    "jobTitle": lang === 'es' ? "Co-fundador · Dirección Creativa · CTO" : "Co-founder · Creative Direction · CTO",
+    "url": `${siteURL}/#perfiles`,
+    "worksFor": { "@id": orgId },
+    "knowsAbout": ["Producción audiovisual", "Inteligencia Artificial", "Filmmaking", "Post-producción", "Google Vertex AI"]
+  },
+  {
+    "@type": "Person",
+    "@id": anaId,
+    "name": "Ana Prieto",
+    "jobTitle": lang === 'es' ? "Co-fundadora · Estrategia · Negocio" : "Co-founder · Strategy · Business",
+    "url": `${siteURL}/#perfiles`,
+    "worksFor": { "@id": orgId },
+    "knowsAbout": ["Venture Capital", "Estrategia de negocio", "LATAM", "Startups", "Growth"]
+  }
+];
+
+const websiteNode = {
+  "@type": "WebSite",
+  "@id": siteId,
+  "url": `${siteURL}/`,
+  "name": "Sr. Hide",
+  "publisher": { "@id": orgId },
+  "inLanguage": ["es-CO", "en"]
+};
+
+const webPageNode = {
+  "@type": "WebPage",
+  "@id": pageId,
+  "url": canonicalURL,
+  "name": pageTitle,
+  "description": description,
+  "isPartOf": { "@id": siteId },
+  "about": { "@id": orgId },
+  "inLanguage": lang === 'es' ? "es-CO" : "en",
+  "primaryImageOfPage": { "@id": `${siteURL}/#logo` }
+};
+
+const schemaGraph = {
+  "@context": "https://schema.org",
+  "@graph": [orgNode, ...personNodes, websiteNode, webPageNode, ...schemaNodes]
 };
 ---
 
@@ -168,7 +244,14 @@ const orgSchema = {
     <meta name="generator" content={Astro.generator} />
 
     <!-- Indexación para buscadores y AI search -->
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <!-- index/noindex lo emite <SEO noindex>; aquí sólo van los límites de
+         presentación, para no acabar con dos metas robots contradictorias. -->
+    <meta name="robots" content="max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Resumen legible por agentes (convención llms.txt). Anunciarlo aquí
+         evita que un agente tenga que adivinar la ruta. -->
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="llms-full.txt" />
 
     <!-- Open Graph adicionales -->
     <meta property="og:locale" content={lang === 'es' ? 'es_CO' : 'en_US'} />
@@ -195,6 +278,7 @@ const orgSchema = {
       title={pageTitle}
       description={description}
       canonical={canonicalURL}
+      noindex={noindex}
       twitter={{
         creator: twitterCreator,
         site: twitterSite,
@@ -215,11 +299,14 @@ const orgSchema = {
       }}
     />
 
-    <!-- Schema.org: VideoProductionCompany -->
-    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    <!-- Schema.org: grafo de entidades (Organization + Person + WebSite + WebPage) -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
   </head>
 
   <body>
+    <a class="skip-link" href="#main">
+      {lang === 'es' ? 'Saltar al contenido' : 'Skip to content'}
+    </a>
     <Navbar lang={lang} />
     <slot />
 

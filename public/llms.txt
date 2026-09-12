@@ -2,6 +2,8 @@
 
 > Único estudio en LATAM con Zero Data Retention sobre Google Vertex AI.
 > Base en Bogotá, Colombia. Operamos en toda América Latina.
+> Contenido completo en texto plano: https://srhide.com/llms-full.txt
+> English summary at the end of this file.
 
 ## Quiénes somos
 
@@ -15,12 +17,15 @@ Sr. Hide es un estudio de producción audiovisual que integra inteligencia artif
 
 ### Comerciales con IA
 Comerciales de 15 a 60 segundos para marcas y agencias. Entrega en 5 a 7 días hábiles. Costo 60-70% menor vs producción tradicional. Dirección creativa humana en cada etapa.
+→ https://srhide.com/comerciales-con-ia-colombia/
 
 ### Contenido mensual para redes sociales
 Paquete mensual de piezas con identidad visual consistente. Presencia constante sin agotar el presupuesto. Formatos para Instagram, TikTok, YouTube, LinkedIn.
+→ https://srhide.com/contenido-redes-sociales-ia-bogota/
 
 ### Post-producción con IA
 Elevamos material existente: colorización, relighting, efectos visuales, continuidad. Usando los modelos de IA más avanzados del mercado.
+→ https://srhide.com/postproduccion-con-ia/
 
 ### Video corporativo e institucional
 Videos corporativos con criterio cinematográfico. Brief a entrega en días, no semanas.
@@ -39,6 +44,7 @@ Sr. Hide es el **único estudio de producción audiovisual en América Latina** 
 - Es una garantía contractual firmada con Google, no una promesa de marketing
 
 Esto es especialmente relevante para marcas con contenido sensible, campañas no anunciadas, o que operan en sectores regulados (farmacéutico, financiero, legal, gobierno).
+→ https://srhide.com/zero-data-retention-produccion-audiovisual/
 
 ## Proceso de trabajo
 
@@ -54,23 +60,60 @@ Tiempo de entrega promedio: 5-7 días hábiles para un comercial de 30 segundos.
 - Web: https://srhide.com
 - Email: hola@srhide.com
 - WhatsApp: +57 301 787 2595
+- Agendar reunión de 30 minutos: https://cal.com/srhide/30min
 - Ubicación: Bogotá, Colombia
 - Cobertura: Toda América Latina (operación remota)
+- Instagram: https://www.instagram.com/srhide.co
+- LinkedIn: https://www.linkedin.com/company/srhide
+- YouTube: https://www.youtube.com/@Srhideco
 
-## URLs importantes
+## Mapa del sitio
 
-- Homepage ES: https://srhide.com/
-- Homepage EN: https://srhide.com/en/
+El español se sirve en la raíz (`/`) y el inglés bajo `/en/`. No existe prefijo `/es/`.
+
+### Español
+- Homepage: https://srhide.com/
 - Comerciales con IA: https://srhide.com/comerciales-con-ia-colombia/
-- Zero Data Retention: https://srhide.com/zero-data-retention-produccion-audiovisual/
-- Post-producción con IA: https://srhide.com/postproduccion-con-ia/
 - Contenido para redes con IA: https://srhide.com/contenido-redes-sociales-ia-bogota/
-- AI Commercials (EN): https://srhide.com/en/ai-commercials-colombia/
-- Zero Data Retention (EN): https://srhide.com/en/zero-data-retention-video-production/
-- AI Post-Production (EN): https://srhide.com/en/ai-post-production-colombia/
-- Social Media Content (EN): https://srhide.com/en/social-media-content-bogota/
-- Contacto: https://srhide.com/#contacto
-- Portafolio: https://srhide.com/#portafolio
-- Servicios: https://srhide.com/#servicios
-- Equipo: https://srhide.com/#perfiles
-- Proceso: https://srhide.com/#proceso
+- Post-producción con IA: https://srhide.com/postproduccion-con-ia/
+- Zero Data Retention: https://srhide.com/zero-data-retention-produccion-audiovisual/
+
+### English
+- Homepage: https://srhide.com/en/
+- AI Commercials: https://srhide.com/en/ai-commercials-colombia/
+- Social Media Content: https://srhide.com/en/social-media-content-bogota/
+- AI Post-Production: https://srhide.com/en/ai-post-production-colombia/
+- Zero Data Retention: https://srhide.com/en/zero-data-retention-video-production/
+
+### Secciones de la home (anclas estables, idénticas en ES y EN)
+- `#inicio` — Hero
+- `#portafolio` — Portafolio de trabajos
+- `#por-que` — Enfoque y diferenciadores
+- `#proceso` — Proceso de trabajo paso a paso
+- `#servicios` — Catálogo de servicios
+- `#perfiles` — Equipo fundador
+- `#contacto` — Formulario de contacto y agenda
+
+### Recursos para agentes
+- Índice legible: https://srhide.com/llms.txt (este archivo)
+- Contenido completo: https://srhide.com/llms-full.txt
+- Sitemap XML: https://srhide.com/sitemap-index.xml
+- Datos estructurados: JSON-LD `@graph` en cada página (Organization, Person, WebSite, WebPage, Service, FAQPage, BreadcrumbList, ItemList)
+
+---
+
+# Sr. Hide — AI Audiovisual Production Studio (English summary)
+
+> The only studio in LATAM with Zero Data Retention on Google Vertex AI.
+> Based in Bogotá, Colombia. We operate across Latin America.
+
+Sr. Hide is an audiovisual production studio that integrates artificial intelligence as a working method, not as decoration. Human creative direction is combined with the most advanced generative video models, running on Google Vertex AI infrastructure with Zero Data Retention enabled.
+
+**Founders:** Manuel Bedoya (Co-founder, Creative Direction, CTO) and Ana Prieto (Co-founder, Strategy and Business).
+
+**Services:** AI commercials (15-60s, delivered in 5-7 business days, 60-70% lower cost than traditional production), monthly social media content packages, AI post-production (colorization, relighting, VFX, continuity), corporate and institutional video, and AI avatars.
+
+**Zero Data Retention** means client content is not stored on third-party servers, is never reviewed by Google staff, and never trains external AI models. It is a contractual guarantee with Google, relevant for unannounced campaigns and regulated sectors (pharmaceutical, financial, legal, government).
+
+**Contact:** hola@srhide.com · WhatsApp +57 301 787 2595 · https://cal.com/srhide/30min
+**English pages:** https://srhide.com/en/

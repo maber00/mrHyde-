@@ -1,6 +1,7 @@
 ---
 import { SEO } from 'astro-seo';
 import Navbar from '@components/navbar/navbar.astro';
+import Analytics from '@components/Analytics.astro';
 
 // estilos globales
 import '../styles/global.css';
@@ -301,6 +302,9 @@ const schemaGraph = {
 
     <!-- Schema.org: grafo de entidades (Organization + Person + WebSite + WebPage) -->
     <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
+
+    <!-- Analítica (GA4). Se carga en todas las páginas, ES y EN. -->
+    <Analytics />
   </head>
 
   <body>

@@ -22,6 +22,13 @@ export default defineConfig({
     // quedan sin restricción y nada se rompe.
     // style-src-attr 'unsafe-inline' permite los atributos style="..."
     // estáticos (p. ej. --i del menú) sin debilitar script-src.
-    csp: true,
+    csp: {
+      // gtag.js es un script externo: la CSP de Astro sólo emite hashes de los
+      // scripts propios, así que sin permitir este host el navegador lo bloquea
+      // en silencio (sin error visible) y la medición simplemente no ocurre.
+      scriptDirective: {
+        resources: ['https://www.googletagmanager.com'],
+      },
+    },
   },
 });

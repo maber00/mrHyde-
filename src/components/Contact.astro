@@ -561,6 +561,14 @@ const copy =
 
         });
 
+        // Conversión: lead enviado. Sólo campos categóricos — nombre, email
+        // y teléfono NO se mandan a GA4 (Google prohíbe PII en los eventos).
+        (window as any).gtag?.('event', 'generate_lead', {
+          lead_need: need,
+          lead_area: area,
+          lead_lang: document.documentElement.lang || 'es',
+        });
+
         // 2 — Construir URL de Cal.com
         const calBase = 'https://cal.com/srhide/30min?embed=true&theme=dark';
 const notes = `Empresa: ${company} | Área: ${area} | Cargo: ${role} | Necesita: ${need} | Mensaje: ${message}`;

@@ -1,0 +1,72 @@
+---
+// Google Analytics 4.
+//
+// El ID vive en PUBLIC_GA_ID (.env) y no en el código: así los builds locales
+// y las previews de Vercel no ensucian la propiedad si la variable no está.
+//
+// Todos los eventos del sitio se disparan desde aquí — punto único — para que
+// migrar a Tag Manager más adelante sea cambiar este archivo y nada más.
+---
+
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin="anonymous" />
+
+<script>
+  const GA_ID = import.meta.env.PUBLIC_GA_ID;
+
+  if (GA_ID) {
+    const w = window as any;
+
+    // dataLayer y gtag() se definen ANTES de cargar la librería: los eventos
+    // que ocurran mientras descarga se encolan en vez de perderse.
+    w.dataLayer = w.dataLayer || [];
+    function gtag() { w.dataLayer.push(arguments); }
+    w.gtag = gtag;
+
+    gtag('js', new Date());
+    gtag('config', GA_ID, {
+      // Permite separar el tráfico ES del EN en los informes sin crear
+      // dos propiedades.
+      content_language: document.documentElement.lang || 'es',
+    });
+
+    // La librería se inyecta desde JS en vez de ir como <script src> estático
+    // porque la CSP con hashes de Astro no cubre scripts externos escritos en
+    // el HTML. Ver `experimental.csp.scriptDirective.resources` en astro.config.
+    const lib = document.createElement('script');
+    lib.async = true;
+    lib.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(lib);
+
+    // ── Eventos ──────────────────────────────────────────────────────────
+    // Un solo listener delegado en document: sobrevive a cualquier contenido
+    // que se pinte después (filtros del portafolio, paso 2 del formulario).
+    document.addEventListener('click', (event) => {
+      const target = event.target as Element | null;
+      if (!target || typeof target.closest !== 'function') return;
+
+      const link = target.closest('a[href]') as HTMLAnchorElement | null;
+      if (link) {
+        const href = link.getAttribute('href') || '';
+
+        // Conversiones de contacto directo: hoy son invisibles en los
+        // informes porque no generan navegación dentro del sitio.
+        if (href.startsWith('mailto:')) {
+          gtag('event', 'email_click', { email_address_id: href.replace('mailto:', '') });
+          return;
+        }
+        if (href.includes('wa.me') || href.includes('whatsapp.com')) {
+          gtag('event', 'whatsapp_click', {});
+          return;
+        }
+      }
+
+      // Qué servicios miran de verdad en el portafolio.
+      const filter = target.closest('.tag-filter') as HTMLElement | null;
+      if (filter) {
+        gtag('event', 'portfolio_filter', {
+          filter_name: (filter.textContent || '').trim().slice(0, 100),
+        });
+      }
+    }, { capture: true, passive: true });
+  }
+</script>

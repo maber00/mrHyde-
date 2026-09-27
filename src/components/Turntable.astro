@@ -1,0 +1,194 @@
+---
+/**
+ * Foto que gira en 3D al hacer clic: flipbook de frames generados con
+ * scripts/turntable.mjs. Los frames solo se descargan al primer hover/foco,
+ * así que no pesan nada en la carga inicial.
+ */
+export interface Props {
+  /** slug usado al generar los frames: /turntable/<name>-000.webp */
+  name: string;
+  alt: string;
+  frames?: number;
+  /** tamaño en pantalla; los archivos son 2x para pantallas retina */
+  size?: number;
+  label?: string;
+}
+
+const { name, alt, frames = 17, size = 88, label = "Girar 360°" } = Astro.props;
+const first = `/turntable/${name}-000.webp`;
+---
+
+<button
+  class="turntable"
+  type="button"
+  aria-label={label}
+  data-frames={frames}
+  data-base={`/turntable/${name}-`}
+  style={`--tt-size:${size}px`}
+>
+  <img src={first} width={size} height={size} alt={alt} loading="lazy" decoding="async" />
+  <span class="turntable__hint" aria-hidden="true">360°</span>
+</button>
+
+<style>
+  .turntable {
+    position: relative;
+    width: var(--tt-size);
+    height: var(--tt-size);
+    padding: 0;
+    border: 1px solid rgba(246, 173, 30, 0.2);
+    border-radius: 2px;
+    background: none;
+    overflow: hidden;
+    flex-shrink: 0;
+    cursor: grab;
+    transition: border-color 0.3s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .turntable:hover,
+  .turntable:focus-visible {
+    border-color: rgba(246, 173, 30, 0.6);
+  }
+  .turntable[data-spinning] {
+    cursor: grabbing;
+    /* Acercamiento mínimo mientras gira: vende el volumen. */
+    transform: scale(1.06);
+  }
+
+  .turntable img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    /* Evita el arrastre fantasma de la imagen al hacer scrub. */
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  .turntable__hint {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 2px 5px;
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    color: #f6ad1e;
+    background: rgba(0, 0, 0, 0.75);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .turntable:hover .turntable__hint,
+  .turntable:focus-visible .turntable__hint {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .turntable[data-spinning] { transform: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".turntable").forEach((el) => {
+    const img = el.querySelector("img");
+    if (!img) return;
+
+    const total = Number(el.dataset.frames);
+    const base = el.dataset.base;
+    const url = (i: number) => `${base}${String(i).padStart(3, "0")}.webp`;
+    const clamp = (i: number) => Math.max(0, Math.min(total - 1, i));
+
+    let loaded: Promise<void[]> | null = null;
+    let spinning = false;
+    let current = 0;
+
+    const preload = () =>
+      (loaded ??= Promise.all(
+        Array.from({ length: total }, (_, i) =>
+          new Promise<void>((res) => {
+            const im = new Image();
+            im.onload = im.onerror = () => res();
+            im.src = url(i);
+          })
+        )
+      ));
+
+    // Al primer hover o foco ya quedan en caché: el clic arranca instantáneo.
+    el.addEventListener("pointerenter", preload, { once: true });
+    el.addEventListener("focus", preload, { once: true });
+
+    const show = (i: number) => {
+      current = clamp(i);
+      img.src = url(current);
+    };
+
+    /** Ping-pong: 0 → último → 0. Así el arco de 180° nunca muestra un salto. */
+    const spin = async () => {
+      if (spinning) return;
+      spinning = true;
+      el.dataset.spinning = "";
+      await preload();
+
+      const sequence = [
+        ...Array.from({ length: total }, (_, i) => i),
+        ...Array.from({ length: total - 1 }, (_, i) => total - 2 - i),
+      ];
+      let step = 0;
+      let last = 0;
+
+      const tick = (t: number) => {
+        if (t - last >= 1000 / 30) {
+          last = t;
+          show(sequence[step]);
+          step += 1;
+        }
+        if (step < sequence.length) requestAnimationFrame(tick);
+        else {
+          show(0);
+          spinning = false;
+          delete el.dataset.spinning;
+        }
+      };
+      requestAnimationFrame(tick);
+    };
+
+    // Arrastrar para girar a mano. Si el puntero casi no se movió, lo tratamos
+    // como clic y lanzamos el giro automático.
+    el.addEventListener("pointerdown", (e: PointerEvent) => {
+      if (spinning) return;
+      el.setPointerCapture(e.pointerId);
+      const startX = e.clientX;
+      const startFrame = current;
+      let dragged = false;
+
+      const onMove = (ev: PointerEvent) => {
+        const dx = ev.clientX - startX;
+        if (Math.abs(dx) > 4) dragged = true;
+        // ~6px de arrastre por frame: un barrido del ancho del avatar da la vuelta.
+        show(startFrame + Math.round(dx / 6));
+      };
+
+      const onUp = () => {
+        el.removeEventListener("pointermove", onMove);
+        if (!dragged) spin();
+      };
+
+      el.addEventListener("pointermove", onMove);
+      el.addEventListener("pointerup", onUp, { once: true });
+      el.addEventListener("pointercancel", onUp, { once: true });
+    });
+
+    // Teclado: Enter/Espacio giran, las flechas avanzan cuadro a cuadro.
+    el.addEventListener("keydown", async (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        e.preventDefault();
+        await preload();
+        show(current + (e.key === "ArrowRight" ? 1 : -1));
+      }
+    });
+    el.addEventListener("click", (e) => {
+      // El clic de ratón ya lo maneja pointerup; aquí solo el de teclado.
+      if (e.detail === 0) spin();
+    });
+  });
+</script>

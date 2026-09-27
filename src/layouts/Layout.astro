@@ -68,6 +68,7 @@ const siteId = `${siteURL}/#website`;
 const pageId = `${canonicalURL}#webpage`;
 const manuelId = `${siteURL}/#manuel-bedoya`;
 const anaId = `${siteURL}/#ana-prieto`;
+const davidId = `${siteURL}/#david-rodriguez`;
 
 const orgNode = {
   "@type": ["Organization", "VideoProductionCompany", "ProfessionalService"],
@@ -159,7 +160,7 @@ const orgNode = {
     ]
   },
   "founder": [{ "@id": manuelId }, { "@id": anaId }],
-  "employee": [{ "@id": manuelId }, { "@id": anaId }],
+  "employee": [{ "@id": manuelId }, { "@id": anaId }, { "@id": davidId }],
   "sameAs": [
     "https://www.instagram.com/srhide.co",
     "https://www.linkedin.com/company/srhide",
@@ -183,7 +184,7 @@ const personNodes = [
     "@type": "Person",
     "@id": manuelId,
     "name": "Manuel Bedoya",
-    "jobTitle": lang === 'es' ? "Co-fundador · Dirección Creativa · CTO" : "Co-founder · Creative Direction · CTO",
+    "jobTitle": lang === 'es' ? "Dirección Creativa · CTO" : "Creative Direction · CTO",
     "url": `${siteURL}/#perfiles`,
     "worksFor": { "@id": orgId },
     "knowsAbout": ["Producción audiovisual", "Inteligencia Artificial", "Filmmaking", "Post-producción", "Google Vertex AI"]
@@ -192,10 +193,19 @@ const personNodes = [
     "@type": "Person",
     "@id": anaId,
     "name": "Ana Prieto",
-    "jobTitle": lang === 'es' ? "Co-fundadora · Estrategia · Negocio" : "Co-founder · Strategy · Business",
+    "jobTitle": lang === 'es' ? "Estrategia · Negocio · Crecimiento" : "Strategy · Business · Growth",
     "url": `${siteURL}/#perfiles`,
     "worksFor": { "@id": orgId },
-    "knowsAbout": ["Venture Capital", "Estrategia de negocio", "LATAM", "Startups", "Growth"]
+    "knowsAbout": ["Estrategia de negocio", "Growth", "Posicionamiento de marca", "Métricas de contenido", "LATAM"]
+  },
+  {
+    "@type": "Person",
+    "@id": davidId,
+    "name": "David Rodríguez",
+    "jobTitle": lang === 'es' ? "Dirección de Arte · Publicidad · Postproducción" : "Art Direction · Advertising · Post-production",
+    "url": `${siteURL}/#perfiles`,
+    "worksFor": { "@id": orgId },
+    "knowsAbout": ["Dirección de arte", "Publicidad", "Post-producción", "Inteligencia Artificial", "Branding"]
   }
 ];
 

@@ -1,6 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import manuelPhoto from "../assets/manuel.webp";
+import anaPhoto from "../assets/ana.jpg";
+import davidPhoto from "../assets/david.jpg";
 import justiciaBg from "../assets/justicia.jpg";
 
 export interface Props {
@@ -13,42 +15,62 @@ const copy =
   lang === "es"
     ? {
         sectionLabel: "El Equipo",
+        bioOpen: "Ver biografía",
+        bioClose: "Cerrar",
         sectionTitle: "QUIÉNES",
         sectionTitleOutline: "SOMOS",
         manuel: {
-          role: "Co-founder · Dirección Creativa · CTO",
+          role: "Dirección Creativa · CTO",
           name: "Manuel\nBedoya",
           bio: "Filmmaker y postproductor con años de experiencia en canales de TV, productoras y startups. Ha trabajado con diferentes compañias cómo son Quala, Colpatria, Bonice y Alianza Team. Desde 2018 integra tecnología y sistemas al proceso audiovisual — combinando lenguaje cinematográfico con los modelos de IA más avanzados del mercado.",
           tags: ["Dirección", "Post-producción", "AI Workflows", "Motion", "Color"],
-          quote: "La IA no reemplaza la visión. La amplifica. Pero para usarla bien necesitas saber qué pedir, qué corregir y cómo convertir material generativo en una pieza con intención real.",
         },
         ana: {
-          role: "Co-founder · Estrategia · Negocio · Crecimiento",
+          role: "Estrategia · Negocio · Crecimiento",
           name: "Ana\nPrieto",
-          bio: "Investment Manager en B Venture Capital y co-fundadora de Wondertech LATAM — red de más de 350 mujeres en tech. Ha evaluado centenares de empresas de tecnología, mentoreado a más de 40 founders en fundraising y construido comunidades de alto impacto en la región. En Sr. Hide conecta la producción audiovisual con la lógica de negocio: convierte contenido en resultado medible.",
-          tags: ["Venture Capital", "Estrategia", "Growth", "LATAM", "Startups"],
-          quote: "El contenido que no tiene una lógica de negocio detrás es solo estética. Nuestra diferencia es que entendemos qué necesita una marca para crecer — y construimos las piezas que lo hacen posible.",
+          bio: "Define la lógica de negocio detrás de cada pieza: a quién le habla, qué tiene que mover y cómo se mide — antes de que exista la primera toma. Traduce objetivos de crecimiento en decisiones de contenido: posicionamiento, narrativa y canales. En Sr. Hide conecta la producción audiovisual con el negocio: convierte contenido en resultado medible.",
+          tags: ["Estrategia", "Growth", "Posicionamiento", "Métricas", "LATAM"],
+        },
+        david: {
+          role: "Dirección de Arte · Publicidad · Postproducción",
+          name: "David\nRodríguez",
+          bio: "Publicista, director de arte y postproductor con experiencia en televisión y en contenido para marcas de reconocimiento nacional. Ha creado y dirigido piezas para Falabella, Arroz Diana, Brandy Domecq y Seguros Falabella. Desde 2020 integra dirección de arte y lenguaje cinematográfico con herramientas de IA — explorando nuevas formas de construir imagen para lo que las marcas necesitan hoy.",
+          tags: ["Dirección de Arte", "Publicidad", "Post-producción", "AI Workflows", "Branding"],
         },
       }
     : {
         sectionLabel: "The Team",
+        bioOpen: "Read bio",
+        bioClose: "Close",
         sectionTitle: "WHO",
         sectionTitleOutline: "WE ARE",
         manuel: {
-          role: "Co-founder · Creative Direction · CTO",
+          role: "Creative Direction · CTO",
           name: "Manuel\nBedoya",
           bio: "Filmmaker and post-producer with years of experience across TV channels, production companies and startups. Has directed commercials for Quala, Casa Luker, Bonice and Alianza Team. Since 2018 he integrates technology and systems into the audiovisual process — combining cinematic language with the most advanced AI models on the market.",
           tags: ["Direction", "Post-production", "AI Workflows", "Motion", "Color"],
-          quote: "AI does not replace vision. It amplifies it. But to use it well you need to know what to ask for, what to correct and how to turn generative material into a piece with real intention.",
         },
         ana: {
-          role: "Co-founder · Strategy · Business · Growth",
+          role: "Strategy · Business · Growth",
           name: "Ana\nPrieto",
-          bio: "Investment Manager at B Venture Capital and co-founder of Wondertech LATAM — a network of over 350 women in tech. She has evaluated hundreds of technology companies, mentored more than 40 founders on fundraising and built high-impact communities across the region. At Sr. Hide she connects audiovisual production with business logic: turning content into measurable results.",
-          tags: ["Venture Capital", "Strategy", "Growth", "LATAM", "Startups"],
-          quote: "Content without business logic behind it is just aesthetics. Our difference is that we understand what a brand needs to grow — and we build the pieces that make it possible.",
+          bio: "She defines the business logic behind every piece: who it speaks to, what it has to move and how it gets measured — before the first frame exists. She turns growth objectives into content decisions: positioning, narrative and channels. At Sr. Hide she connects audiovisual production with the business: turning content into measurable results.",
+          tags: ["Strategy", "Growth", "Positioning", "Metrics", "LATAM"],
+        },
+        david: {
+          role: "Art Direction · Advertising · Post-production",
+          name: "David\nRodríguez",
+          bio: "Advertising creative, art director and post-producer with experience in television and in content for nationally recognised brands. He has created and directed work for Falabella, Arroz Diana, Brandy Domecq and Seguros Falabella. Since 2020 he integrates art direction and cinematic language with AI tools — exploring new ways to build images for what brands need today.",
+          tags: ["Art Direction", "Advertising", "Post-production", "AI Workflows", "Branding"],
         },
       };
+
+// Un solo arreglo para las tres tarjetas: la maqueta es idéntica y así no hay
+// que tocar tres bloques cada vez que cambia un detalle.
+const members = [
+  { ...copy.manuel, photo: manuelPhoto, alt: "Manuel Bedoya" },
+  { ...copy.ana, photo: anaPhoto, alt: "Ana Prieto" },
+  { ...copy.david, photo: davidPhoto, alt: "David Rodríguez" },
+];
 ---
 
 <section class="profiles-section bg-black text-white py-24" id="perfiles">
@@ -78,69 +100,55 @@ const copy =
     </div>
 
     <!-- Team grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/[0.06] max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-px bg-white/[0.06] max-w-7xl mx-auto">
+      {members.map((member, i) => (
+        <article class="team-card" data-card>
+          <div class="card-top-line"></div>
 
-      <!-- Manuel Bedoya -->
-      <article class="team-card">
-        <div class="card-top-line"></div>
-
-        <div class="flex items-start justify-between gap-6 mb-6">
-          <div>
-            <p class="member-role">{copy.manuel.role}</p>
-            <h3 class="member-name">
-              {copy.manuel.name.split('\n').map(line => <span>{line}<br/></span>)}
-            </h3>
-          </div>
-          <div class="member-photo-wrap">
+          {/* La foto es el disparador principal: es lo que la gente ve y toca.
+              El botón de abajo repite la acción con texto, para teclado y
+              lectores de pantalla. */}
+          <div class="member-photo-wrap" data-photo>
             <Image
-              src={manuelPhoto}
-              alt="Manuel Bedoya"
+              src={member.photo}
+              alt={member.alt}
               class="member-photo"
               loading="lazy"
-              width={96}
-              height={96}
+              decoding="async"
+              widths={[320, 480, 660]}
+              sizes="(min-width: 1024px) 26vw, (min-width: 640px) 60vw, 90vw"
             />
           </div>
-        </div>
 
-        <p class="member-bio">{copy.manuel.bio}</p>
+          <p class="member-role">{member.role}</p>
+          <h3 class="member-name">
+            {member.name.split('\n').map((line) => <span>{line}<br/></span>)}
+          </h3>
 
-        <div class="flex flex-wrap gap-2 mt-6">
-          {copy.manuel.tags.map((tag) => <span class="tag">{tag}</span>)}
-        </div>
-
-        <blockquote class="quote-block mt-6">
-          <p>"{copy.manuel.quote}"</p>
-        </blockquote>
-      </article>
-
-      <!-- Ana Prieto -->
-      <article class="team-card">
-        <div class="card-top-line"></div>
-
-        <div class="flex items-start justify-between gap-6 mb-6">
-          <div>
-            <p class="member-role">{copy.ana.role}</p>
-            <h3 class="member-name">
-              {copy.ana.name.split('\n').map(line => <span>{line}<br/></span>)}
-            </h3>
+          <div class="member-tags flex flex-wrap gap-2 mt-6">
+            {member.tags.map((tag) => <span class="tag">{tag}</span>)}
           </div>
-          <div class="member-avatar">
-            <span>AP</span>
+
+          <button
+            class="bio-toggle"
+            type="button"
+            data-toggle
+            aria-expanded="false"
+            aria-controls={`bio-${i}`}
+            data-open-label={copy.bioOpen}
+            data-close-label={copy.bioClose}
+          >
+            <span data-label>{copy.bioOpen}</span>
+            <span class="bio-toggle__icon" aria-hidden="true"></span>
+          </button>
+
+          <div class="bio-panel" id={`bio-${i}`}>
+            <div class="bio-panel__inner">
+              <p class="member-bio">{member.bio}</p>
+            </div>
           </div>
-        </div>
-
-        <p class="member-bio">{copy.ana.bio}</p>
-
-        <div class="flex flex-wrap gap-2 mt-6">
-          {copy.ana.tags.map((tag) => <span class="tag">{tag}</span>)}
-        </div>
-
-        <blockquote class="quote-block mt-6">
-          <p>"{copy.ana.quote}"</p>
-        </blockquote>
-      </article>
-
+        </article>
+      ))}
     </div>
   </div>
 </section>
@@ -203,9 +211,14 @@ const copy =
 
   /* ── Card ── */
   .team-card {
+    /* Columna flexible para que la cita quede pegada al fondo y las tres
+       tarjetas cierren a la misma altura pese a bios de largo distinto. */
+    display: flex;
+    flex-direction: column;
     background: rgba(0, 0, 0, 0.55);
     backdrop-filter: blur(2px);
-    padding: 48px 44px;
+    /* Con tres columnas el padding fijo de 44px ahogaba la caja de texto. */
+    padding: clamp(32px, 2.8vw, 48px) clamp(26px, 2.4vw, 44px);
     position: relative;
     overflow: hidden;
     transition: background 0.3s ease;
@@ -231,12 +244,13 @@ const copy =
     text-transform: uppercase;
     color: #f6ad1e;
     margin-bottom: 10px;
+    line-height: 1.6;
   }
 
   /* ── Member name ── */
   .member-name {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(44px, 5vw, 68px);
+    font-size: clamp(44px, 4vw, 64px);
     line-height: 0.9;
     color: #ffffff;
     letter-spacing: 0.02em;
@@ -244,45 +258,109 @@ const copy =
 
   /* ── Photo ── */
   .member-photo-wrap {
-    width: 88px;
-    height: 88px;
+    display: block;
+    width: 100%;
+    /* 4:5 en vez del 3:4 del original: deja ver cara y hombros sin que la
+       tarjeta se alargue de más con tres columnas. */
+    aspect-ratio: 4 / 5;
+    margin-bottom: 26px;
+    padding: 0;
+    border: 1px solid rgba(246,173,30,0.2);
     border-radius: 2px;
     overflow: hidden;
-    border: 1px solid rgba(246,173,30,0.2);
-    flex-shrink: 0;
+    cursor: pointer;
   }
   .member-photo {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: top;
+    filter: grayscale(1) contrast(1.05);
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
+  }
+  .team-card:hover .member-photo { transform: scale(1.04); }
+  .team-card[data-open] .member-photo {
+    transform: scale(1.06);
+    filter: grayscale(0.55) contrast(1.05);
   }
 
-  /* ── Avatar placeholder ── */
-  .member-avatar {
-    width: 88px;
-    height: 88px;
-    border-radius: 2px;
-    border: 1px solid rgba(246,173,30,0.2);
-    background: rgba(246,173,30,0.05);
+  /* ── Bio: plegada hasta el clic ── */
+  .bio-toggle {
+    padding: 14px 0 0;
+    border: 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    background: none;
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #f6ad1e;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  .bio-toggle:hover { color: #ffffff; }
+
+  .bio-toggle__icon {
+    position: relative;
+    width: 12px;
+    height: 12px;
     flex-shrink: 0;
   }
-  .member-avatar span {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 26px;
-    color: #f6ad1e;
-    letter-spacing: 0.08em;
+  .bio-toggle__icon::before,
+  .bio-toggle__icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 12px;
+    height: 1px;
+    background: currentColor;
+    transition: transform 0.4s ease;
+  }
+  .bio-toggle__icon::after { transform: rotate(90deg); }
+  .team-card[data-open] .bio-toggle__icon::after { transform: rotate(0deg); }
+
+  /* El truco de grid 0fr → 1fr anima la altura sin medirla en JS. */
+  .bio-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease;
+  }
+  .bio-panel__inner {
+    overflow: hidden;
+    visibility: hidden;
+    transition: visibility 0s linear 0.5s;
+  }
+  .team-card[data-open] .bio-panel__inner {
+    visibility: visible;
+    transition-delay: 0s;
+  }
+  .team-card[data-open] .bio-panel {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+  .member-bio { padding-top: 20px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bio-panel,
+    .member-photo,
+    .bio-toggle__icon::before,
+    .bio-toggle__icon::after { transition: none; }
   }
 
   /* ── Bio ── */
   .member-bio {
     font-family: 'DM Mono', monospace;
-    font-size: 17px;
+    font-size: 15px;
     color: rgba(255,255,255,0.55);
-    line-height: 1.85;
+    line-height: 1.8;
   }
 
   /* ── Tags ── */
@@ -301,21 +379,34 @@ const copy =
     color: rgba(255,255,255,0.8);
   }
 
-  /* ── Quote ── */
-  .quote-block {
-    padding: 18px 22px;
-    background: rgba(246,173,30,0.04);
-    border-left: 2px solid #f6ad1e;
-  }
-  .quote-block p {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: rgba(255,255,255,0.6);
-    line-height: 1.8;
-    font-style: italic;
-  }
+  .member-tags { margin-bottom: 30px; }
 
+  @media (max-width: 1024px) {
+    .member-bio { font-size: 16px; }
+  }
   @media (max-width: 640px) {
     .team-card { padding: 36px 24px; }
   }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-card]").forEach((card) => {
+    const toggle = card.querySelector<HTMLButtonElement>("[data-toggle]");
+    const photo = card.querySelector<HTMLElement>("[data-photo]");
+    const label = card.querySelector<HTMLElement>("[data-label]");
+    if (!toggle || !label) return;
+
+    const setOpen = (open: boolean) => {
+      card.toggleAttribute("data-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      label.textContent = open
+        ? toggle.dataset.closeLabel ?? ""
+        : toggle.dataset.openLabel ?? "";
+    };
+
+    const flip = () => setOpen(!card.hasAttribute("data-open"));
+
+    toggle.addEventListener("click", flip);
+    photo?.addEventListener("click", flip);
+  });
+</script>

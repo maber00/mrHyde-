@@ -265,11 +265,26 @@ const copy = lang === 'es'
       // Sin 'scroll': los auditores (Lighthouse/PageSpeed) desplazan la página
       // por código y eso cargaba Vimeo —y su cookie __cf_bm— durante la
       // medición. Un usuario real que hace scroll ya dispara wheel,
-      // touchstart, keydown o pointermove.
-      const events = ['pointerdown', 'pointermove', 'touchstart', 'keydown', 'wheel'];
+      // touchstart, keydown o un movimiento de puntero.
+      const events = ['pointerdown', 'touchstart', 'keydown', 'wheel'];
+
+      // 'pointermove' aparte: en escritorio el navegador emite un movimiento
+      // sintético (misma posición) cuando la página se desplaza o se
+      // recoloca bajo el cursor. Sólo cuenta si el puntero cambia de sitio.
+      let lastX: number | null = null;
+      let lastY: number | null = null;
+      const onMove = (e: PointerEvent) => {
+        if (lastX !== null && (e.clientX !== lastX || e.clientY !== lastY)) {
+          start();
+          return;
+        }
+        lastX = e.clientX;
+        lastY = e.clientY;
+      };
 
       const start = () => {
         events.forEach(e => window.removeEventListener(e, start));
+        window.removeEventListener('pointermove', onMove);
         iframe.addEventListener('load', () => iframe.classList.add('is-playing'), { once: true });
         iframe.src = videoSrc;
       };
@@ -277,6 +292,7 @@ const copy = lang === 'es'
       events.forEach(e =>
         window.addEventListener(e, start, { once: true, passive: true })
       );
+      window.addEventListener('pointermove', onMove, { passive: true });
     }
   }
 </script>

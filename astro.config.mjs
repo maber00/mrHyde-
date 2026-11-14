@@ -26,8 +26,11 @@ export default defineConfig({
       // gtag.js es un script externo: la CSP de Astro sólo emite hashes de los
       // scripts propios, así que sin permitir este host el navegador lo bloquea
       // en silencio (sin error visible) y la medición simplemente no ocurre.
+      // 'self': Vite sólo incrusta los scripts de menos de 4 KB; al superar
+      // ese tamaño salen como archivo en /_astro/ y, sin 'self', el navegador
+      // los bloquea (así dejó de abrir el modal del portafolio).
       scriptDirective: {
-        resources: ['https://www.googletagmanager.com'],
+        resources: ["'self'", 'https://www.googletagmanager.com'],
       },
     },
   },

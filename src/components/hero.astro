@@ -262,7 +262,11 @@ const copy = lang === 'es'
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (!saveData && !reduceMotion) {
-      const events = ['pointerdown', 'pointermove', 'touchstart', 'keydown', 'wheel', 'scroll'];
+      // Sin 'scroll': los auditores (Lighthouse/PageSpeed) desplazan la página
+      // por código y eso cargaba Vimeo —y su cookie __cf_bm— durante la
+      // medición. Un usuario real que hace scroll ya dispara wheel,
+      // touchstart, keydown o pointermove.
+      const events = ['pointerdown', 'pointermove', 'touchstart', 'keydown', 'wheel'];
 
       const start = () => {
         events.forEach(e => window.removeEventListener(e, start));

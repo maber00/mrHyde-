@@ -18,9 +18,9 @@ import habishort from '../assets/portafolio/Fondo-reel-habishort-500x500.webp';
 // Series — microdrama animado
 import reinaDelNorte from '../assets/portafolio/reina-del-norte-500x500.jpg';
 import justiciaEnElReino from '../assets/portafolio/justicia-en-el-reino-500x500.jpg';
+import elDineroNoHuele from '../assets/portafolio/el-dinero-no-huele.jpg';
 
 import modiThumb from '../assets/ninos.jpg';
-import iaThumb3 from '../assets/moneda.jpg';
 
 const copy =
   lang === 'es'
@@ -131,17 +131,6 @@ const projects = [
   },
   
   {
-    id: 7,
-    thumbnail: iaThumb3,
-    title: "Exploración IA 03",
-    category: "ai-explorations",
-    categoryLabel: lang === 'es' ? "Dirección Creativa con IA" : "AI Creative Direction",
-    videoUrl: "https://youtu.be/qYoVAp5vsz8",
-  uploadDate: "2026-03-16T13:25:42-07:00",
-  duration: "PT20S",
-  maxresThumb: false,
-  },
-  {
   id: 8,
   thumbnail: habi,
   title: "Habi",
@@ -168,6 +157,19 @@ categoryLabel: lang === 'es' ? "Comercial IA · Instagram / TikTok" : "AI Commer
   description: lang === 'es'
     ? "Cada segundo tiene intención. Reel de piezas realizadas para formatos verticales — YouTube, Instagram y TikTok — donde la dirección creativa y la inteligencia artificial se unen para contar más en menos tiempo."
     : "Every second is intentional. A reel of pieces made for vertical formats — YouTube, Instagram and TikTok — where creative direction and artificial intelligence come together to tell more in less time."
+},
+  {
+  id: 13,
+  thumbnail: elDineroNoHuele,
+  title: "El dinero no huele",
+  category: "series",
+  categoryLabel: lang === 'es' ? "Serie de microdrama animado · Mecato" : "Animated microdrama series · Mecato",
+  videoUrl: "https://www.instagram.com/p/Dfsyd8aAjwT/",
+  uploadDate: "2026-11-13T18:15:29-05:00",
+  maxresThumb: false,
+  description: lang === 'es'
+    ? "Capítulo 1. Roma, año 75. Décimo recoge la orina de las calles para vivir y dice que no se enamora: él negocia. Hasta que, en plena subasta, se fija en la esclava que le corrige las cuentas al subastador — ya apartada para el prefecto. El dinero no huele es una microserie de comedia romántica realizada con IA para el formato vertical."
+    : "Chapter 1. Rome, year 75. Décimo collects urine from the streets for a living and says he does not fall in love: he negotiates. Until, in the middle of an auction, he notices the slave who corrects the auctioneer's accounts — already set aside for the prefect. El dinero no huele is a romantic comedy microseries made with AI for the vertical format."
 },
   {
   id: 10,
@@ -222,6 +224,7 @@ const siteBase = (Astro.site?.toString() ?? "https://srhide.com/").replace(/\/$/
 // Los proyectos guardan la URL en tres formas distintas (watch, youtu.be y
 // shorts); el id es lo único común y es lo que necesita el esquema.
 const youtubeId = (url: string) => url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([\w-]+)/)?.[1] ?? null;
+const instagramId = (url: string) => url.match(/instagram\.com\/(?:p|reel|reels)\/([\w-]+)/)?.[1] ?? null;
 const portfolioSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
@@ -233,6 +236,7 @@ const portfolioSchema = {
   "itemListOrder": "https://schema.org/ItemListOrderAscending",
   "itemListElement": projects.map((project, index) => {
     const videoId = youtubeId(project.videoUrl);
+    const igId = instagramId(project.videoUrl);
     // Google exige descripción: las piezas que no traen texto propio caen
     // a una frase construida con su categoría en vez de quedar fuera.
     const description = project.description ?? (lang === 'es'
@@ -244,21 +248,23 @@ const portfolioSchema = {
       "position": index + 1,
       "item": {
         "@type": "VideoObject",
-        "@id": `${siteBase}/#video-${videoId}`,
+        "@id": `${siteBase}/#video-${videoId ?? `ig-${igId}`}`,
         "name": project.title,
         "description": description,
         "genre": project.categoryLabel,
         "uploadDate": project.uploadDate,
-        "duration": project.duration,
+        ...(project.duration ? { "duration": project.duration } : {}),
         // La miniatura de YouTube va primero por resolución; la del sitio
         // queda de respaldo por si YouTube deja de servirla.
         "thumbnailUrl": [
-          ...(project.maxresThumb ? [`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`] : []),
-          `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+          ...(videoId && project.maxresThumb ? [`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`] : []),
+          ...(videoId ? [`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`] : []),
           `${siteBase}${project.thumbnail.src}`,
         ],
         "contentUrl": project.videoUrl,
-        "embedUrl": `https://www.youtube.com/embed/${videoId}`,
+        "embedUrl": videoId
+          ? `https://www.youtube.com/embed/${videoId}`
+          : `https://www.instagram.com/p/${igId}/embed/`,
         // Página donde el visitante puede ver la pieza, que es lo que
         // Google enlaza desde el resultado enriquecido.
         "url": `${siteBase}${lang === 'es' ? '' : '/en'}/#portafolio`,
@@ -609,6 +615,11 @@ const portfolioSchema = {
       return match ? match[1] : null;
     }
 
+    function getInstagramId(url: string) {
+      const match = url.match(/instagram\.com\/(?:p|reel|reels)\/([\w-]+)/);
+      return match ? match[1] : null;
+    }
+
     function isYouTubeShort(url: string) {
   return url.includes('/shorts/');
 }
@@ -653,7 +664,8 @@ const portfolioSchema = {
 
           const youtubeId = getYouTubeVideoId(videoUrl);
 const vimeoId = getVimeoVideoId(videoUrl);
-const isShort = isYouTubeShort(videoUrl);
+const instagramId = getInstagramId(videoUrl);
+const isShort = isYouTubeShort(videoUrl) || Boolean(instagramId);
 
 modal.classList.remove('hidden');
 lockScroll();
@@ -671,6 +683,17 @@ if (youtubeId) {
         src="https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0"
                   title="${title}"
                   frameborder="0"
+                  allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                  allowfullscreen></iframe>
+              </div>`;
+          } else if (instagramId) {
+            carouselContainer.innerHTML = `
+              <div class="video-wrapper w-full h-full">
+                <iframe class="w-full h-full bg-white"
+                  src="https://www.instagram.com/p/${instagramId}/embed/"
+                  title="${title}"
+                  frameborder="0"
+                  scrolling="no"
                   allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
                   allowfullscreen></iframe>
               </div>`;

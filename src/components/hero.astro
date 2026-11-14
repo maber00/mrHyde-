@@ -10,23 +10,23 @@ const { lang = 'en' } = Astro.props;
 
 const copy = lang === 'es'
   ? {
-      eyebrow: 'Producción Audiovisual · Inteligencia Artificial · Bogotá — LATAM',
-      titleLine1: 'MENOS',
-      titleLine2: 'FRICCIÓN',
-      titleLine3: 'MÁS',
-      titleLine4: 'OBRA',
-      titleLine5: 'TERMINADA',
+      eyebrow: 'Dirección Creativa · Producción Audiovisual Híbrida · Bogotá — LATAM',
+      titleLine1: 'PRIMERO',
+      titleLine2: 'LA IDEA',
+      titleLine3: 'DESPUÉS',
+      titleLine4: 'TODO',
+      titleLine5: 'ES POSIBLE',
       ctaPrimary: 'Ver portafolio',
       ctaSecondary: 'Cómo trabajamos',
       ctaContact: 'Hablemos',
     }
   : {
-      eyebrow: 'Audiovisual Production · Artificial Intelligence · Bogotá — LATAM',
-      titleLine1: 'LESS',
-      titleLine2: 'FRICTION',
-      titleLine3: 'MORE',
-      titleLine4: 'FINISHED',
-      titleLine5: 'WORK',
+      eyebrow: 'Creative Direction · Hybrid Audiovisual Production · Bogotá — LATAM',
+      titleLine1: 'FIRST',
+      titleLine2: 'THE IDEA',
+      titleLine3: 'THEN',
+      titleLine4: 'ANYTHING',
+      titleLine5: 'IS POSSIBLE',
       ctaPrimary: 'View Portfolio',
       ctaSecondary: 'How we work',
       ctaContact: "Let's talk",
@@ -89,11 +89,11 @@ const copy = lang === 'es'
       <div class="mt-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
         {lang === 'es' ? (
           <p class="hero-lead text-sm sm:text-base md:text-lg text-white/75 max-w-lg leading-relaxed font-light">
-            Estudio de producción audiovisual que integra <strong class="text-white/90 font-medium">inteligencia artificial</strong> como método de trabajo. Mismo estándar creativo. Menos tiempo. Menos costos. Y el único en LATAM con <strong class="text-[#f6ad1e] font-medium">Zero Data Retention</strong> — tu contenido no alimenta ningún modelo externo.
+            Estudio de <strong class="text-white/90 font-medium">dirección creativa y producción audiovisual híbrida</strong>. Combinamos dirección de arte, lenguaje cinematográfico e inteligencia artificial para convertir ideas de marca en piezas memorables. <strong class="text-[#f6ad1e] font-medium">La tecnología al servicio de la idea</strong>, nunca al revés.
           </p>
         ) : (
           <p class="hero-lead text-sm sm:text-base md:text-lg text-white/75 max-w-lg leading-relaxed font-light">
-            Audiovisual production studio that integrates <strong class="text-white/90 font-medium">artificial intelligence</strong> as a working method. Same creative standard. Less time. Lower costs. The only studio in LATAM with <strong class="text-[#f6ad1e] font-medium">Zero Data Retention</strong> — your content never feeds any external model.
+            A <strong class="text-white/90 font-medium">creative direction and hybrid audiovisual production</strong> studio. We combine art direction, cinematic language and artificial intelligence to turn brand ideas into memorable pieces. <strong class="text-[#f6ad1e] font-medium">Technology in service of the idea</strong>, never the other way around.
           </p>
         )}
 

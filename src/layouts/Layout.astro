@@ -51,8 +51,8 @@ const ogImageURL = new URL('/og-mrHide.jpg', Astro.site || siteFallback).toStrin
 const description =
   pageDescription ??
   (lang === 'es'
-    ? 'Estudio de producción audiovisual con IA en Bogotá. Mismo estándar creativo, menos tiempo, menos costos. El único en LATAM con Zero Data Retention — tu contenido no alimenta ningún modelo externo.'
-    : 'AI-powered audiovisual production studio based in Bogotá. Same creative standard, less time, lower costs. The only studio in LATAM with Zero Data Retention — your content never feeds any external model.');
+    ? 'Estudio de dirección creativa y producción audiovisual híbrida en Bogotá. Combinamos dirección de arte, lenguaje cinematográfico e inteligencia artificial para convertir ideas de marca en piezas memorables.'
+    : 'Creative direction and hybrid audiovisual production studio in Bogotá. We combine art direction, cinematic language and artificial intelligence to turn brand ideas into memorable pieces.');
 
 // La página en español se sirve en la raíz "/", la inglesa en "/en/".
 const hreflangEn = new URL(altEnPath, Astro.site || siteFallback).toString();
@@ -87,8 +87,8 @@ const orgNode = {
   },
   "image": { "@id": `${siteURL}/#logo` },
   "description": lang === 'es'
-    ? "Estudio de producción audiovisual con IA en Bogotá. Comerciales, contenido para redes sociales y postproducción con Zero Data Retention en Google Vertex AI. El único estudio en LATAM que garantiza que tu contenido no alimenta ningún modelo externo."
-    : "AI-powered audiovisual production studio in Bogotá. Commercials, social media content and post-production with Zero Data Retention on Google Vertex AI. The only studio in LATAM guaranteeing your content never trains any external model.",
+    ? "Estudio de dirección creativa y producción audiovisual híbrida en Bogotá. Comerciales, contenido para redes sociales y postproducción que combinan rodaje, lenguaje cinematográfico e inteligencia artificial. Zero Data Retention sobre Google Vertex AI disponible para proyectos confidenciales."
+    : "Creative direction and hybrid audiovisual production studio in Bogotá. Commercials, social media content and post-production combining live action, cinematic language and artificial intelligence. Zero Data Retention on Google Vertex AI available for confidential projects.",
   "foundingDate": "2023",
   "numberOfEmployees": { "@type": "QuantitativeValue", "value": 2 },
   "address": {

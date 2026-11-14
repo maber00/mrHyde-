@@ -13,7 +13,7 @@ const basePath = isSpanish ? "" : "/en";
 
 const copy = isSpanish
   ? {
-      description: "Estudio de producción audiovisual con IA. Mismo estándar creativo. Menos tiempo. Menos costos. El único en LATAM con Zero Data Retention.",
+      description: "Estudio de dirección creativa y producción audiovisual híbrida. Ideas con intención. Imágenes con propósito.",
       contactLabel: "Contacto",
       navLabel: "Navegación",
       about: "El equipo",
@@ -32,7 +32,7 @@ const copy = isSpanish
       ],
     }
   : {
-      description: "Audiovisual production studio with AI. Same creative standard. Less time. Lower costs. The only studio in LATAM with Zero Data Retention.",
+      description: "Creative direction and hybrid audiovisual production studio. Ideas with intention. Images with purpose.",
       contactLabel: "Contact",
       navLabel: "Navigation",
       about: "The team",
@@ -114,7 +114,7 @@ const copy = isSpanish
   <div class="border-t border-white/[0.07]">
     <div class="container mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
       <p class="footer-copy">© {currentYear} Sr. Hide · {copy.rights}</p>
-      <p class="footer-zdr">ZDR · Google Vertex AI</p>
+      <p class="footer-zdr">{isSpanish ? "ZDR disponible · Google Vertex AI" : "ZDR available · Google Vertex AI"}</p>
     </div>
   </div>
 

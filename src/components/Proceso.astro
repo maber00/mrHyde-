@@ -8,62 +8,72 @@ const { lang = "en" } = Astro.props;
 const copy =
   lang === "es"
     ? {
-        sectionLabel: "Proceso",
+        sectionLabel: "Método",
         sectionTitle: "CÓMO",
         sectionTitleOutline: "TRABAJAMOS",
-        stmt1: "La IA amplifica el criterio humano.",
-        stmt2: "No lo reemplaza.",
-        stmt3: "Cada pieza pasa por dirección creativa real, decisiones editoriales conscientes y un estándar de acabado que la tecnología sola no puede dar.",
+        stmt1: "Primero la idea.",
+        stmt2: "Después, todo es posible.",
+        stmt3: "No partimos de una estética de moda ni de una herramienta. Partimos de un problema de comunicación y buscamos la forma audiovisual más interesante y pertinente de resolverlo.",
         steps: [
           {
             num: "01",
-            title: "BRIEF ESTRATÉGICO",
-            body: "Entendemos el objetivo de negocio detrás del contenido. No solo qué quieres mostrar — sino qué quieres lograr. Eso define todo lo que viene después.",
+            title: "DESMONTAR EL PROBLEMA",
+            body: "Entendemos qué necesita comunicar la marca, qué percepción quiere cambiar y qué convenciones dominan su categoría.",
           },
           {
             num: "02",
-            title: "DIRECCIÓN CREATIVA",
-            body: "Definimos el concepto visual, el guión y el estilo. Humanos dirigiendo la narrativa. IA ejecutando con precisión. La combinación que produce piezas con alma.",
+            title: "ENCONTRAR LA TENSIÓN CREATIVA",
+            body: "Buscamos una contradicción, una verdad humana, una oportunidad visual o una perspectiva que permita reinterpretar el problema.",
           },
           {
             num: "03",
-            title: "PRODUCCIÓN AI BAJO ZDR",
-            body: "Producimos sobre Google Vertex AI con Zero Data Retention activado. Tu contenido no se almacena, no se revisa y no entrena ningún modelo externo. Garantía contractual de Google.",
+            title: "EXPLORAR VARIAS IDEAS",
+            body: "Desarrollamos rutas conceptuales distintas y evaluamos cuál ofrece mayor originalidad, pertinencia, potencial visual y viabilidad.",
           },
           {
             num: "04",
-            title: "POST Y ENTREGA",
-            body: "Edición, color, audio y acabado final con criterio cinematográfico. Entregamos en los formatos exactos que necesitas, listos para publicar en cualquier plataforma.",
+            title: "ELEGIR CÓMO PRODUCIRLA",
+            body: "Rodaje, fotografía, animación, generación con IA o una combinación: la técnica responde a la idea y al presupuesto disponible. ¿Tu proyecto es confidencial? Si lo pides, lo producimos bajo Zero Data Retention.",
+          },
+          {
+            num: "05",
+            title: "COMPROBAR QUE FUNCIONA",
+            body: "Evaluamos la claridad del mensaje, la originalidad de la propuesta, la calidad de ejecución y su adecuación al objetivo comercial.",
           },
         ],
       }
     : {
-        sectionLabel: "Process",
+        sectionLabel: "Method",
         sectionTitle: "HOW",
         sectionTitleOutline: "WE WORK",
-        stmt1: "AI amplifies human judgment.",
-        stmt2: "It does not replace it.",
-        stmt3: "Every piece goes through real creative direction, conscious editorial decisions and a finishing standard that technology alone cannot deliver.",
+        stmt1: "First the idea.",
+        stmt2: "Then, anything is possible.",
+        stmt3: "We do not start from a trendy aesthetic or a tool. We start from a communication problem and look for the most interesting and relevant audiovisual way to solve it.",
         steps: [
           {
             num: "01",
-            title: "STRATEGIC BRIEF",
-            body: "We understand the business objective behind the content. Not just what you want to show — but what you want to achieve. That defines everything that follows.",
+            title: "TAKE THE PROBLEM APART",
+            body: "We understand what the brand needs to communicate, which perception it wants to change and which conventions dominate its category.",
           },
           {
             num: "02",
-            title: "CREATIVE DIRECTION",
-            body: "We define the visual concept, the script and the style. Humans directing the narrative. AI executing with precision. The combination that produces pieces with soul.",
+            title: "FIND THE CREATIVE TENSION",
+            body: "We look for a contradiction, a human truth, a visual opportunity or a point of view that lets us reinterpret the problem.",
           },
           {
             num: "03",
-            title: "AI PRODUCTION UNDER ZDR",
-            body: "We produce on Google Vertex AI with Zero Data Retention activated. Your content is not stored, not reviewed and does not train any external model. Contractual guarantee from Google.",
+            title: "EXPLORE SEVERAL IDEAS",
+            body: "We develop distinct conceptual routes and evaluate which offers the most originality, relevance, visual potential and feasibility.",
           },
           {
             num: "04",
-            title: "POST & DELIVERY",
-            body: "Editing, color, audio and final finishing with cinematic judgment. We deliver in the exact formats you need, ready to publish on any platform.",
+            title: "CHOOSE HOW TO PRODUCE IT",
+            body: "Live action, photography, animation, AI generation or a combination: the technique answers to the idea and the available budget. Is your project confidential? On request, we produce it under Zero Data Retention.",
+          },
+          {
+            num: "05",
+            title: "CHECK THAT IT WORKS",
+            body: "We evaluate the clarity of the message, the originality of the proposal, the quality of execution and its fit with the commercial objective.",
           },
         ],
       };
@@ -263,16 +273,5 @@ const copy =
     font-size: 17px;
     color: rgba(255,255,255,0.5);
     line-height: 1.85;
-  }
-
-  /* ── ZDR step highlight ── */
-  .a-step:nth-child(3) .a-num {
-    color: #f6ad1e;
-  }
-  .a-step:nth-child(3) .a-title {
-    color: #f6ad1e;
-  }
-  .a-step:nth-child(3) .a-body {
-    color: rgba(255,255,255,0.65);
   }
 </style>
